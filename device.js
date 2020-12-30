@@ -8,51 +8,51 @@ const previousMusicVolume = device.getMusicVolume();
 
 module.exports = {
     /**
-     * 监听“音量下”键
+     * Monitor the "Volume Down" button
      */
     setEventListener : () => {
-        // 手动退出
+        // Manual exit
         threads.start(function() {
-            // 启用按键监听
+            // Enable button monitoring
             events.observeKey();
-            // 监听音量下键按下
+            // Monitor volume down key press
             events.onKeyDown("volume_down", function (event) {
-                log("程序即将退出");
+                log("The program is about to exit");
                 revertPower();
                 threads.shutDownAll();
-                toastLog("程序手动退出");
+                toastLog("Program exit manually");
                 exit();
             });
         });
     },
 
     /**
-     * 检查无障碍和截图权限
+     * Check accessibility and screenshot permissions
      */
     checkPermission : () => {
         auto();
         if (!requestScreenCapture(true)) {
-            toastLog('请求截图失败，程序结束');
+            toastLog('Failed to request screenshot, the program ends');
             exit();
         }
         // this.savePower();
     },
 
     /**
-     * 调节亮度及音量，进入低功耗模式
+     * Adjust brightness and volume, enter low power consumption mode
      */
     savePower : () => {
         log("save power");
         device.setBrightness(targetBrightness);
         device.setMusicVolume(targetMediaVolume);
     },
-}
-
-/**
- * 还原运行时脚本之前的屏幕亮度及设备音量
- */
-revertPower = () => {
-    log("revert power");
-    isAutoBrightnessMode ? device.setBrightnessMode(autoBrightnessMode) : device.setBrightness(previousBrightness);
-    device.setMusicVolume(previousMusicVolume); 
+    
+    /**
+     * Restore the screen brightness and device volume before the runtime script
+     */
+    revertPower = () => {
+        log("revert power");
+        isAutoBrightnessMode ? device.setBrightnessMode(autoBrightnessMode) : device.setBrightness(previousBrightness);
+        device.setMusicVolume(previousMusicVolume); 
+    }
 }
