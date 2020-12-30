@@ -1,170 +1,122 @@
-// 2340×1080分辨率
-
-/*********************** 生涯用车 ******************************/
-var carrerCars = [1, 2, 3, 4, 5, 6];
-/*********************** 生涯用车 ******************************/
-
-/*********************** 多人用车 开始 ******************************/
-var mpLevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze', 'legend2', 'platinum2', 'gold2', 'silver2', 'bronze2'];
-// 传奇、白金、黄金、白银、青铜的车是否可用，true表示可用，false表示不可用
+var mpLevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
+// Whether the legendary, platinum, gold, silver, and bronze cars are available, true means available, false means unavailable
 var mpStatus = [
-    true,     // 传奇
-    true,     // 白金
-    true,     // 黄金
-    false,     // 白银
-    false,     // 青铜
-
-    false,     // 传奇
-    false,     // 白金
-    true,     // 黄金
-    false,     // 白银
-    false    // 青铜
+    // legend
+    false, 
+    // platinum
+    false, 
+    // gold
+    true, 
+    // silver
+    true, 
+    // bronze
+    true
 ];
-
 var mpCarPick = {
-    legend: [1, 2, 3, 4, 6],
-    platinum: [1, 2, 3, 4, 5, 6, 7, 9, 10, 14],
-    gold: [6, 8, 9, 10, 11, 13, 14],
-    silver: [7, 8, 9, 12, 13],
-    bronze: [5, 6, 7, 8, 9, 10, 11, 12],
-
-    legend2: [1, 2, 3, 4],
-    platinum2: [1, 2, 3, 4, 5, 6, 7, 12],
-    gold2: [1, 2],
-    silver2: [1, 2, 3],
-    bronze2: [3]
+    // legend
+    legend: [1, 2, 3, 4],
+    // platinum
+    platinum: [1, 2, 3, 4],
+    // gold
+    gold: [13, 14,15,16,18,20,22,23],
+    // silver
+    silver: [5, 8, 10, 11, 12, 13, 15],
+    // bronze
+    bronze: [7, 5, 6, 11]
 };
-/*********************** 多人用车 结束 ******************************/
-
-const robot = require('robot.js');
 
 module.exports = {
-    // 生涯
-    carrer: {
-        // 生涯用车
-        cars : carrerCars,
-
-        // 分辨率宽度
-        width : 1920,
+    traceOn: false,
+    networkGamesCount: 2,
+    
+    common: {
+        // The top token icon = #0090ff blue, there will be color difference
+        token: { x: 1482, y: 54, color: '#0090ff' },
         
-        // 分辨率高度
-        height : 1080,
+        // The top integral icon = #ffc600||#ffc500 yellow
+        credit: { x: 1846, y: 55, color: '#ffc600' },
+        
+        // Back button = #ffffff white
+        back: { x: 25, y: 25, color: '#ffffff' },
     
-        // 最上方代币图标
-        token: { x: 921 , y: 42 },
-    
-        // 最上方积分图标
-        credit: { x: 1206 , y: 42 },
-    
-        // 生涯,开始,继续
-        goldenPoint: { x: 1500, y: 1000 },
-    
-        // 生涯百分比
-        careerPercent: { x: 1560, y: 1050 },
-    
-        // euro
-        euro: { x: 350, y: 300 },
-    
-        // 选关
-        swipeScreen: function () {
-            for (i = 0; i < 4; i++) {
-                robot.swipe(this.height * 2 / 3, 150, this.height * 2 / 3, 900, 400);
-                sleep(200);
-            }
-        },
-    
-        // 12
-        block12: { x: 680, y: 800 },
-    
-        // 推荐性能分
-        recommendedPoints: { x: 1800, y: 900 },
-    
-        // 第一辆车
-        firstCar: { x: 555, y: 616 },
-    
-        // 车辆间距
-        distance: { x: 519, y: 365 },
+        // <tip=#010101 black in the return button
+        backward: { x: 110, y: 52, color: '#171717' },
+        
+        racePause: { x: 170, y: 65, color: '#ffffff' },
+        raceTD: { x: 380, y: 192, color: '#3daaed' },
+        raceTime: { x: 1906, y: 173, color: '#e81b60' },
     },
-
-    // 多人
+    
     mp: {
-        // 上方多人>尖端=#ffffff白色，多人赛事调整时y会有变化
-        homeup: { x: 2208, y: 269 },
-        // 下方多人>尖端=#ffffff，多人赛事调整时y会有变化
-        homedown: {x: 2209, y: 677 },
-        
-		// 出错窗口左下角=#1c5ab2蓝色
-		errorleft: { x: 276, y: 816},
-		// 出错窗口右下角=#1c5ab2蓝色
-		errorright: { x: 2065, y:816},
-		
-        // 多人数据
+        // Multiplayer data
         levelName : mpLevelName,
-
         status : mpStatus,
-
         carPick : mpCarPick,
-
-        // 分辨率宽度
-        width : 2340,
         
-        // 分辨率高度
-        height : 1080,
-
-        // 最上方代币图标=#0090ff蓝色，会有色差
-        token: { x: 1482, y: 54 },
+        // Start button
+        start: { x: 1700, y: 950, color: '#c3fb12' },
+        reward: { x: 480, y: 740, color: '#ffffff' }, 
+        rate: { x: 576, y: 911, color: '#ffffff' },
+        stage: { x: 1475, y: 739, color: '#ffffff' },
         
-        // 最上方积分图标=#ffc600||#ffc500黄色
-        credit: { x: 1846, y: 55 },
+        // Multiplayer above>tip=#ffffff white, y will change when multiplayer matches are adjusted
+        game1of2: { x: 2187, y: 222, color: '#fafafa' },
+        // Multiplayer below>tip=#ffffff, y will change when multiplayer matches are adjusted
+        game2of2: { x: 2187, y: 631, color: '#fafafa' },
         
-        // 返回按钮=#ffffff白色
-        back: { x: 25, y: 25 },
-        // 返回按钮里的<尖端=#010101黑色
-        backward: { x: 112, y: 53 },
-
-        // 多人游戏按钮
-        multiplayer: { x: 1300, y: 1000},
-        // 每日赛事按钮
-        meiri: { x: 950, y: 1000},
-        // 特殊赛事按钮
-        teshu: { x: 600, y: 1000},
-
-        // 开始按钮
-        start: { x: 960, y: 999 },
-
-        // 领奖按钮
-        claim: { x: 960, y: 750 },
-        // 多人包的车库等级标签=#fa154f红色
-        mpackage1: { x: 1120, y: 600 },
-        mpackage2: { x: 1266, y: 600 },
-                
-        // 青铜
-        bronze: { x: 1600, y: 250 },
+        continue1: { x: 1590, y: 890, color: '#c3fb12' },
+        continue2: { x: 1590, y: 890, color: '#ffffff' },
+        continue3: { x: 1640, y: 875, color: '#c3fb12' },
+        continue4: { x: 1874, y: 898, color: '#ffffff' }, //league up  
+        continue5: { x: 1945, y: 904, color: '#ffffff' }, //reward
+        continue6: { x: 1741, y: 899, color: '#000921' }, //inverted
         
-        // 白银
-        silver: { x: 1740, y: 250 },
-
-        // 黄金
-        gold: { x: 1870, y: 250 },
-
-        // 白金
-        platinum: { x: 2000, y: 250 },
-
-        // 传奇
-        legend: { x: 2140, y: 250 },
-
-        // 生涯,开始,继续
-        goldenPoint: { x: 1900, y: 920 },
+        advert1: { x: 1460, y: 825, color: '#9bff01' },
         
+        // Start, continue
+        //goldenPoint: { x: 1820, y: 960, color: '#c3fb12' },
+        goldenPoint: { x: 2138, y: 921, color: '#c3fb12' },
+        
+        // The lower left corner of the error window = #1c5ab2 blue
+		errorleft: { x: 276, y: 816, color: '#2358a6'},
+		// The bottom right corner of the error window = #1c5ab2 blue
+		errorright: { x: 2064, y:806, color: '#2c5394'},
+        
+        clubleft: { x: 406, y:704, color: '#ffffff'},
+        clubright: { x: 1417, y:704, color: '#c3fb12'},
+        
+        leaguedownleft: { x: 440,  y: 908, color: '#1c5ab1' }, //league down 2458a4
+        leaguedownright: { x: 1897,  y: 913, color: '#1c59b1' }, //league down 2158a8
+        
+    },
+    
+    garage: {
+        start: { x: 1800, y: 888, color: '#c3fb12' },
+        speed: { x: 245, y: 430, color: '#33effa' },
+        accel: { x: 245, y: 530, color: '#33effa' },
+        handl: { x: 245, y: 630, color: '#33effa' },
+        nitro: { x: 245, y: 730, color: '#33effa' },
+        ready:  { x: 1664, y: 914, color: '#fd0154' },
+        
+        // choose cars league (1334 + 110*i [0..])
+        bronze: { x: 1566, y: 248, color: '#ce7145' },
+        silver: { x: 1700, y: 248, color: '#365ca3' },
+        gold: { x: 1835, y: 248, color: '#d78f23' },
+        platinum: { x: 1970, y: 248, color: '#5d3eb6' },
+        legend: { x: 2105, y: 248, color: '#3f3f3d' },
 
-        // 第一辆车
-        firstCar: { x: 406, y: 631 },
+        // current league
+        league: { x: 740, y: 500, colorBronze: '#d98560', colorSilver: '#96b2d4', colorGold: '#f2cb30', colorPlatinum: '#000000', colorLegend: '#f6e2a5'},
+        
+        // First car
+        firstCar: { x: 406, y: 631, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
-        // 车辆间距
+        // Vehicle spacing
         distance: { x: 674, y: 345 },
-
-        // 滑动
+        
+        // slide
         swipeStart: { x: 1091, y: 480 },
         swipeEnd:   { x: 410, y: 480 }
-    }    
-} 
+    }
+        
+}
