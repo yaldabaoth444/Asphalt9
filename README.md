@@ -1,4 +1,4 @@
-Revival of the project
+Revival of the project <a href = "https://github.com/DrOmega9834/Asphalt9" target = "_blank">DrOmega9834\/Asphalt9</a>
 
 for Auto.js 4.1.0
 
