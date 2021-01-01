@@ -1,5 +1,4 @@
 const DEVICE = require('device.js');
-const robot = require('robot.js');
 const PLAY = require('play.js').mp;
 
 toast("The program will start running after 7 seconds, please quickly switch to the main interface of the game");
@@ -25,7 +24,7 @@ for (;;counterMP++) {
         }
         // No oil
         else{
-            robot.back();
+            //robot.back();
             counterMP--;
             sleep(500);
             PLAY.goingHome();  
