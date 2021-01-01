@@ -1,6 +1,6 @@
 "auto";
-
-const profile = require('profile2340.js');
+const robot = require('./robot.js');
+const profile = require('./profile.js');
 const levelName = profile.mp.levelName;
 const status = profile.mp.status;
 const carPick = profile.mp.carPick;
@@ -360,13 +360,13 @@ function hasFuel(level) {
         sleep(1000);
         log('car = ' + n);   
 		swipes = parseInt( ( n - 1) / 2 );
-        // 507 pixels left
+        // slide left required number of times
 		for(let j = 0; j < swipes; j++) {
 		    let dur = 700;
 		    let slp = 1000;
 		    sleep(slp);
 		    toast("<---");
-		    robot.swipe(profile.garage.swipeStart.x, profile.garage.swipeStart.y, profile.garage.swipeEnd.x, profile.garage.swipeEnd.y, dur);
+		    robot.swipe(profile.garage.firstCar.x + profile.garage.distance.x, profile.garage.firstCar.y, profile.garage.firstCar.x, profile.garage.firstCar.y, dur);
 		    sleep(slp);
 		}
 						  
@@ -378,16 +378,18 @@ function hasFuel(level) {
         var img = captureScreen();
         var carcheckState = images.pixel(img, carPoint.x, carPoint.y);
 
-        toastLog(level+"-car"+n);
+        
 
-        if (colors.equals(carcheckState, "#ffc3fb13")) {
+        if (colors.equals(carcheckState, profile.garage.firstCar.colorFull)) {
             lastCar = i;
             robot.click( carPoint.x + profile.garage.distance.x / 2 , parseInt(carPoint.y - profile.garage.distance.y / 2 ));
+            toastLog(level+"-car-("+n+")-has-fuel");
             return true;
         }
         else {
             lastCar = 0;
-            toastLog(colors.toString(carcheckState));
+            //toastLog(colors.toString(carcheckState));
+            toastLog(level+"-car-("+n+")-has-NO-fuel");
         }
     }        
     return false;
@@ -454,18 +456,18 @@ function getLeagueCars(level)
 
 function selectPage(num)
 {
-    var x = 427 + (num -1)*362 - 30;
-    var y = 1000;
+    var x = profile.common.pages.x + (num -1)*profile.common.pages.delta - 30; //427 + (num -1)*362 - 30;
+    var y = profile.common.pages.y - 20; //1000;
     robot.click(x, y);
 }
 
 function isPage(img, num)
 {
-    var x = 427 + (num -1)*362; 
-    var bw = images.pixel(img, x, 1021);
-    var isBW = colors.equals(bw, "#ffffff");
-    var bb = images.pixel(img, x - 10, 1011);
-    var isBB = colors.isSimilar(bb, "#15151d", 3, "diff");
+    var x = profile.common.pages.x + (num -1)*profile.common.pages.delta;//427 + (num -1)*362; 
+    var bw = images.pixel(img, x, profile.common.pages.y); //1021
+    var isBW = colors.equals(bw, profile.common.pages.light); //colors.equals(bw, "#ffffff");
+    var bb = images.pixel(img, x - 10, profile.common.pages.y); //1011
+    var isBB = colors.isSimilar(bb, profile.common.pages.dark, 3, "diff"); //colors.isSimilar(bb, "#15151d", 3, "diff");
     if (isBW && isBB)
     {
         return true;
