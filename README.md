@@ -8,3 +8,6 @@ Default DPI most likely 392.
 profile1920 tested with DPI 280
 
 installation instructions from the old version <a href = "./readme/README_EN.md" target = "_blank">Click here to read instructions</a>
+
+There is only multiplayer of the first network
+TODO: multiplayer of the second network and more
