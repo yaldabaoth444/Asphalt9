@@ -24,6 +24,31 @@ var mpCarPick = {
     // bronze
     bronze: [7, 5, 6, 11]
 };
+var mp2LevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
+var mp2Status = [
+    // legend
+    false, 
+    // platinum
+    false, 
+    // gold
+    false, 
+    // silver
+    false, 
+    // bronze
+    true
+];
+var mp2CarPick = {
+    // legend
+    legend: [1, 2, 3, 4],
+    // platinum
+    platinum: [1, 2, 3, 4],
+    // gold
+    gold: [13, 14,15,16,18,20,22,23],
+    // silver
+    silver: [5, 8, 10, 11, 12, 13, 15],
+    // bronze
+    bronze: [1]
+};
 
 module.exports = {
     traceOn: false,
@@ -50,11 +75,6 @@ module.exports = {
     },
     
     mp: {
-        // Multiplayer data
-        levelName : mpLevelName,
-        status : mpStatus,
-        carPick : mpCarPick,
-        
         // Start button
         start: { x: 994, y: 905, color: '#c3fb12' },
         reward: { x: 393, y: 707, color: '#ffffff' }, 
@@ -91,7 +111,20 @@ module.exports = {
         leaguedownright: { x: 1897,  y: 913, color: '#1c59b1' }, //league down 2158a8
         
     },
-    
+    mp1: {
+        // Multiplayer 1 data
+        levelName : mpLevelName,
+        status : mpStatus,
+        carPick : mpCarPick,
+        game: 1,
+    },
+    mp2: {
+        // Multiplayer 2 data
+        levelName : mp2LevelName,
+        status : mp2Status,
+        carPick : mp2CarPick,
+        game: 2
+    },
     garage: {
         start: { x: 1471, y: 913, color: '#c3fb12' },
         speed: { x: 210, y: 430, color: '#33eff9' },
@@ -108,7 +141,7 @@ module.exports = {
         legend: { x: 1741, y: 175, color: '#424242' },
 
         // current league
-        league: { x: 600, y: 511, colorBronze: '#d98560', colorSilver: '#96b2d4', colorGold: '#f2cb30', colorPlatinum: '#000000', colorLegend: '#f6e2a5'},
+        league: { x: 600, y: 511, colorUnranked: '#ff0026', colorBronze: '#d98560', colorSilver: '#96b2d4', colorGold: '#f2cb30', colorPlatinum: '#000000', colorLegend: '#f6e2a5'},
         
         // First car
         firstCar: { x: 343, y: 609, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
