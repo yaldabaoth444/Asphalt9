@@ -24,6 +24,31 @@ var mpCarPick = {
     // bronze
     bronze: [7, 5, 6, 11]
 };
+var mp2LevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
+var mp2Status = [
+    // legend
+    false, 
+    // platinum
+    false, 
+    // gold
+    false, 
+    // silver
+    false, 
+    // bronze
+    true
+];
+var mp2CarPick = {
+    // legend
+    legend: [1, 2, 3, 4],
+    // platinum
+    platinum: [1, 2, 3, 4],
+    // gold
+    gold: [13, 14,15,16,18,20,22,23],
+    // silver
+    silver: [5, 8, 10, 11, 12, 13, 15],
+    // bronze
+    bronze: [1, 2, 3]
+};
 
 module.exports = {
     traceOn: false,
@@ -45,14 +70,11 @@ module.exports = {
         racePause: { x: 170, y: 65, color: '#ffffff' },
         raceTD: { x: 380, y: 192, color: '#3daaed' },
         raceTime: { x: 1906, y: 173, color: '#e81b60' },
+        
+        pages: { x: 427, y: 1013, light: '#ffffff', dark: '#15151d', delta: 362 },
     },
     
     mp: {
-        // Multiplayer data
-        levelName : mpLevelName,
-        status : mpStatus,
-        carPick : mpCarPick,
-        
         // Start button
         start: { x: 1700, y: 950, color: '#c3fb12' },
         reward: { x: 480, y: 740, color: '#ffffff' }, 
@@ -89,7 +111,18 @@ module.exports = {
         leaguedownright: { x: 1897,  y: 913, color: '#1c59b1' }, //league down 2158a8
         
     },
-    
+    mp1: {
+        levelName : mpLevelName,
+        status : mpStatus,
+        carPick : mpCarPick,
+        game: 1,
+    },
+    mp2: {
+        levelName : mp2LevelName,
+        status : mp2Status,
+        carPick : mp2CarPick,
+        game: 2,
+    },
     garage: {
         start: { x: 1800, y: 888, color: '#c3fb12' },
         speed: { x: 245, y: 430, color: '#33effa' },
@@ -106,17 +139,12 @@ module.exports = {
         legend: { x: 2105, y: 248, color: '#3f3f3d' },
 
         // current league
-        league: { x: 740, y: 500, colorBronze: '#d98560', colorSilver: '#96b2d4', colorGold: '#f2cb30', colorPlatinum: '#000000', colorLegend: '#f6e2a5'},
+        league: { x: 740, y: 500, colorUnranked: '#ff0026', colorBronze: '#d98560', colorSilver: '#96b2d4', colorGold: '#f2cb30', colorPlatinum: '#000000', colorLegend: '#f6e2a5'},
         
         // First car
         firstCar: { x: 406, y: 631, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
         distance: { x: 674, y: 345 },
-        
-        // slide
-        swipeStart: { x: 1091, y: 480 },
-        swipeEnd:   { x: 410, y: 480 }
     }
-        
 }
