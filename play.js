@@ -1,10 +1,6 @@
 "auto";
 const robot = require('./robot.js');
 const profile = require('./profile.js');
-const levelName = profile.mp.levelName;
-const status = profile.mp.status;
-const carPick = profile.mp.carPick;
-//const carrerCars = profile.carrer.cars;
 
 var startTime = new Date().getTime();
 var timer = new Date().getTime();
@@ -13,6 +9,12 @@ var lastLevel = 0;
 var lastCar   = 0;
 
 module.exports = {
+    base : {
+        back(){
+            robot.back();
+        }
+    
+    },
     //==========================================================================
     // Multiplayer
     mp: {
@@ -56,7 +58,6 @@ module.exports = {
                     
                     case "next": {
                         sleep(2000);
-                        //robot.click(profile.mp.continue1.x, profile.mp.continue1.y);
                         robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
                         break;
                     } 
@@ -68,9 +69,9 @@ module.exports = {
                     }           
                 }
             }
-        },
+        },   
         //----------------------------------------------------------------------
-        beforeRun() {
+        beforeRun(option) {
             var tries = 0;
             var last = "";
             var Flag = false;
@@ -107,7 +108,12 @@ module.exports = {
                 switch(mpStatus){
                     case "home": {
                         if (tries > 2 && last == "home") {
-                            robot.click(profile.mp.game1of2.x, profile.mp.game1of2.y);
+                            if (option.game == 2) {
+                                robot.click(profile.mp.game2of2.x, profile.mp.game2of2.y);
+                            } 
+                            if (option.game == 1) {
+                                robot.click(profile.mp.game1of2.x, profile.mp.game1of2.y);
+                            }
                             sleep(2000);
                         }
                         break;
@@ -152,9 +158,9 @@ module.exports = {
                 }
                 sleep(500);
              }
-        },
+        },    
         //----------------------------------------------------------------------
-        chooseCar() {
+        chooseCar(option) {
             if (1)
         	{
                 lastLevel = getCurrentLeagueLevel();
@@ -164,8 +170,8 @@ module.exports = {
             var FOUND = false;
    
             for (let i = lastLevel; i < 5 && !FOUND; i++){
-                if (status[i]){
-                    if (hasFuel(levelName[i])){
+                if (option.status[i]){
+                    if (hasFuel(option.levelName[i], option.carPick)){
                         FOUND = true;
                         lastLevel = i;
                     }
@@ -226,11 +232,12 @@ module.exports = {
                                   + "\nThe next game is about to start.");
         },
         //----------------------------------------------------------------------
-        test() {
+        test(option) {
+            //toastLog(option.game == 2);
             //toastLog("mp-test " + profile.traceOn);
             toastLog("mpCheckState " + mpCheckState());// + "\ngetCurrentLeagueLevel " + getCurrentLeagueLevel());
         }
-    }
+    },
 }
 
 function mpCheckState() {
@@ -346,11 +353,11 @@ function mpCheckState() {
     return state;
 }
 
-function hasFuel(level) {
+function hasFuel(level, cars) {
     log('checkFuel(' + level + ')');
     
     //selectLeague(level);
-    var cars = getLeagueCars(level);
+    var cars = getLeagueCars(level, cars);
     log(cars.length);
     
     // Looking for a car with gas
@@ -400,6 +407,10 @@ function getCurrentLeagueLevel()
 {
 	var league = images.pixel(captureScreen(), profile.garage.league.x, profile.garage.league.y);
 	
+    if (colors.isSimilar(league, profile.garage.league.colorUnranked, 5, "diff"))
+	{
+		return 4;
+	}
 	if (colors.isSimilar(league, profile.garage.league.colorBronze, 5, "diff"))
 	{
 		return 4;
@@ -439,18 +450,18 @@ function selectLeague(level)
     } 
 }
 
-function getLeagueCars(level)
+function getLeagueCars(level, cars)
 {
     if (level == 'legend'){
-        return carPick.legend;
+        return cars.legend;
     } else if (level == 'platinum'){
-        return carPick.platinum;
+        return cars.platinum;
     } else if (level == 'gold'){
-        return carPick.gold;
+        return cars.gold;
     } else if (level == 'silver'){
-        return carPick.silver;
+        return cars.silver;
     } else if (level == 'bronze'){
-        return carPick.bronze;
+        return cars.bronze;
     } 
 }
 
