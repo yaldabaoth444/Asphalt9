@@ -10,29 +10,30 @@ var lastCar   = 0;
 
 module.exports = {
     base : {
-        back(){
+        back() {
             robot.back();
+        },
+        pressNitro() {
+            PressNitro();
+        },
+        restart()
+        {
+            Restart("Asphalt 9");
         }
-    
     },
     //==========================================================================
     // Multiplayer
     mp: {
         goingHome(){
+            log("goingHome");
             var Flag = false;
+            var stacked = 0;
+            var mpStatus = "";
             while (!Flag){
-                var mpStatus = mpCheckState();
-                if (mpStatus != -1) {
+            
+                mpStatus = mpCheckState();
+                if (mpStatus != -1) 
                     timer = new Date().getTime();
-                }
-                else {
-                    var now = new Date().getTime();
-                    if ((now - timer) > 300000) {
-                        toastLog("blocked!restart!");
-                        timer = new Date().getTime();
-                        exit();
-                    }
-                }
                 
                 switch(mpStatus){
                     case "home": {
@@ -66,30 +67,40 @@ module.exports = {
 	              	    robot.back();
 	                    sleep(2000);                           
                  		break;            
-                    }           
+                    }   
+                    
+                    case "unknow": {
+                        var now = new Date().getTime();
+                        if ((now - timer) > 30000) {
+                            toastLog("(mp-gh)blocked!restart!" + mpCheckState(true));
+                            timer = new Date().getTime();
+                            robot.back();
+                            sleep(2000);
+                            stacked++;
+                            if (stacked > 2)
+                            {
+                                stacked = 0;
+                                Restart("Asphalt 9");
+                            }
+                        }
+                    }        
                 }
             }
         },   
         //----------------------------------------------------------------------
         beforeRun(option) {
+            log("beforeRun");
             var tries = 0;
             var last = "";
             var Flag = false;
-             while (!Flag){
-                var mpStatus = mpCheckState();
-                if (mpStatus != "unknow") {
+            var mpStatus = "";
+            var stacked = 0;
+            while (!Flag){
+
+                mpStatus = mpCheckState();
+                if (mpStatus != "unknow")
                     timer = new Date().getTime();
-                } else {
-                    var now = new Date().getTime();
-                    if ((now - timer) > 300000) {
-                        toastLog("blocked!restart!");
-                        timer = new Date().getTime();
-                        exit();
-                    }
-                }
-                if (profile.traceOn) {
-                    toast(mpStatus);
-                }
+
                 // count sequence of mpStatus
                 if (last == mpStatus) {
                      tries++;
@@ -121,7 +132,271 @@ module.exports = {
                     
                     case "index": {
                         if (tries > 2 && last == "index") {
-                            selectPage(4);
+                            pressMarkerButton(profile.networkPage, profile.common.pagesMarker);
+                            sleep(2000);
+                        }
+                        break;
+                    }
+                    
+                    case "start": {
+                        if (tries > 15 && last == "start") {
+                            sleep(2000);
+                            Flag = true;
+                        }
+                        break;
+                    }
+                    
+                    case "race": {
+                        sleep(2000);
+                        break;
+                    }
+                    
+                    case "next": {
+                        if (tries > 2 && last == "next") {
+                            sleep(2000);
+                            robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                        }
+                        break;
+                    }
+                    
+                    case "dialog": {
+                        if (tries > 2 && last == "dialog") {
+                            robot.back();
+	                        sleep(2000);
+                        }                           
+                 		break;            
+                    } 
+                    
+                    case "unknow": {
+                        var now = new Date().getTime();
+                        if ((now - timer) > 300000) {
+                            toastLog("(mp-br)blocked!restart!" + mpCheckState(true));
+                            timer = new Date().getTime();
+                            robot.back();
+                            sleep(2000);
+                            stacked++;
+                            if (stacked > 2)
+                            {
+                                stacked = 0;
+                                Restart("Asphalt 9");
+                            }
+                        }
+                    }
+                }
+                sleep(500);
+             }
+        },    
+        //----------------------------------------------------------------------
+        chooseCar(option) {
+            log("chooseCar");
+            if (1)
+        	{
+                lastLevel = getCurrentLeagueLevel();
+	       	}
+            robot.click(profile.mp.start.x, profile.mp.start.y);
+            sleep(4000);
+            
+            if (option.carPickMode == "none")
+            {
+                // Check if car available fuel
+                if (IsFlashingButton(profile.garage.start, 15))
+                {
+                    log("chooseCar>> READY");
+                    robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                    return true;
+                }
+                return false;
+            }
+            
+            if (option.carPickMode == "ordinary")
+            {     
+                var FOUND = false;
+       
+                for (let i = lastLevel; i < 5 && !FOUND; i++){
+                    if (option.status[i]){
+                        if (hasFuel(option.levelName[i], option.carPick)){
+                            FOUND = true;
+                            lastLevel = i;
+                        }
+                    }
+                }
+                log("chooseCar>> FOUND = " + FOUND);            
+                if (FOUND){
+                    // Find a car with gas
+                    sleep(4000);
+                    
+                    // Check if car available fuel
+                    if (IsFlashingButton(profile.garage.start, 15))
+                    {
+                        log("chooseCar>> READY");
+                        robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                        return true;
+                    }
+                }
+                lastLevel = 0;  
+                lastCar   = 0;    
+                toastLog("No fuel.");
+                return false;
+            }
+            
+            return false;
+        },
+        //----------------------------------------------------------------------
+        run(cnt) {
+            log("run"); 
+            var left = 0;
+            var runTime = new Date().getTime();
+            var tries = 0;
+            
+            // Check if you have reached the checkout interface
+            while (true) {
+                var nowTime = new Date().getTime();
+                if ((nowTime - runTime) > 250000) {
+                    toastLog("(mp-run)blocked!restart!" + mpCheckState(true));
+                    robot.back();
+	                sleep(2000);
+                    break;
+                }
+                
+                var mpStatus = mpCheckState();
+                // exit conditions
+                if (!(mpStatus == "unknow" || mpStatus == "race")) {
+                    // waiting 3 times of no race condition
+                    tries++;
+                    if (tries > 2)
+                    {
+                        toastLog("mp-run exit with state = " + mpStatus);
+                        break;
+                    }
+                }
+                // If you have not finished running, you can still click on nitrogen
+                else {
+                    // reset accidental exit 
+                    tries = 0;
+                    PressNitro();
+                }
+                sleep(950);
+            }
+            toastLog(++cnt.MP + " multiplayer matches have been completed, average time " +parseInt((nowTime - startTime)/1000/cnt.MP)+" second."
+                                  + "\nThe next game is about to start.");
+        },
+        //----------------------------------------------------------------------
+        test(option) {
+            var img = captureScreen();
+            toastLog(PrintPixel(img, profile.ch.noTicketLeft));
+            toastLog(PrintPixel(img, profile.ch.noTicketRight));
+        }
+    },
+    // CarHunt
+    ch:{
+        goingHome(){
+            var Flag = false;
+            timer = new Date().getTime();
+            while (!Flag){
+
+                var chStatus = chCheckState();
+                if (chStatus != "unknow")
+                    timer = new Date().getTime();
+                
+                switch(chStatus){
+                    case "home": {
+                        Flag = true;
+                        break;
+                    }
+                    
+                    case "index": {
+                        Flag = true;
+                        break;
+                    }
+                    
+                    case "start":
+                    case "events":
+                    case "hunt":
+                    case "dialog": {
+                        robot.back();
+                        sleep(2000);
+                        break;
+                    }
+                    
+                    case "race": {
+                        sleep(5000);
+                        break;
+                    }
+                    
+                    case "next": {
+                        sleep(2000);
+                        robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                        break;
+                    } 
+                    
+                    case "unknow": {
+                        var now = new Date().getTime();
+                        if ((now - timer) > 15000) {
+                            toastLog("(ch-gh)blocked!restart!" + chCheckState(true));
+                            timer = new Date().getTime();
+                            robot.back();
+    	                    sleep(2000);
+                        }                    
+                    }
+                }
+                sleep(1000);
+            }
+        }, 
+        //----------------------------------------------------------------------
+        beforeRun() {
+            var tries = 0;
+            var last = "";
+            var Flag = false;
+            var chStatus = ""; 
+            while (!Flag){
+                
+                chStatus = chCheckState();
+                if (chStatus != "unknow")
+                    timer = new Date().getTime();
+
+                // count sequence of chStatus
+                if (last == chStatus) {
+                     tries++;
+                } else {
+                     tries = 1;
+                     last = chStatus;
+                }
+                
+                if (tries > 250) {
+                    toastLog("go back by tries overflow for " + chStatus);
+                    robot.back();
+	                sleep(2000);
+                    tries = 1;
+                }
+                
+                switch(chStatus){
+                    case "home": {
+                        if (tries > 2 && last == "home") {
+                            pressMarkerButton(profile.eventPage, profile.common.pagesMarker);
+                            sleep(2000);
+                        }
+                        break;
+                    }
+                    
+                    case "index": {
+                        if (tries > 2 && last == "index") {
+                            pressMarkerButton(profile.eventPage, profile.common.pagesMarker);
+                            sleep(2000);
+                        }
+                        break;
+                    }
+                    
+                    case "events": {
+                        if (tries > 2 && last == "events") {
+                            pressMarkerButton(profile.carHuntPosition, profile.common.eventsMarker);
+                            sleep(2000);
+                        }
+                        break;
+                    }
+                    
+                    case "hunt": {
+                        if (tries > 2 && last == "hunt") {
+                            pressMarkerButton(profile.carHuntPosition, profile.common.eventsMarker);
                             sleep(2000);
                         }
                         break;
@@ -155,92 +430,134 @@ module.exports = {
                         }                           
                  		break;            
                     } 
+                    
+                    case "unknow": {
+                        var now = new Date().getTime();
+                        if ((now - timer) > 300000) {
+                            toastLog("(ch-br)blocked!restart!" + chCheckState(true));
+                            timer = new Date().getTime();
+                            robot.back();
+    	                    sleep(2000);
+                        }
+                    }
                 }
                 sleep(500);
              }
-        },    
-        //----------------------------------------------------------------------
-        chooseCar(option) {
-            if (1)
-        	{
-                lastLevel = getCurrentLeagueLevel();
-	       	}
-            robot.click(profile.mp.start.x, profile.mp.start.y);
+        }, 
+        chooseCar() {
+            robot.click(profile.ch.start.x, profile.ch.start.y);
             sleep(4000);
-            var FOUND = false;
-   
-            for (let i = lastLevel; i < 5 && !FOUND; i++){
-                if (option.status[i]){
-                    if (hasFuel(option.levelName[i], option.carPick)){
-                        FOUND = true;
-                        lastLevel = i;
-                    }
-                }
-            }
             
-            if (FOUND){
-                // Find a car with gas
-                sleep(4000);
+            if (profile.ch.carPickMode == "up" || profile.ch.carPickMode == "down")
+            {
+                if (profile.ch.carPickMode == "up")
+                    robot.click(profile.width/2, profile.garage.firstCar.y);
+                else
+                    robot.click(profile.width/2, profile.garage.firstCar.y + profile.garage.distance.y);
+                sleep(2000);
                 
-                // Check if car available fuel
-                var img = captureScreen();
-                if (isSimilar(img, profile.garage.ready, 10))
+                if (IsFlashingButton(profile.garage.start, 15))
                 {
                     robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
                     return true;
                 }
+    
+                toastLog("\nNo fuel.");
+                base.back();
+                sleep(1500);
+                base.back();
+                sleep(1500);
             }
-            lastLevel = 0;  
-            lastCar   = 0;    
-            toastLog("\nNo fuel.");
-            return false;
-        },
-        //----------------------------------------------------------------------
-        run(counter_mp) {
-            var left = 0;
-            var runTime = new Date().getTime();
-            var exit = 0;
             
+            if (profile.ch.carPickMode == "flat")
+            {     
+                var FOUND = hasFuelFlat(profile.ch.carPick);
+                log("chooseCar>> FOUND = " + FOUND);            
+                if (FOUND){
+                    // Find a car with gas
+                    sleep(4000);
+                    
+                    // Check if car available fuel
+                    if (IsFlashingButton(profile.garage.start, 15))
+                    {
+                        log("chooseCar>> READY");
+                        robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                        return true;
+                    }
+                }
+                lastCar   = 0;    
+                toastLog("No fuel.");
+            }
+            
+            return false;
+        },  
+        //----------------------------------------------------------------------
+        run(cnt) {
+                        
+            var runTime = new Date().getTime();
+            var tries = 0;
+            var brkc = 4;
+            var chStatus = "";
             // Check if you have reached the checkout interface
             while (true) {
                 var nowTime = new Date().getTime();
-                if ((nowTime - runTime) > 400000) {
-                    toastLog("blocked!restart!");
-                    exit();
+                if ((nowTime - runTime) > 240000) {
+                    toastLog("(ch-run)blocked!restart!" + chCheckState(true));
+                    robot.back();
+	                sleep(2000);
+                    robot.back();
+	                sleep(2000);
+                    robot.back();
+	                sleep(2000);
+                    break;
                 }
                 
-                var mpStatus = mpCheckState();
+                chStatus = chCheckState();
                 // exit conditions
-                if (!(mpStatus == "unknow" || mpStatus == "race")) {
+                if (!(chStatus == "unknow" || chStatus == "race")) {
                     // waiting 3 times of no race condition
-                    exit++;
-                    if (exit > 2)
+                    tries++;
+                    if (tries > 2)
                     {
-                        toastLog("mp-run exit with state = " + mpStatus);
+                        toastLog("mp-run exit with state = " + chStatus);
+                        if (chStatus == "dialog")
+                        {
+                            robot.back();
+	                        sleep(2000);
+                            robot.back();
+	                        sleep(2000);
+                            robot.back();
+	                        sleep(2000);
+                        }
                         break;
                     }
                 }
                 // If you have not finished running, you can still click on nitrogen
                 else {
                     // reset accidental exit 
-                    exit = 0;
+                    tries = 0;
+                    brkc--;
+                    if (brkc < 0)
+                    {
+                        brkc = 2;
+                        PressBrake();
+                    }
                     PressNitro();
                 }
                 sleep(950);
             }
-            toastLog(++counter_mp + " multiplayer matches have been completed, average time " +parseInt((nowTime - startTime)/1000/counter_mp)+" second."
+            toastLog(++cnt.CH + " car hunt completed, average time " +parseInt((nowTime - startTime)/1000/cnt.CH)+" second."
                                   + "\nThe next game is about to start.");
         },
-        //----------------------------------------------------------------------
+        //----------------------------------------------------------------------   
         test(option) {
-            //toastLog(option.game == 2);
-            //toastLog("mp-test " + profile.traceOn);
-            toastLog("mpCheckState " + mpCheckState());// + "\ngetCurrentLeagueLevel " + getCurrentLeagueLevel());
+            toastLog("chCheckState " + chCheckState());
         }
-    },
+    }
 }
+//------
+function mpCheckState(debug) {
 
-function mpCheckState() {
     var state = "unknow";
 
     var img = captureScreen();
@@ -263,8 +580,7 @@ function mpCheckState() {
     
     var isGames = isNetworkGames(img);
    
-    var isPage3 = isPage(img, 3);
-    var isPage4 = isPage(img, 4);
+    var isNetworkPage = isMarker(img, profile.networkPage, profile.common.pagesMarker);
    
     var racePause = isSimilar(img, profile.common.racePause, 3);
     var raceTD = isSimilar(img, profile.common.raceTD, 3);
@@ -272,12 +588,12 @@ function mpCheckState() {
     var isRace = racePause && raceTD && raceTime; 
     
     // Continue button
-    var isNext = isButtonEdge(img, profile.mp.continue1) 
-              || isButtonEdge(img, profile.mp.continue2) 
-              || isButtonEdge(img, profile.mp.continue3)
-              || isButtonEdge(img, profile.mp.continue4)
-              || isButtonEdge(img, profile.mp.continue5)
-              || isButtonEdge(img, profile.mp.continue6);
+    var isNext = isButtonEdge(img, profile.mp.continue1, true) 
+              || isButtonEdge(img, profile.mp.continue2, true) 
+              || isButtonEdge(img, profile.mp.continue3, true)
+              || isButtonEdge(img, profile.mp.continue4, true)
+              || isButtonEdge(img, profile.mp.continue5, true)
+              || isButtonEdge(img, profile.mp.continue6, true);
     
     // Various dialogs
     var errorleft = isSimilar(img, profile.mp.errorleft, 3);
@@ -291,15 +607,10 @@ function mpCheckState() {
     
     var isDialog = (errorleft && errorright) || (clubleft && clubright) || (downgradeLeft && downgradeRight);
 
-    //PrintPixel(img, profile.mp.continue6);
-    //PrintPixel(img, profile.mp.leaguedownleft);
-    //PrintPixel(img, profile.mp.leaguedownright);
-    //toastLog(downgradeLeft);
-    //toastLog(downgradeRight);
-    
-    if (profile.traceOn) 
+    if (debug) 
     {
         var txt = "";
+        
         if (isToken)
 			txt += "Token ";
 
@@ -311,29 +622,26 @@ function mpCheckState() {
         
         if (isGames)
             txt += "Game" + profile.networkGamesCount + " ";
-       
-        if (isPage3)
-            txt += "Page3 ";
         
-        if (isPage4)
-            txt += "Page4 ";
+        if (isNetworkPage)
+            txt += "Network ";
             
         if (isRace)
             txt += "Race ";    
         
         if (isDialog)
             txt += "Dialog ";
-                            
-        toastLog(txt);
+        
+        return txt;    
     }
     
     if (isDialog)
         state = "dialog";
         
-    else if (isToken && isCredit && !isBack && !isStart && isGames && isPage4)
+    else if (isToken && isCredit && !isBack && !isStart && isGames && isNetworkPage)
         state = "home";
 
-    else if (isToken && isCredit && !isBack && !isPage4 && !isStart)
+    else if (isToken && isCredit && !isBack && !isNetworkPage && !isStart)
         state = "index";
     
     else if (isToken && isCredit && isBack && isStart)
@@ -344,18 +652,113 @@ function mpCheckState() {
         
     else if (isNext && !isCredit && !isToken)
         state = "next";
-    
-        
-    
-    //else if (isClaim)
-    //    state = 7;
-    
+
     return state;
 }
+//------
+function chCheckState(debug) {
 
+    var state = "unknow";
+
+    var img = captureScreen();
+    
+    var isToken = isEquals(img, profile.common.token);
+    var isCredit = isEquals(img, profile.common.credit);
+    
+    // Back button
+    var isBack = isSimilar(img, profile.common.back, 5) && isSimilar(img, profile.common.backward, 5);
+    
+    var pageSelected = getMarker(img, profile.common.pagesMarker);
+    var isEventPage = pageSelected == profile.eventPage;
+    
+    var eventSelected = getMarker(img, profile.common.eventsMarker);
+    var isEventHome = eventSelected == 1;
+    var isCarHunt = eventSelected == profile.carHuntPosition;
+    
+    // carhunt start button
+    var start = images.pixel(img, profile.ch.start.x, profile.ch.start.y);
+    var isStart = isEquals(img, profile.ch.start);
+     
+    var racePause = isSimilar(img, profile.common.racePause, 3);
+    var raceTD = isSimilar(img, profile.common.raceTD, 3);
+    var raceTime = isSimilar(img, profile.common.raceTime, 20);
+    var isRace = racePause && raceTD && raceTime; 
+    
+    // Continue button
+    var isNext = isButtonEdge(img, profile.mp.continue1, true) 
+              || isButtonEdge(img, profile.mp.continue2, true) 
+              || isButtonEdge(img, profile.mp.continue3, true)
+              || isButtonEdge(img, profile.mp.continue4, true)
+              || isButtonEdge(img, profile.mp.continue5, true)
+              || isButtonEdge(img, profile.mp.continue6, true);
+              
+    // Various dialogs
+    var errorleft = isSimilar(img, profile.mp.errorleft, 3);
+    var errorright = isSimilar(img, profile.mp.errorright, 3);
+    
+    var noTicketLeft = isSimilar(img, profile.ch.noTicketLeft, 3);
+    var noTicketRight = isSimilar(img, profile.ch.noTicketRight, 3);
+    
+    var isDialog = (errorleft && errorright) || (noTicketLeft && noTicketRight) ;
+
+    if (debug) 
+    {
+        var txt = "";
+        if (isToken)
+			txt += "Token ";
+
+		if (isCredit)
+			txt += "Credit ";
+        
+        if (isBack)
+            txt += "Back ";
+        
+        txt += "Page" + pageSelected + " ";
+        txt += "Event" + eventSelected + " ";
+        
+        if (isStart)
+            txt += "Start ";
+                
+        if (isRace)
+            txt += "Race ";    
+        
+        if (isDialog)
+            txt += "Dialog ";
+                            
+        return txt;
+    }
+    
+    if (isDialog)
+        state = "dialog";
+        
+    else if (isToken && isCredit && !isBack && isEventPage)
+        state = "home";
+
+    else if (isToken && isCredit && !isBack && !isEventPage)
+        state = "index";
+    
+    else if (isToken && isCredit && isBack && (pageSelected == 0) && !isCarHunt && !isStart)
+        state = "events";
+    
+    else if (isToken && isCredit && isBack && (pageSelected == 0) && isCarHunt && !isStart)
+        state = "hunt";
+
+    else if (isToken && isCredit && isBack && (pageSelected == 0) && (eventSelected == 0) && isStart)
+        state = "start";
+                
+    else if (!isToken && !isCredit && !isBack && isRace)
+        state = "race";
+        
+    else if (isNext && !isCredit && !isToken)
+        state = "next";
+
+    return state;              
+}
+//------
 function hasFuel(level, cars) {
     log('checkFuel(' + level + ')');
-    
+    var firstCar = profile.garage.firstCar;
+    var distance = profile.garage.distance;
     //selectLeague(level);
     var cars = getLeagueCars(level, cars);
     log(cars.length);
@@ -369,27 +772,23 @@ function hasFuel(level, cars) {
 		swipes = parseInt( ( n - 1) / 2 );
         // slide left required number of times
 		for(let j = 0; j < swipes; j++) {
-		    let dur = 700;
-		    let slp = 1000;
-		    sleep(slp);
+		    sleep(500);
 		    toast("<---");
-		    robot.swipe(profile.garage.firstCar.x + profile.garage.distance.x, profile.garage.firstCar.y, profile.garage.firstCar.x, profile.garage.firstCar.y, dur);
-		    sleep(slp);
+		    robot.swipe(firstCar.x + distance.x, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
+		    sleep(500);
 		}
 						  
         var carPoint = {
-            x: profile.garage.firstCar.x,
-            y: profile.garage.firstCar.y + profile.garage.distance.y * ((n - 1) % 2)
+            x: firstCar.x,
+            y: firstCar.y + distance.y * ((n - 1) % 2)
         }
         
         var img = captureScreen();
         var carcheckState = images.pixel(img, carPoint.x, carPoint.y);
 
-        
-
-        if (colors.equals(carcheckState, profile.garage.firstCar.colorFull)) {
+        if (colors.equals(carcheckState, firstCar.colorFull)) {
             lastCar = i;
-            robot.click( carPoint.x + profile.garage.distance.x / 2 , parseInt(carPoint.y - profile.garage.distance.y / 2 ));
+            robot.click( carPoint.x + distance.x / 2 , parseInt(carPoint.y - distance.y / 2 ));
             toastLog(level+"-car-("+n+")-has-fuel");
             return true;
         }
@@ -401,7 +800,51 @@ function hasFuel(level, cars) {
     }        
     return false;
 }
+//------
+function hasFuelFlat(cars) {
+    log('checkFuel');
+    var firstCar = profile.garage.firstCarFlat;
+    var distance = profile.garage.distanceFlat;
+    
+    // Looking for a car with gas
+    for (let i = lastCar; i < cars.length; i++) {
+        let n = cars[i];
+		swipeToBegin();
+        sleep(1000);
+        log('car = ' + n);   
+		swipes = parseInt( ( n - 1) / 2 );
+        // slide left required number of times
+		for(let j = 0; j < swipes; j++) {
+		    //let dur = 2000;
+		    sleep(500);
+		    toast("<---");
+		    robot.swipe(firstCar.x + distance.x, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
+		    sleep(500);
+		}
+						  
+        var carPoint = {
+            x: firstCar.x,
+            y: firstCar.y + distance.y * ((n - 1) % 2)
+        }
+        
+        var img = captureScreen();
+        var carcheckState = images.pixel(img, carPoint.x, carPoint.y);
 
+        if (colors.equals(carcheckState, firstCar.colorFull)) {
+            lastCar = i;
+            robot.click( carPoint.x + distance.x / 2 , parseInt(carPoint.y - distance.y / 2 ));
+            toastLog("car-("+n+")-has-fuel");
+            return true;
+        }
+        else {
+            lastCar = 0;
+            //toastLog(colors.toString(carcheckState));
+            toastLog("car-("+n+")-has-NO-fuel");
+        }
+    }        
+    return false;
+}
+//------
 //from mp start screen
 function getCurrentLeagueLevel()
 {
@@ -433,7 +876,19 @@ function getCurrentLeagueLevel()
 	}
 	return 0;
 }
-
+//------
+function swipeToBegin()
+{
+    for(let j = 0; j < 4; j++) {
+        let dur = 700;
+        let slp = 1000;
+        sleep(slp);
+        toast("--->");
+        robot.swipe(profile.width / 5, profile.garage.firstCar.y, (profile.width / 5) * 4, profile.garage.firstCar.y, dur);
+        sleep(slp);
+    }
+}
+//------
 function selectLeague(level)
 {
     // Assign a value to cars[]
@@ -449,7 +904,7 @@ function selectLeague(level)
         robot.click(profile.garage.bronze.x, profile.garage.bronze.y);
     } 
 }
-
+//------
 function getLeagueCars(level, cars)
 {
     if (level == 'legend'){
@@ -464,28 +919,34 @@ function getLeagueCars(level, cars)
         return cars.bronze;
     } 
 }
-
-function selectPage(num)
+//------
+function pressMarkerButton(num, data)
 {
-    var x = profile.common.pages.x + (num -1)*profile.common.pages.delta - 30; //427 + (num -1)*362 - 30;
-    var y = profile.common.pages.y - 20; //1000;
+    var x = data.x + (num -1)*data.delta + data.pressXOffset;
+    var y = data.y + data.pressYOffset;
+    //toastLog("x: " + x + " y: " + y);
     robot.click(x, y);
 }
-
-function isPage(img, num)
+//------
+function getMarker(img, data)
 {
-    var x = profile.common.pages.x + (num -1)*profile.common.pages.delta;//427 + (num -1)*362; 
-    var bw = images.pixel(img, x, profile.common.pages.y); //1021
-    var isBW = colors.equals(bw, profile.common.pages.light); //colors.equals(bw, "#ffffff");
-    var bb = images.pixel(img, x - 10, profile.common.pages.y); //1011
-    var isBB = colors.isSimilar(bb, profile.common.pages.dark, 3, "diff"); //colors.isSimilar(bb, "#15151d", 3, "diff");
-    if (isBW && isBB)
-    {
-        return true;
+    for ( let i = 1; i <= 6; i++ )
+    { 
+        if (isMarker(img, i, data))
+        {
+            return i;
+        }
     }
-    return false;  
+    return 0;
 }
- 
+//------
+function isMarker(img, num, data)
+{
+    var x = data.x + (num -1)*data.delta; 
+    var p = images.pixel(img, x, data.y);
+    return colors.equals(p, data.color);
+}
+//------
 function isNetworkGames(img)
 {
     if (profile.networkGamesCount == 2)
@@ -497,35 +958,95 @@ function isNetworkGames(img)
     
     return false;
 }
-
+//------
 function isSimilar(img, point, threshold)
 {
     var pixel = images.pixel(img, point.x, point.y);
     return colors.isSimilar(pixel, point.color, threshold, "diff");
 }
-
+//------
 function isEquals(img, point)
 {
     var pixel = images.pixel(img, point.x, point.y);
     return colors.equals(pixel, point.color);
 }
-
-function isButtonEdge(img, point)
+//------
+function isButtonEdge(img, point, debug)
 {
     var pixel = images.pixel(img, point.x, point.y);
     var pixelOut = images.pixel(img, point.x-10, point.y-10);
+    if (debug){
+        PrintPixel(img, point);
+    }
     return colors.equals(pixel, point.color) && !colors.equals(pixelOut, point.color);
 }
+//------
+function IsFlashingButton(point, timeoutSec)
+{
+    var runTime = new Date().getTime();            
+    var tries = 0;
+    while (true) {
+        var nowTime = new Date().getTime();
+        if ((nowTime - runTime) > timeoutSec * 1000) {
+            break;
+        }
+        // Check if car available fuel
+        var img = captureScreen();
+        if (isSimilar(img, point, 10))
+            tries++;
 
+        if (tries > 2)
+            return true;
+
+        sleep(200);
+    }
+    return false;    
+}
+//------
 function PrintPixel(img, point)
 {
     var txt = "x: " +  point.x + " y: " +  point.y;
     var color =  images.pixel(img, point.x, point.y);
-    txt = txt + "\ncolor: " + colors.toString(color)
-    toastLog(txt);
+    return txt + "\ncolor: " + colors.toString(color);
 }
-
+//------
 function PressNitro()
 {
     robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+}
+//------
+function PressBrake() {
+    robot.click(profile.width * 1 / 5, profile.height / 2);
+}
+//------
+function Restart(appName){
+    log("Restart>> " + appName);
+    var c = 0;
+    openAppSetting(getPackageName(appName));
+    sleep(500);
+    while(!click("ОСТАНОВИТЬ")) {
+        if (c++ > 6) {
+           toastLog("kill V timeout!");
+           break;
+        }
+        sleep(5000);
+    }
+    c = 0;
+    sleep(500);
+    while(!click("ОК")) {
+        if (c++ > 3) {
+            toastLog("confirm V timeout!");
+            break;
+        }
+        sleep(5000);
+    }
+
+    launchApp(appName);
+    sleep(50000);
+
+    var mpStatus = mpCheckState();
+    if (mpStatus = "unknow")
+    {
+        robot.back();
+    }
 }
