@@ -50,7 +50,7 @@ module.exports = {
     /**
      * Restore the screen brightness and device volume before the runtime script
      */
-    revertPower = () => {
+    revertPower : () => {
         log("revert power");
         isAutoBrightnessMode ? device.setBrightnessMode(autoBrightnessMode) : device.setBrightness(previousBrightness);
         device.setMusicVolume(previousMusicVolume); 
