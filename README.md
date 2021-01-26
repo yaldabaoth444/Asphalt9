@@ -16,5 +16,6 @@ Already done: \ō͡≡o˞̶
 - options for choosing cars in the garage (ordinary/none/flat/up|down)
 - restart app when stuck
 
-TODO: 
+TODO:
+
 ¯\_(ツ)_/¯
