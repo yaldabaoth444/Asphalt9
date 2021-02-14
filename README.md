@@ -20,4 +20,4 @@ TODO:
 
 ¯\\_(ツ)_/¯
 
-[example race](https://www.youtube.com/watch?v=yx-xXiE0fXM){target="_blank"}
+[example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
