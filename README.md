@@ -21,4 +21,5 @@ TODO:
 ¯\\_(ツ)_/¯
 
 <a href = "https://www.youtube.com/watch?v=yx-xXiE0fXM" target = "_blank">example race</a>
-[example race{:target="_blank" rel="example race"}](https://www.youtube.com/watch?v=yx-xXiE0fXM)
+
+[example race](https://www.youtube.com/watch?v=yx-xXiE0fXM){:target="_blank"}
