@@ -20,6 +20,4 @@ TODO:
 
 ¯\\_(ツ)_/¯
 
-<a href = "https://www.youtube.com/watch?v=yx-xXiE0fXM" target = "_blank">example race</a>
-
-[example race](https://www.youtube.com/watch?v=yx-xXiE0fXM&target=_blank){: target="_blank"}
+[example race](https://www.youtube.com/watch?v=yx-xXiE0fXM){target="_blank"}
