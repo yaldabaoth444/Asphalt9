@@ -1,4 +1,4 @@
-"auto";
+﻿"auto";
 const robot = require('./robot.js');
 const profile = require('./profile.js');
 
@@ -10,6 +10,9 @@ var lastCar   = 0;
 
 module.exports = {
     base : {
+        click(x,y) {
+            robot.click(x,y);
+        },
         back() {
             robot.back();
         },
@@ -19,6 +22,10 @@ module.exports = {
         restart()
         {
             Restart("Asphalt 9");
+        },
+        restartWithReset()
+        {
+            RestartWithReset("Asphalt 9");
         }
     },
     //==========================================================================
@@ -274,22 +281,42 @@ module.exports = {
                     // reset accidental exit 
                     tries = 0;
                     PressNitro();
+                    PressNitro();
                 }
                 sleep(950);
             }
-            toastLog(++cnt.MP + " multiplayer matches have been completed, average time " +parseInt((nowTime - startTime)/1000/cnt.MP)+" second."
-                                  + "\nThe next game is about to start.");
+            toastLog(++cnt.MP + " multiplayer done, t.avg " +parseInt((nowTime - startTime)/1000/cnt.MP)+" second.");
         },
         //----------------------------------------------------------------------
         test(option) {
             var img = captureScreen();
-            toastLog(PrintPixel(img, profile.ch.noTicketLeft));
-            toastLog(PrintPixel(img, profile.ch.noTicketRight));
+            toastLog(PrintPixel(img, profile.mp.game1of2));
+            toastLog(PrintPixel(img, profile.mp.game2of2));
+            //toastLog("mpCheckState " + mphCheckState());
+        },
+        adjustSwipe(carNumber, duration){
+            swipes = parseInt( ( carNumber - 1) / 2 );
+            var firstCar = profile.garage.firstCar;
+            var distance = profile.garage.distance;
+            for(let j = 0; j < swipes; j++) {
+                sleep(500);
+                toast("<---");
+                robot.swipe(firstCar.x + distance.x, firstCar.y, firstCar.x, firstCar.y, duration);
+                sleep(500);
+            }
+            var carPoint = {
+                x: firstCar.x,
+                y: firstCar.y + distance.y * ((carNumber - 1) % 2)
+            }
+            
+            var img = captureScreen();
+            toastLog(PrintPixel(img, carPoint));
         }
     },
     // CarHunt
     ch:{
         goingHome(){
+            var tries = 0;
             var Flag = false;
             timer = new Date().getTime();
             while (!Flag){
@@ -332,10 +359,30 @@ module.exports = {
                     case "unknow": {
                         var now = new Date().getTime();
                         if ((now - timer) > 15000) {
+                            tries++;
                             toastLog("(ch-gh)blocked!restart!" + chCheckState(true));
                             timer = new Date().getTime();
-                            robot.back();
-    	                    sleep(2000);
+                            // exclusive
+                            if (tries > 3)
+                            {
+                                tries = 0;
+                                var img = captureScreen();
+                                if (isEquals(img, {x: 2145, y: 72, color: "#ffffff"}))
+                                {
+                                   robot.click(2145, 72);
+                                } 
+                                if (isSimilar(img, {x: 2130, y: 81, color: "#39393c"}, 3)) 
+                                {
+                                   robot.click(2130, 81);
+                                }
+                                sleep(2000);
+                            }
+                            else
+                            {
+                                robot.back();
+    	                        sleep(2000);
+                            }
+                            
                         }                    
                     }
                 }
@@ -472,7 +519,7 @@ module.exports = {
             if (profile.ch.carPickMode == "flat")
             {     
                 var FOUND = hasFuelFlat(profile.ch.carPick);
-                log("chooseCar>> FOUND = " + FOUND);            
+                //log("chooseCar>> FOUND = " + FOUND);            
                 if (FOUND){
                     // Find a car with gas
                     sleep(4000);
@@ -480,7 +527,7 @@ module.exports = {
                     // Check if car available fuel
                     if (IsFlashingButton(profile.garage.start, 15))
                     {
-                        log("chooseCar>> READY");
+                        //log("chooseCar>> READY");
                         robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
                         return true;
                     }
@@ -546,12 +593,85 @@ module.exports = {
                 }
                 sleep(950);
             }
-            toastLog(++cnt.CH + " car hunt completed, average time " +parseInt((nowTime - startTime)/1000/cnt.CH)+" second."
-                                  + "\nThe next game is about to start.");
+            toastLog(++cnt.CH + " car hunt done, t.avg" +parseInt((nowTime - startTime)/1000/cnt.CH)+" second.");
         },
         //----------------------------------------------------------------------   
         test(option) {
-            toastLog("chCheckState " + chCheckState());
+            //toastLog("chCheckState " + chCheckState());
+            var img = captureScreen();
+            toastLog(PrintPixel(img, {x: 2130, y: 81, color: "#39393b"}));
+        },
+        adjustSwipe(carNumber, duration){
+            swipes = parseInt( ( carNumber - 1) / 2 );
+            var firstCar = profile.garage.firstCarFlat;
+            var distance = profile.garage.distanceFlat;
+            for(let j = 0; j < swipes; j++) {
+                sleep(500);
+                toast("<---");
+                robot.swipe(firstCar.x + distance.x, firstCar.y, firstCar.x, firstCar.y, duration);
+                sleep(500);
+            }
+            var carPoint = {
+                x: firstCar.x,
+                y: firstCar.y + distance.y * ((carNumber - 1) % 2)
+            }
+            
+            var img = captureScreen();
+            toastLog(PrintPixel(img, carPoint));
+        },
+        swipeEventsAtEnd()
+        {
+            //eventsMarker: { x: 263, y: 1055, color: '#c3fb12', delta: 281, pressXOffset: 0, pressYOffset: -200 },
+            var mrkY = profile.common.eventsMarker.y + profile.common.eventsMarker.pressYOffset;
+            toastLog(mrkY); 
+            for(let j = 0; j < 5; j++) {
+                robot.swipe(2000, mrkY, 500, mrkY, 400);
+                sleep(500);
+            } 
+        },
+        ad(){
+            sleep(3000);
+            //var img = captureScreen();
+            //A tickects check
+            //toastLog(PrintPixel(img, {x: 2020, y: 200, color: "#ffffff"}));
+            //if (isEquals(img, {x: 2020, y: 200, color: "#ffffff"}))
+            //{
+                robot.click(2012, 201);
+                sleep(2000);
+                img = captureScreen();
+                if (!isButtonEdge(img, {x: 1600, y: 675, color: "#ff0054"}, false))
+                {
+                    //robot.back();
+                    //sleep(1500);
+                    return "full";
+                } 
+                if (isButtonEdge(img, {x: 1600, y: 726, color: "#ffffff"}, false))
+                {
+                    robot.click(1600, 726);
+                    sleep(60000);
+                    //robot.back();
+                    //sleep(1500);
+                    //if (chCheckState() != "hunt")
+                    //{
+                    //    robot.back();
+                    //    sleep(1500);
+                    //}
+                    //if (chCheckState() != "hunt")
+                    //{
+                    //    robot.back();
+                    //    sleep(1500);
+                    //}
+                    return "aded";
+                }
+                //robot.back();
+                //sleep(1500);
+                return "noad";
+            //}
+            //return "error";
+        },
+        state()
+        {   
+            return chCheckState();
         }
     }
 }
@@ -604,8 +724,11 @@ function mpCheckState(debug) {
     // league downgrade
     var downgradeLeft = isSimilar(img, profile.mp.leaguedownleft, 5);
     var downgradeRight = isSimilar(img, profile.mp.leaguedownright, 5);
-    
-    var isDialog = (errorleft && errorright) || (clubleft && clubright) || (downgradeLeft && downgradeRight);
+    // network error
+    var networkErrorLeft = isSimilar(img, profile.mp.networkErrorLeft, 3);
+    var networkErrorRight = isSimilar(img, profile.mp.networkErrorRight, 3);
+
+    var isDialog = (errorleft && errorright) || (clubleft && clubright) || (downgradeLeft && downgradeRight) || (networkErrorLeft && networkErrorRight);
 
     if (debug) 
     {
@@ -756,19 +879,19 @@ function chCheckState(debug) {
 }
 //------
 function hasFuel(level, cars) {
-    log('checkFuel(' + level + ')');
+    //log('checkFuel(' + level + ')');
     var firstCar = profile.garage.firstCar;
     var distance = profile.garage.distance;
     //selectLeague(level);
     var cars = getLeagueCars(level, cars);
-    log(cars.length);
+    //log(cars.length);
     
     // Looking for a car with gas
     for (let i = lastCar; i < cars.length; i++) {
         let n = cars[i];
 		selectLeague(level);
         sleep(1000);
-        log('car = ' + n);   
+        //log('car = ' + n);   
 		swipes = parseInt( ( n - 1) / 2 );
         // slide left required number of times
 		for(let j = 0; j < swipes; j++) {
@@ -811,7 +934,7 @@ function hasFuelFlat(cars) {
         let n = cars[i];
 		swipeToBegin();
         sleep(1000);
-        log('car = ' + n);   
+        //log('car = ' + n);   
 		swipes = parseInt( ( n - 1) / 2 );
         // slide left required number of times
 		for(let j = 0; j < swipes; j++) {
@@ -879,14 +1002,16 @@ function getCurrentLeagueLevel()
 //------
 function swipeToBegin()
 {
-    for(let j = 0; j < 4; j++) {
-        let dur = 700;
-        let slp = 1000;
-        sleep(slp);
+    let slp = 500;
+    for(let j = 0; j < 5; j++) {
         toast("--->");
-        robot.swipe(profile.width / 5, profile.garage.firstCar.y, (profile.width / 5) * 4, profile.garage.firstCar.y, dur);
+        sleep(slp);
+        robot.swipe(profile.width / 5, profile.garage.firstCar.y, (profile.width / 5) * 4, profile.garage.firstCar.y, 400);
         sleep(slp);
     }
+    sleep(slp);
+    robot.swipe(profile.width / 5, profile.garage.firstCar.y, (profile.width / 5) * 4, profile.garage.firstCar.y, 700);
+    sleep(slp);
 }
 //------
 function selectLeague(level)
@@ -922,10 +1047,24 @@ function getLeagueCars(level, cars)
 //------
 function pressMarkerButton(num, data)
 {
-    var x = data.x + (num -1)*data.delta + data.pressXOffset;
-    var y = data.y + data.pressYOffset;
-    //toastLog("x: " + x + " y: " + y);
-    robot.click(x, y);
+    if (num > 0)
+    {
+        var x = data.x + (num -1)*data.delta + data.pressXOffset;
+        var y = data.y + data.pressYOffset;
+        //toastLog("x: " + x + " y: " + y);
+        robot.click(x, y);
+    } else {
+        var mrkY = profile.common.eventsMarker.y + profile.common.eventsMarker.pressYOffset; 
+        for(let j = 0; j < 5; j++) {
+            robot.swipe(2000, mrkY, 500, mrkY, 400);
+             sleep(500);
+        }
+        sleep(1500); 
+        var x = profile.width - data.x - (-1*num -1)*data.delta + data.pressXOffset;
+        var y = data.y + data.pressYOffset;
+        toastLog("x: " + x + " y: " + y);
+        robot.click(x, y);
+    }
 }
 //------
 function getMarker(img, data)
@@ -1049,4 +1188,133 @@ function Restart(appName){
     {
         robot.back();
     }
+}
+//------
+function RestartWithReset(appName){
+    log("Restart>> " + appName);
+    openAppSetting(getPackageName(appName));
+    sleep(1500);
+
+    // close
+    robot.click(950, 1020);
+    sleep(1000);
+
+    // ok
+    robot.click(1372, 770);
+    sleep(1000);
+
+    // safe cache
+    shell("mv /mnt/sdcard/Android/obb/com.gameloft.android.ANMP.GloftA9HM /mnt/sdcard/Android/obb/com.gameloft.android.ANMP1.GloftA9HM", false);
+
+    // clear
+    robot.click(1330, 1020);
+    sleep(1000);
+
+    // clear all
+    robot.click(800, 467);
+    sleep(1000);
+    
+    // ok
+    robot.click(1372, 770);
+    sleep(1000);
+    
+    // restore cache
+    shell("mv /mnt/sdcard/Android/obb/com.gameloft.android.ANMP1.GloftA9HM /mnt/sdcard/Android/obb/com.gameloft.android.ANMP.GloftA9HM", false);
+    
+    /*
+    var c = 0;
+    openAppSetting(getPackageName(appName));
+    sleep(500);
+    while(!click("ОСТАНОВИТЬ")) {
+        if (c++ > 6) {
+           toastLog("kill V timeout!");
+           break;
+        }
+        sleep(5000);
+    }
+    c = 0;
+    sleep(500);
+    while(!click("ОК")) {
+        if (c++ > 3) {
+            toastLog("confirm V timeout!");
+            break;
+        }
+        sleep(5000);
+    }
+    
+    shell("am force-stop com.gameloft.android.ANMP.GloftA9HM", false);
+    sleep(1000);
+    shell("mv /mnt/sdcard/Android/obb/com.gameloft.android.ANMP.GloftA9HM /mnt/sdcard/Android/obb/com.gameloft.android.ANMP1.GloftA9HM", false);
+    sleep(500);
+    shell("pm clear com.gameloft.android.ANMP.GloftA9HM", false);
+    sleep(500);
+    shell("mv /mnt/sdcard/Android/obb/com.gameloft.android.ANMP1.GloftA9HM /mnt/sdcard/Android/obb/com.gameloft.android.ANMP.GloftA9HM", false);
+    sleep(500);  */
+    launchApp(appName);
+    sleep(50000);
+    //---------------
+    // I N I I T
+    sleep(1000);
+    
+    robot.click(770, 188); //
+    sleep(1000);
+    
+    robot.click(900,670); //2
+    sleep(1000);
+    
+    robot.click(900,670); //2
+    sleep(1000);
+    
+    robot.click(1960, 1015); //ok
+    sleep(1000);
+    
+    robot.click(215, 697); //v
+    sleep(1000);
+    
+    robot.click(1170, 968); //принять
+    sleep(1000);
+    
+    robot.click(1158, 985); //принять
+    sleep(15000);
+    
+    if (profile.accountType == "google")
+    {
+        robot.click(701, 300); //google
+        sleep(10000);
+    }
+    if (profile.accountType == "facebook")
+    {
+        robot.click(701, 710); //facebook
+        sleep(7000);
+    
+        robot.click(1162, 995); //as user
+        sleep(15000);
+    }
+    
+    robot.click(2100, 875); //switch acc B
+    sleep(5000);
+    
+    robot.click(578, 761); //yes
+    sleep(20000);
+    
+    for(let j = 0; j < 5; j++) {
+        robot.swipe(2000, 400, 500, 400, 400);
+        sleep(500);
+    } 
+    
+    robot.click(1770, 870); //ok
+    sleep(12000);
+    log("ok1");            
+    robot.click(1890, 900); //ok
+    sleep(12000);
+    log("ok2");
+    robot.click(2220, 42); //home
+    sleep(5000); 
+    log("home");
+    //---------------
+    var mpStatus = mpCheckState();
+    if (mpStatus = "unknow")
+    {
+        robot.back();
+    }    
 }

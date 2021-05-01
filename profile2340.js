@@ -1,42 +1,25 @@
 var mpLevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
 // Whether the legendary, platinum, gold, silver, and bronze cars are available, true means available, false means unavailable
-var mpStatus = [
-    // legend
-    false, 
-    // platinum
-    false, 
-    // gold
-    true, 
-    // silver
-    true, 
-    // bronze
-    true
-];
+var mpStatus = [false,   true,   true,   true,   true];  
+//             legend  platinum  gold   silver  bronze
 var mpCarPick = {
     // legend
     legend: [1, 2, 3, 4],
     // platinum
-    platinum: [1, 2, 3, 4],
+    platinum: [1,2,4,5,6,7,9,11,12,13,14,15],
     // gold
-    gold: [13, 14,15,16,18,20,22,23],
+    gold: [14,15,17,18,20,22,23,24,26,7,3],
+    //gold: [6,8,12,18,20,22,23,24,28], //ss
     // silver
-    silver: [8, 10, 11, 12, 13, 15],
+    silver: [22,23,20,19,16,8,10,11,12,15,7,13],
+    //silver: [21,22,19,18,15,14,13,7], //ss
     // bronze
-    bronze: [7, 11, 14]
+    bronze: [7, 13, 16]
+    //bronze:[20,18,15,13] //ss
 };
 var mp2LevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
-var mp2Status = [
-    // legend
-    false, 
-    // platinum
-    false, 
-    // gold
-    false, 
-    // silver
-    false, 
-    // bronze
-    true
-];
+var mp2Status = [ false,   false,  false,   false,   true];
+//                legend platinum   gold   silver   bronze
 var mp2CarPick = {
     // legend
     legend: [1, 2, 3, 4],
@@ -47,18 +30,44 @@ var mp2CarPick = {
     // silver
     silver: [5, 8, 10, 11, 12, 13, 15],
     // bronze
-    bronze: [1, 2, 3]
+    bronze: [1,2,3,4,5,6,7,8]
 };
-var chCarPick = [3, 4];
+var chCarPick = [3,11,14,17,18,20,22,25,27,31];
 
 module.exports = {
     traceOn: false,
     width: 2340,
     height: 1080,
+    accountType: "google",
     networkGamesCount: 2,
     eventPage: 3,
     networkPage: 4,
-    carHuntPosition: 3,
+    carHuntPosition: -8, // negative values mean from the end
+    // Multiplayer 1 data
+    mp1: {
+        levelName : mpLevelName,
+        status : mpStatus,
+        carPick : mpCarPick,
+        game: 1,
+        carPickMode: "ordinary",
+    },
+    // Multiplayer 2 data
+    mp2: {
+        levelName : mp2LevelName,
+        status : mp2Status,
+        carPick : mp2CarPick,
+        game: 2,
+        carPickMode: "ordinary",
+    },
+    // Start button
+    ch:{
+        start: { x: 1743, y: 900, color: '#c3fb12' },
+        carPick : chCarPick,
+        carPickMode: "down",
+        
+        noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
+		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
+    },
     common: {
         // The top token icon = #0090ff blue, there will be color difference
         token: { x: 1482, y: 54, color: '#0090ff' },
@@ -80,7 +89,6 @@ module.exports = {
         pagesMarker:  { x: 263, y: 884,  color: '#ff0054', delta: 362, pressXOffset: 0, pressYOffset: 80 },
         eventsMarker: { x: 263, y: 1055, color: '#c3fb12', delta: 281, pressXOffset: 0, pressYOffset: -200 },
     },
-    
     mp: {
         // Start button
         start: { x: 1700, y: 950, color: '#c3fb12' },
@@ -89,9 +97,9 @@ module.exports = {
         stage: { x: 1475, y: 739, color: '#ffffff' },
         
         // Multiplayer above>tip=#ffffff white, y will change when multiplayer matches are adjusted
-        game1of2: { x: 2187, y: 222, color: '#fafafa' },
+        game1of2: { x: 2186, y: 260, color: '#ffffff' },
         // Multiplayer below>tip=#ffffff, y will change when multiplayer matches are adjusted
-        game2of2: { x: 2187, y: 631, color: '#fafafa' },
+        game2of2: { x: 2186, y: 668, color: '#ffffff' },
         
         continue1: { x: 1590, y: 890, color: '#c3fb12' },
         continue2: { x: 1590, y: 890, color: '#ffffff' },
@@ -115,31 +123,9 @@ module.exports = {
         leaguedownleft: { x: 440,  y: 908, color: '#1c5ab1' }, //league down 2458a4
         leaguedownright: { x: 1897,  y: 913, color: '#1c59b1' }, //league down 2158a8
         
-    },
-    mp1: {
-        // Multiplayer 1 data
-        levelName : mpLevelName,
-        status : mpStatus,
-        carPick : mpCarPick,
-        game: 1,
-        carPickMode: "ordinary",
-    },
-    mp2: {
-        // Multiplayer 2 data
-        levelName : mp2LevelName,
-        status : mp2Status,
-        carPick : mp2CarPick,
-        game: 2,
-        carPickMode: "none",
-    },
-    ch:{
-        // Start button
-        start: { x: 1743, y: 900, color: '#c3fb12' },
-        carPick : chCarPick,
-        carPickMode: "up",
+        networkErrorLeft: { x: 299, y: 816, color: '#2358a6'},
+		networkErrorRight: { x: 2040, y:816, color: '#2458a4'},
         
-        noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
-		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
     },
     garage: {
         start: { x: 1800, y: 888, color: '#c3fb12' },
@@ -155,21 +141,21 @@ module.exports = {
         gold: { x: 1835, y: 248, color: '#d78f23' },
         platinum: { x: 1970, y: 248, color: '#5d3eb6' },
         legend: { x: 2105, y: 248, color: '#3f3f3d' },
-        swipeDuration: 700,
+        swipeDuration: 1500,
 
         // current league
         league: { x: 740, y: 500, colorUnranked: '#ff0026', colorBronze: '#d98560', colorSilver: '#96b2d4', colorGold: '#f2cb30', colorPlatinum: '#000000', colorLegend: '#f6e2a5'},
         
         // First car
-        firstCar: { x: 406, y: 631, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
+        firstCar: { x: 406, y: 633, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
-        distance: { x: 674 + 7, y: 345 },
+        distance: { x: 674 + 26, y: 345 },
         
         // First car
         firstCarFlat: { x: 223, y: 640, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
-        distanceFlat: { x: 696 + 25, y: 357 },
+        distanceFlat: { x: 696 + 26, y: 357 },
     }
 }
