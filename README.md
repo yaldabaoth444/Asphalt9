@@ -17,7 +17,7 @@ Already done: \ō͡≡o˞̶
 - restart app when stuck
 
 TODO:
-
-¯\\_(ツ)_/¯
+- infinite hunting
+-- ¯\\_(ツ)_/¯
 
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
