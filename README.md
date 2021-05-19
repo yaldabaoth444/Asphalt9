@@ -18,6 +18,6 @@ Already done: \ō͡≡o˞̶
 
 TODO:
 - infinite hunting
--- ¯\\_(ツ)_/¯
+<!-- ¯\\_(ツ)_/¯ -->
 
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
