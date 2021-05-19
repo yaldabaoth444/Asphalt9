@@ -14,6 +14,10 @@ function LollipopRobot() {
         return Swipe(x1, y1, x2, y2, duration);
     };
 
+    this.press = function (x, y, duration) {
+        return press(x, y, duration);
+    };
+    
     this.back = function () {
         return Back();
     }
@@ -36,6 +40,10 @@ function NougatRobot() {
         return swipe(x1, y1, x2, y2, duration);
     };
 
+    this.press = function (x, y, duration) {
+        return press(x, y, duration);
+    };
+    
     this.back = function () {
         return back();
     }
@@ -68,6 +76,10 @@ function Robot() {
         return this.robot.swipe(x1, y1, x2, y2, duration);
     };
 
+    this.press = function (x, y, duration) {
+        return this.robot.press(x, y, duration);
+    };
+    
     this.back = function () {
         return this.robot.back();
     };

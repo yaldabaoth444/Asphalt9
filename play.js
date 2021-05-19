@@ -26,6 +26,10 @@ module.exports = {
         restartWithReset()
         {
             RestartWithReset("Asphalt 9");
+        },
+        AdCloser()
+        {
+            return Closer();
         }
     },
     //==========================================================================
@@ -81,7 +85,8 @@ module.exports = {
                         if ((now - timer) > 30000) {
                             toastLog("(mp-gh)blocked!restart!" + mpCheckState(true));
                             timer = new Date().getTime();
-                            robot.back();
+                            if (!Closer())
+                                robot.back();
                             sleep(2000);
                             stacked++;
                             if (stacked > 2)
@@ -179,7 +184,8 @@ module.exports = {
                         if ((now - timer) > 300000) {
                             toastLog("(mp-br)blocked!restart!" + mpCheckState(true));
                             timer = new Date().getTime();
-                            robot.back();
+                            if (!Closer())
+                                robot.back();
                             sleep(2000);
                             stacked++;
                             if (stacked > 2)
@@ -260,7 +266,8 @@ module.exports = {
                 var nowTime = new Date().getTime();
                 if ((nowTime - runTime) > 250000) {
                     toastLog("(mp-run)blocked!restart!" + mpCheckState(true));
-                    robot.back();
+                    if (!Closer())
+                        robot.back();
 	                sleep(2000);
                     break;
                 }
@@ -365,7 +372,7 @@ module.exports = {
                             // exclusive
                             if (tries > 3)
                             {
-                                tries = 0;
+/*                                tries = 0;
                                 var img = captureScreen();
                                 if (isEquals(img, {x: 2145, y: 72, color: "#ffffff"}))
                                 {
@@ -378,8 +385,9 @@ module.exports = {
                                 sleep(2000);
                             }
                             else
-                            {
-                                robot.back();
+                            {*/
+                                if (!Closer())
+                                    robot.back();
     	                        sleep(2000);
                             }
                             
@@ -483,7 +491,8 @@ module.exports = {
                         if ((now - timer) > 300000) {
                             toastLog("(ch-br)blocked!restart!" + chCheckState(true));
                             timer = new Date().getTime();
-                            robot.back();
+                            if (!Closer())
+                                robot.back();
     	                    sleep(2000);
                         }
                     }
@@ -637,7 +646,7 @@ module.exports = {
             //if (isEquals(img, {x: 2020, y: 200, color: "#ffffff"}))
             //{
                 robot.click(2012, 201);
-                sleep(2000);
+                sleep(10000);
                 img = captureScreen();
                 if (!isButtonEdge(img, {x: 1600, y: 675, color: "#ff0054"}, false))
                 {
@@ -1142,6 +1151,44 @@ function IsFlashingButton(point, timeoutSec)
     return false;    
 }
 //------
+function Closer()
+{
+    var folder = profile.AdCloserFolder;
+    if (!folder)
+        return false;
+    var list = files.listDir(folder);
+    var len = list.length;
+    if(len > 0){
+        var imgad = captureScreen();
+        for(let i = 0; i < len; i++){
+            var fileName = list[i];
+            if (fileName.toLowerCase().endsWith(".png") || fileName.toLowerCase().endsWith(".jpg"))
+            {
+                var templatePath = files.join(folder, fileName);
+                var template = images.read(templatePath);
+
+                var pos = images.findImage(imgad, template);
+                width = template.getWidth();
+                height = template.getHeight();
+                template.recycle();
+                if(pos){
+
+                    var middle = {
+                        x: Math.round(pos.x + width/2), 
+                        y: Math.round(pos.y + height/2)
+                    };
+                    robot.click(middle.x, middle.y);
+                    log('Click button ' + fileName + ' ' + middle.x + ', ' +  middle.y)
+                    sleep(2000)
+                    return true
+                }  
+            }
+        }
+        imgad.recycle();
+    }
+    return false
+}
+//------
 function PrintPixel(img, point)
 {
     var txt = "x: " +  point.x + " y: " +  point.y;
@@ -1154,8 +1201,12 @@ function PressNitro()
     robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
 }
 //------
-function PressBrake() {
-    robot.click(profile.width * 1 / 5, profile.height / 2);
+function PressBrake(duration) {
+    if (duration > 0) {
+        robot.press(profile.width * 1 / 5, profile.height / 2, duration);
+    } else {
+        robot.click(profile.width * 1 / 5, profile.height / 2);
+    }
 }
 //------
 function Restart(appName){
@@ -1315,6 +1366,8 @@ function RestartWithReset(appName){
     var mpStatus = mpCheckState();
     if (mpStatus = "unknow")
     {
-        robot.back();
+        if (!Closer())
+            robot.back();
     }    
 }
+                                        

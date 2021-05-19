@@ -28,12 +28,11 @@ var mp2CarPick = {
     // gold
     gold: [13, 14,15,16,18,20,22,23],
     // silver
-    silver: [5, 8, 10, 11, 12, 13, 15],
+    silver: [5, 8, 11, 12, 13, 15],
     // bronze
-    bronze: [1,2,3,4,5,6,7,8]
+    bronze: [1,2,3,4,5]
 };
-var chCarPick = [3,11,14,17,18,20,22,25,27,31];
-
+var chCarPick = [11,13,17,19,21,23,26,27,29]
 module.exports = {
     traceOn: false,
     width: 2340,
@@ -42,7 +41,8 @@ module.exports = {
     networkGamesCount: 2,
     eventPage: 3,
     networkPage: 4,
-    carHuntPosition: -8, // negative values mean from the end
+    carHuntPosition: 4, // negative values mean from the end
+    AdCloserFolder: './AdCloser/', 
     // Multiplayer 1 data
     mp1: {
         levelName : mpLevelName,
@@ -63,7 +63,7 @@ module.exports = {
     ch:{
         start: { x: 1743, y: 900, color: '#c3fb12' },
         carPick : chCarPick,
-        carPickMode: "down",
+        carPickMode: "flat",
         
         noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
 		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
@@ -150,12 +150,13 @@ module.exports = {
         firstCar: { x: 406, y: 633, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
-        distance: { x: 674 + 26, y: 345 },
+        distance: { x: 674 + 30, y: 345 }, //26-60fps
         
         // First car
         firstCarFlat: { x: 223, y: 640, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
-        distanceFlat: { x: 696 + 26, y: 357 },
+        distanceFlat: { x: 696 + 30, y: 357 }, //26-60fps
     }
-}
+}   
+///////////
