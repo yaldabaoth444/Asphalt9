@@ -3,19 +3,18 @@ var mpLevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
 var mpStatus = [false,   true,   true,   true,   true];  
 //             legend  platinum  gold   silver  bronze
 var mpCarPick = {
-    // legend
     legend: [1, 2, 3, 4],
-    // platinum
     platinum: [1,2,4,5,6,7,9,11,12,13,14,15],
-    // gold
     gold: [14,15,17,18,20,22,23,24,26,7,3],
-    //gold: [6,8,12,18,20,22,23,24,28], //ss
-    // silver
     silver: [22,23,20,19,16,8,10,11,12,15,7,13],
-    //silver: [21,22,19,18,15,14,13,7], //ss
-    // bronze
     bronze: [7, 13, 16]
-    //bronze:[20,18,15,13] //ss
+};
+var mpCarPickSS = {
+    legend: [1, 2, 3, 4],
+    platinum: [1,2,4,5,6,7,9,11,12,13,14,15],
+    gold: [6,8,11,12,13,18,20,22,23,24,26], 
+    silver: [21,22,23,20,19,15,14,16,7], //ss
+    bronze: [21,19,15,13] //ss
 };
 var mp2LevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
 var mp2Status = [ false,   false,  false,   false,   true];
@@ -30,9 +29,10 @@ var mp2CarPick = {
     // silver
     silver: [5, 8, 11, 12, 13, 15],
     // bronze
-    bronze: [1,2,3,4,5]
+    bronze: [1,2,3,4,5,6]
 };
-var chCarPick = [11,13,17,19,21,23,26,27,29]
+var chCarPick = [11,13,17,19,21,23,26,27,29];
+//var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
 module.exports = {
     traceOn: false,
     width: 2340,
@@ -42,12 +42,13 @@ module.exports = {
     eventPage: 3,
     networkPage: 4,
     carHuntPosition: 4, // negative values mean from the end
-    AdCloserFolder: './AdCloser/', 
+    adCloserFolder: './AdCloser/', 
+    routeSelector: './TrafficSigns/',
     // Multiplayer 1 data
     mp1: {
         levelName : mpLevelName,
         status : mpStatus,
-        carPick : mpCarPick,
+        carPick : mpCarPickSS,
         game: 1,
         carPickMode: "ordinary",
     },
@@ -64,7 +65,6 @@ module.exports = {
         start: { x: 1743, y: 900, color: '#c3fb12' },
         carPick : chCarPick,
         carPickMode: "flat",
-        
         noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
 		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
     },
