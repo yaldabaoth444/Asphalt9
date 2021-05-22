@@ -29,7 +29,11 @@ module.exports = {
         },
         AdCloser()
         {
-            return Closer();
+            return ImageClicker(profile.adCloserFolder);
+        },
+        AdCloser2()
+        {
+            return ImageClicker('./AdCloser2/');
         }
     },
     //==========================================================================
@@ -85,7 +89,7 @@ module.exports = {
                         if ((now - timer) > 30000) {
                             toastLog("(mp-gh)blocked!restart!" + mpCheckState(true));
                             timer = new Date().getTime();
-                            if (!Closer())
+                            if (!ImageClicker(profile.adCloserFolder))
                                 robot.back();
                             sleep(2000);
                             stacked++;
@@ -184,7 +188,7 @@ module.exports = {
                         if ((now - timer) > 300000) {
                             toastLog("(mp-br)blocked!restart!" + mpCheckState(true));
                             timer = new Date().getTime();
-                            if (!Closer())
+                            if (!ImageClicker(profile.adCloserFolder))
                                 robot.back();
                             sleep(2000);
                             stacked++;
@@ -266,7 +270,7 @@ module.exports = {
                 var nowTime = new Date().getTime();
                 if ((nowTime - runTime) > 250000) {
                     toastLog("(mp-run)blocked!restart!" + mpCheckState(true));
-                    if (!Closer())
+                    if (!ImageClicker(profile.adCloserFolder))
                         robot.back();
 	                sleep(2000);
                     break;
@@ -288,7 +292,9 @@ module.exports = {
                     // reset accidental exit 
                     tries = 0;
                     PressNitro();
-                    PressNitro();
+                    //PressNitro();
+                    if (profile.routeSelector)
+                        ImageClicker(profile.routeSelector);
                 }
                 sleep(950);
             }
@@ -386,7 +392,7 @@ module.exports = {
                             }
                             else
                             {*/
-                                if (!Closer())
+                                if (!ImageClicker(profile.adCloserFolder))
                                     robot.back();
     	                        sleep(2000);
                             }
@@ -491,7 +497,7 @@ module.exports = {
                         if ((now - timer) > 300000) {
                             toastLog("(ch-br)blocked!restart!" + chCheckState(true));
                             timer = new Date().getTime();
-                            if (!Closer())
+                            if (!ImageClicker(profile.adCloserFolder))
                                 robot.back();
     	                    sleep(2000);
                         }
@@ -1151,9 +1157,9 @@ function IsFlashingButton(point, timeoutSec)
     return false;    
 }
 //------
-function Closer()
+function ImageClicker(folder)
 {
-    var folder = profile.AdCloserFolder;
+    //var folder = profile.adCloserFolder;
     if (!folder)
         return false;
     var list = files.listDir(folder);
@@ -1167,7 +1173,7 @@ function Closer()
                 var templatePath = files.join(folder, fileName);
                 var template = images.read(templatePath);
 
-                var pos = images.findImage(imgad, template);
+                var pos = images.findImage(imgad, template, {threshold:0.8});
                 width = template.getWidth();
                 height = template.getHeight();
                 template.recycle();
@@ -1179,7 +1185,7 @@ function Closer()
                     };
                     robot.click(middle.x, middle.y);
                     log('Click button ' + fileName + ' ' + middle.x + ', ' +  middle.y)
-                    sleep(2000)
+                    //sleep(2000)
                     return true
                 }  
             }
@@ -1188,6 +1194,7 @@ function Closer()
     }
     return false
 }
+
 //------
 function PrintPixel(img, point)
 {
@@ -1244,7 +1251,7 @@ function Restart(appName){
 function RestartWithReset(appName){
     log("Restart>> " + appName);
     openAppSetting(getPackageName(appName));
-    sleep(1500);
+    sleep(3500);
 
     // close
     robot.click(950, 1020);
@@ -1353,6 +1360,17 @@ function RestartWithReset(appName){
         sleep(500);
     } 
     
+    c = 0;
+    sleep(500);
+    var res = mpCheckState();
+    while(res == "unknow") {
+        robot.swipe(2000, 400, 500, 400, 400);
+        if (!Closer('./AdCloser2/'))
+            robot.back();
+        sleep(5000); 
+        res = mpCheckState();   
+    }
+    /*
     robot.click(1770, 870); //ok
     sleep(12000);
     log("ok1");            
@@ -1366,8 +1384,8 @@ function RestartWithReset(appName){
     var mpStatus = mpCheckState();
     if (mpStatus = "unknow")
     {
-        if (!Closer())
+        if (!Closer('./AdCloser2/'))
             robot.back();
-    }    
-}
+    }       */
+}       
                                         
