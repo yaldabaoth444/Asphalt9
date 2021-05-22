@@ -15,6 +15,7 @@ Already done: \ō͡≡o˞̶
 - car hunt
 - options for choosing cars in the garage (ordinary/none/flat/up|down)
 - restart app when stuck
+- route selection (by image recognition)
 
 TODO:
 - infinite hunting
