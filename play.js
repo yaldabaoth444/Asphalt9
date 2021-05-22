@@ -605,6 +605,8 @@ module.exports = {
                         PressBrake();
                     }
                     PressNitro();
+                    if (profile.routeSelector)
+                        ImageClicker(profile.routeSelector);
                 }
                 sleep(950);
             }
