@@ -29,7 +29,7 @@ var mp2CarPick = {
     // silver
     silver: [5, 8, 11, 12, 13, 15],
     // bronze
-    bronze: [1,2,3,4,5,6]
+    bronze: [1,2,3,4,5,6,7,8,9,10,11,13,14]
 };
 var chCarPick = [11,13,17,19,21,23,26,27,29];
 //var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
@@ -39,6 +39,7 @@ module.exports = {
     height: 1080,
     accountType: "google",
     networkGamesCount: 2,
+    specialPage: 2,
     eventPage: 3,
     networkPage: 4,
     carHuntPosition: 4, // negative values mean from the end
@@ -64,9 +65,15 @@ module.exports = {
     ch:{
         start: { x: 1743, y: 900, color: '#c3fb12' },
         carPick : chCarPick,
-        carPickMode: "flat",
+        carPickMode: "up",
         noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
 		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
+
+        specialSelector: { x: 442, y:234, color: '#fc0155'},
+        specialSelected: { x: 1218, y:246, color: '#ed2c23'},
+        specialHunt: { x: 578, y:909, color: '#0e7c9c'},
+        specialStart: { x: 1857, y: 729, color: '#c3fb12' },
+        specialNext: { x: 1746, y: 927, color: '#c3fb12' },
     },
     common: {
         // The top token icon = #0090ff blue, there will be color difference

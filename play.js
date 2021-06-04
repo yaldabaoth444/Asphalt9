@@ -7,6 +7,7 @@ var timer = new Date().getTime();
 
 var lastLevel = 0;
 var lastCar   = 0;
+var routeRegion = [850, 150, 650, 160];
 
 module.exports = {
     base : {
@@ -294,7 +295,7 @@ module.exports = {
                     PressNitro();
                     //PressNitro();
                     if (profile.routeSelector)
-                        ImageClicker(profile.routeSelector);
+                        ImageClicker(profile.routeSelector, routeRegion);
                 }
                 sleep(950);
             }
@@ -378,20 +379,6 @@ module.exports = {
                             // exclusive
                             if (tries > 3)
                             {
-/*                                tries = 0;
-                                var img = captureScreen();
-                                if (isEquals(img, {x: 2145, y: 72, color: "#ffffff"}))
-                                {
-                                   robot.click(2145, 72);
-                                } 
-                                if (isSimilar(img, {x: 2130, y: 81, color: "#39393c"}, 3)) 
-                                {
-                                   robot.click(2130, 81);
-                                }
-                                sleep(2000);
-                            }
-                            else
-                            {*/
                                 if (!ImageClicker(profile.adCloserFolder))
                                     robot.back();
     	                        sleep(2000);
@@ -606,7 +593,7 @@ module.exports = {
                     }
                     PressNitro();
                     if (profile.routeSelector)
-                        ImageClicker(profile.routeSelector);
+                        ImageClicker(profile.routeSelector, routeRegion);
                 }
                 sleep(950);
             }
@@ -689,6 +676,314 @@ module.exports = {
         state()
         {   
             return chCheckState();
+        }
+    },
+    // CarHunt
+    chse:{
+        goingHome(){
+            var tries = 0;
+            var Flag = false;
+            timer = new Date().getTime();
+            while (!Flag){
+
+                var chStatus = chseCheckState();
+                if (chStatus != "unknow")
+                    timer = new Date().getTime();
+                
+                switch(chStatus){
+
+                    case "home": 
+                    case "index":
+                    case "events":{
+                        Flag = true;
+                        break;
+                    }
+                    
+                    case "start":
+                    case "hunt":
+                    case "dialog": {
+                        robot.back();
+                        sleep(2000);
+                        break;
+                    }
+                    
+                    case "race": {
+                        sleep(5000);
+                        break;
+                    }
+                    
+                    case "next": {
+                        sleep(2000);
+                        robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                        break;
+                    } 
+                    
+                    case "unknow": {
+                        var now = new Date().getTime();
+                        if ((now - timer) > 15000) {
+                            tries++;
+                            toastLog("(ch-gh)blocked!restart!" + chseCheckState(true));
+                            timer = new Date().getTime();
+                            // exclusive
+                            if (tries > 3)
+                            {
+                                if (!ImageClicker(profile.adCloserFolder))
+                                    robot.back();
+                                sleep(2000);
+                            }
+                            
+                        }                    
+                    }
+                }
+                sleep(1000);
+            }
+        }, 
+        //----------------------------------------------------------------------
+        beforeRun() {
+            var tries = 0;
+            var last = "";
+            var Flag = false;
+            var chStatus = ""; 
+            while (!Flag){
+                
+                chStatus = chseCheckState();
+                if (chStatus != "unknow")
+                    timer = new Date().getTime();
+
+                // count sequence of chStatus
+                if (last == chStatus) {
+                     tries++;
+                } else {
+                     tries = 1;
+                     last = chStatus;
+                }
+                
+                if (tries > 250) {
+                    toastLog("go back by tries overflow for " + chStatus);
+                    robot.back();
+                    sleep(2000);
+                    tries = 1;
+                }
+                
+                switch(chStatus){
+                    case "home": {
+                        if (tries > 2 && last == "home") {
+                            robot.click(profile.ch.specialSelector.x, profile.ch.specialSelector.y);
+                            sleep(2000);
+                        }
+                        break;
+                    }
+                    
+                    case "index": {
+                        if (tries > 2 && last == "index") {
+                            pressMarkerButton(profile.specialPage, profile.common.pagesMarker);
+                            sleep(2000);
+                        }
+                        break;
+                    }
+                    
+                    case "events": {
+                        if (tries > 2 && last == "events") {
+                            robot.click(profile.ch.specialStart.x, profile.ch.specialStart.y);
+                            sleep(2000);
+                        }
+                        break;
+                    }
+                    
+                    case "hunt": {
+                        if (tries > 2 && last == "hunt") {
+                            robot.click(profile.ch.specialHunt.x, profile.ch.specialHunt.y);
+                            sleep(2000);
+                        }
+                        break;
+                    }
+                    
+                    case "start": {
+                        if (tries > 2 && last == "start") {
+                            sleep(2000);
+                            Flag = true;
+                        }
+                        break;
+                    }
+                    
+                    case "race": {
+                        sleep(2000);
+                        break;
+                    }
+                    
+                    case "next": {
+                        if (tries > 2 && last == "next") {
+                            sleep(2000);
+                            robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                        }
+                        break;
+                    }
+                    
+                    case "dialog": {
+                        if (tries > 2 && last == "dialog") {
+                            robot.back();
+                            sleep(2000);
+                        }                           
+                        break;            
+                    } 
+                    
+                    case "unknow": {
+                        var now = new Date().getTime();
+                        if ((now - timer) > 300000) {
+                            toastLog("(ch-br)blocked!restart!" + chCheckState(true));
+                            timer = new Date().getTime();
+                            if (!ImageClicker(profile.adCloserFolder))
+                                robot.back();
+                            sleep(2000);
+                        }
+                    }
+                }
+                sleep(500);
+             }
+        }, 
+        chooseCar() {
+            robot.click(profile.ch.specialNext.x, profile.ch.specialNext.y);
+            sleep(4000);
+            
+            if (profile.ch.carPickMode == "up" || profile.ch.carPickMode == "down")
+            {
+                if (profile.ch.carPickMode == "up")
+                    robot.click(profile.width/2, profile.garage.firstCar.y);
+                else
+                    robot.click(profile.width/2, profile.garage.firstCar.y + profile.garage.distance.y);
+                sleep(2000);
+                
+                if (IsFlashingButton(profile.garage.start, 15))
+                {
+                    robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                    return true;
+                }
+    
+                toastLog("\nNo fuel.");
+                base.back();
+                sleep(1500);
+                base.back();
+                sleep(1500);
+            }
+            
+            if (profile.ch.carPickMode == "flat")
+            {     
+                var FOUND = hasFuelFlat(profile.ch.carPick);
+                //log("chooseCar>> FOUND = " + FOUND);            
+                if (FOUND){
+                    // Find a car with gas
+                    sleep(4000);
+                    
+                    // Check if car available fuel
+                    if (IsFlashingButton(profile.garage.start, 15))
+                    {
+                        //log("chooseCar>> READY");
+                        robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                        return true;
+                    }
+                }
+                lastCar   = 0;    
+                toastLog("No fuel.");
+            }
+            
+            return false;
+        },  
+        //----------------------------------------------------------------------
+        run(cnt) {
+                        
+            var runTime = new Date().getTime();
+            var tries = 0;
+            var brkc = 4;
+            var chStatus = "";
+            // Check if you have reached the checkout interface
+            while (true) {
+                var nowTime = new Date().getTime();
+                if ((nowTime - runTime) > 240000) {
+                    toastLog("(ch-run)blocked!restart!" + chCheckState(true));
+                    robot.back();
+                    sleep(2000);
+                    robot.back();
+                    sleep(2000);
+                    robot.back();
+                    sleep(2000);
+                    break;
+                }
+                
+                chStatus = chCheckState();
+                // exit conditions
+                if (!(chStatus == "unknow" || chStatus == "race")) {
+                    // waiting 3 times of no race condition
+                    tries++;
+                    if (tries > 2)
+                    {
+                        toastLog("mp-run exit with state = " + chStatus);
+                        if (chStatus == "dialog")
+                        {
+                            robot.back();
+                            sleep(2000);
+                            robot.back();
+                            sleep(2000);
+                            robot.back();
+                            sleep(2000);
+                        }
+                        break;
+                    }
+                }
+                // If you have not finished running, you can still click on nitrogen
+                else {
+                    // reset accidental exit 
+                    tries = 0;
+                    brkc--;
+                    if (brkc < 0)
+                    {
+                        brkc = 2;
+                        PressBrake();
+                    }
+                    PressNitro();
+                    if (profile.routeSelector)
+                        ImageClicker(profile.routeSelector, routeRegion);
+                }
+                sleep(950);
+            }
+            toastLog(++cnt.CH + " car hunt done, t.avg" +parseInt((nowTime - startTime)/1000/cnt.CH)+" second.");
+        },
+        //----------------------------------------------------------------------   
+        test(option) {
+            //toastLog("chCheckState " + chCheckState());
+            var img = captureScreen();
+            toastLog(PrintPixel(img, {x: 2130, y: 81, color: "#39393b"}));
+        },
+        adjustSwipe(carNumber, duration){
+            swipes = parseInt( ( carNumber - 1) / 2 );
+            var firstCar = profile.garage.firstCarFlat;
+            var distance = profile.garage.distanceFlat;
+            for(let j = 0; j < swipes; j++) {
+                sleep(500);
+                toast("<---");
+                robot.swipe(firstCar.x + distance.x, firstCar.y, firstCar.x, firstCar.y, duration);
+                sleep(500);
+            }
+            var carPoint = {
+                x: firstCar.x,
+                y: firstCar.y + distance.y * ((carNumber - 1) % 2)
+            }
+            
+            var img = captureScreen();
+            toastLog(PrintPixel(img, carPoint));
+        },
+        swipeEventsAtEnd()
+        {
+            //eventsMarker: { x: 263, y: 1055, color: '#c3fb12', delta: 281, pressXOffset: 0, pressYOffset: -200 },
+            var mrkY = profile.common.eventsMarker.y + profile.common.eventsMarker.pressYOffset;
+            toastLog(mrkY); 
+            for(let j = 0; j < 5; j++) {
+                robot.swipe(2000, mrkY, 500, mrkY, 400);
+                sleep(500);
+            } 
+        },
+        state()
+        {   
+            return chseCheckState();
         }
     }
 }
@@ -884,6 +1179,105 @@ function chCheckState(debug) {
         state = "hunt";
 
     else if (isToken && isCredit && isBack && (pageSelected == 0) && (eventSelected == 0) && isStart)
+        state = "start";
+                
+    else if (!isToken && !isCredit && !isBack && isRace)
+        state = "race";
+        
+    else if (isNext && !isCredit && !isToken)
+        state = "next";
+
+    return state;              
+}
+//------
+function chseCheckState(debug) {
+
+    var state = "unknow";
+
+    var img = captureScreen();
+    
+    var isToken = isEquals(img, profile.common.token);
+    var isCredit = isEquals(img, profile.common.credit);
+    
+    // Back button
+    var isBack = isSimilar(img, profile.common.back, 5) && isSimilar(img, profile.common.backward, 5);
+    
+    var pageSelected = getMarker(img, profile.common.pagesMarker);
+    var isSpecialPage = pageSelected == profile.specialPage;
+    
+    var isEventHome = isEquals(img, profile.ch.specialSelector);
+    var isEventSelected = isEquals(img, profile.ch.specialSelected);
+    var isCarHunt = isEquals(img, profile.ch.specialHunt);
+
+    // carhunt start button
+    var start = images.pixel(img, profile.ch.specialNext.x, profile.ch.specialNext.y);
+    var isStart = isEquals(img, profile.ch.specialNext);
+     
+    var racePause = isSimilar(img, profile.common.racePause, 3);
+    var raceTD = isSimilar(img, profile.common.raceTD, 3);
+    var raceTime = isSimilar(img, profile.common.raceTime, 20);
+    var isRace = racePause && raceTD && raceTime; 
+    
+    // Continue button
+    var isNext = isButtonEdge(img, profile.mp.continue1, true) 
+              || isButtonEdge(img, profile.mp.continue2, true) 
+              || isButtonEdge(img, profile.mp.continue3, true)
+              || isButtonEdge(img, profile.mp.continue4, true)
+              || isButtonEdge(img, profile.mp.continue5, true)
+              || isButtonEdge(img, profile.mp.continue6, true);
+              
+    // Various dialogs
+    var errorleft = isSimilar(img, profile.mp.errorleft, 3);
+    var errorright = isSimilar(img, profile.mp.errorright, 3);
+    
+    var noTicketLeft = isSimilar(img, profile.ch.noTicketLeft, 3);
+    var noTicketRight = isSimilar(img, profile.ch.noTicketRight, 3);
+    
+    var isDialog = (errorleft && errorright) || (noTicketLeft && noTicketRight) ;
+
+    if (debug) 
+    {
+        var txt = "";
+        if (isToken)
+            txt += "Token ";
+
+        if (isCredit)
+            txt += "Credit ";
+        
+        if (isBack)
+            txt += "Back ";
+        
+        txt += "Page" + pageSelected + " ";
+        //txt += "Event" + eventSelected + " ";
+        
+        if (isStart)
+            txt += "Start ";
+                
+        if (isRace)
+            txt += "Race ";    
+        
+        if (isDialog)
+            txt += "Dialog ";
+                            
+        return txt;
+    }
+    
+    if (isDialog)
+        state = "dialog";
+        
+    else if (isToken && isCredit && !isBack && isSpecialPage && !isEventSelected)
+        state = "home";
+
+    else if (isToken && isCredit && !isBack && !isSpecialPage)
+        state = "index";
+    
+    else if (isToken && isCredit && !isBack && isSpecialPage && isEventSelected && !isCarHunt)
+        state = "events";
+    
+    else if (isToken && isCredit && isBack && isCarHunt)
+        state = "hunt";
+
+    else if (isToken && isCredit && isBack && isStart)
         state = "start";
                 
     else if (!isToken && !isCredit && !isBack && isRace)
@@ -1159,7 +1553,7 @@ function IsFlashingButton(point, timeoutSec)
     return false;    
 }
 //------
-function ImageClicker(folder)
+function ImageClicker(folder, region)
 {
     //var folder = profile.adCloserFolder;
     if (!folder)
@@ -1174,8 +1568,11 @@ function ImageClicker(folder)
             {
                 var templatePath = files.join(folder, fileName);
                 var template = images.read(templatePath);
-
-                var pos = images.findImage(imgad, template, {threshold:0.8});
+                var pos = null;
+                if (region)
+                    pos = images.findImage(imgad, template, {threshold:0.8, region: region});
+                else
+                    pos = images.findImage(imgad, template, {threshold:0.8});    
                 width = template.getWidth();
                 height = template.getHeight();
                 template.recycle();
