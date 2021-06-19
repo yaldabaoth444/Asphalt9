@@ -35,6 +35,111 @@ module.exports = {
         AdCloser2()
         {
             return ImageClicker('./AdCloser2/');
+        },
+        AdInfinte(cnt)
+        {
+            c = 0;
+            sleep(500);
+            var res = mpCheckState();
+            log('state = ' + res);
+            while(res == "unknow") {
+                robot.swipe(2000, 400, 500, 400, 400);
+                sleep(1000); 
+                //if (!ImageClicker('./AdInfinite-B/'))
+                ImageClicker('./AdInfinite-B/')
+                sleep(1000); 
+                robot.back();
+                sleep(5000); 
+                res = mpCheckState();   
+                log('state = ' + res);
+            }
+
+            //go to the store
+            if (res == "index" || res == "home")
+            {
+                robot.click(1200,50); //store
+                sleep(6000); 
+                robot.click(1200,50); //store to begin
+                sleep(3000); 
+                log('store');
+            }
+
+            //find > free button
+            var pos = FindImage('./AdInfinite-1/', 'Free.png');
+            while(pos == null && c < 5) {
+                robot.swipe(2000, 400, 500, 400, 400);
+                sleep(1000); 
+                c++;
+                pos = FindImage('./AdInfinite-1/', 'Free.png');
+            }
+
+            //go free ad
+            if (pos)
+               robot.click(pos.x, pos.y); 
+            else
+                return "error";
+            log('free ad');
+            sleep(6000);
+
+            
+            //let see advert
+            c = 0;
+            pos = FindImage('./AdInfinite-1/', 'See-ad.png');
+            while(pos == null && c < 20) {
+                c++;
+                sleep(200); 
+                pos = FindImage('./AdInfinite-1/', 'See-ad.png');
+            }
+            if (pos)
+               robot.click(pos.x, pos.y); 
+            else
+                return "noads";
+            log('see ad');
+            sleep(60000);
+            log('60 sec gone');
+
+            c = 0;
+            var ic = 0;
+            res = mpCheckState();
+            log('state = ' + res);
+            while(res != "home" && res != "index" /*&& c < 5*/) {
+                //c++;
+                if (ImageClicker('./AdCloser/'))
+                {
+                    sleep(10000);
+                    ic++;
+                    if (ic > 3)
+                        robot.back();
+                    if (ic > 10)
+                        ImageClicker('./AdInfinite-S/')       
+                    if (ic > 12)
+                        return "error";
+                }
+                else
+                {
+                    robot.back();
+                }
+                sleep(5000); 
+                res = mpCheckState();
+                log('state = ' + res);
+            }
+            if (res == "unknow")
+                return "error";
+
+            /*
+            c = 0;
+            pos = FindImage('./AdInfinite-1/', 'See-ad.png');
+            while(pos == null && c < 3) {
+                c++;
+                if (!ImageClicker('./AdCloser/'))
+                    robot.back();
+                log('try back ' + c);
+                sleep(5000); 
+                pos = FindImage('./AdInfinite-1/', 'See-ad.png');
+            }
+            if (pos == null)
+                return "noads";*/
+            return "ok";
         }
     },
     //==========================================================================
@@ -232,7 +337,7 @@ module.exports = {
        
                 for (let i = lastLevel; i < 5 && !FOUND; i++){
                     if (option.status[i]){
-                        if (hasFuel(option.levelName[i], option.carPick)){
+                        if (hasFuel(option.levelName[i], option.carPick, option.carPickSwipeLimit)){
                             FOUND = true;
                             lastLevel = i;
                         }
@@ -303,10 +408,10 @@ module.exports = {
         },
         //----------------------------------------------------------------------
         test(option) {
-            var img = captureScreen();
-            toastLog(PrintPixel(img, profile.mp.game1of2));
-            toastLog(PrintPixel(img, profile.mp.game2of2));
-            //toastLog("mpCheckState " + mphCheckState());
+            //var img = captureScreen();
+            //toastLog(PrintPixel(img, profile.mp.game1of2));
+            //toastLog(PrintPixel(img, profile.mp.game2of2));
+            toastLog("mpCheckState " + mpCheckState());
         },
         adjustSwipe(carNumber, duration){
             swipes = parseInt( ( carNumber - 1) / 2 );
@@ -315,7 +420,7 @@ module.exports = {
             for(let j = 0; j < swipes; j++) {
                 sleep(500);
                 toast("<---");
-                robot.swipe(firstCar.x + distance.x, firstCar.y, firstCar.x, firstCar.y, duration);
+                robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
                 sleep(500);
             }
             var carPoint = {
@@ -520,7 +625,7 @@ module.exports = {
             
             if (profile.ch.carPickMode == "flat")
             {     
-                var FOUND = hasFuelFlat(profile.ch.carPick);
+                var FOUND = hasFuelFlat(profile.ch.carPick, profile.ch.carPickSwipeLimit);
                 //log("chooseCar>> FOUND = " + FOUND);            
                 if (FOUND){
                     // Find a car with gas
@@ -612,7 +717,7 @@ module.exports = {
             for(let j = 0; j < swipes; j++) {
                 sleep(500);
                 toast("<---");
-                robot.swipe(firstCar.x + distance.x, firstCar.y, firstCar.x, firstCar.y, duration);
+                robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
                 sleep(500);
             }
             var carPoint = {
@@ -868,7 +973,7 @@ module.exports = {
             
             if (profile.ch.carPickMode == "flat")
             {     
-                var FOUND = hasFuelFlat(profile.ch.carPick);
+                var FOUND = hasFuelFlat(profile.ch.carPick, profile.ch.carPickSwipeLimit);
                 //log("chooseCar>> FOUND = " + FOUND);            
                 if (FOUND){
                     // Find a car with gas
@@ -960,7 +1065,7 @@ module.exports = {
             for(let j = 0; j < swipes; j++) {
                 sleep(500);
                 toast("<---");
-                robot.swipe(firstCar.x + distance.x, firstCar.y, firstCar.x, firstCar.y, duration);
+                robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
                 sleep(500);
             }
             var carPoint = {
@@ -1289,7 +1394,7 @@ function chseCheckState(debug) {
     return state;              
 }
 //------
-function hasFuel(level, cars) {
+function hasFuel(level, cars, swipeLimit) {
     //log('checkFuel(' + level + ')');
     var firstCar = profile.garage.firstCar;
     var distance = profile.garage.distance;
@@ -1304,16 +1409,22 @@ function hasFuel(level, cars) {
         sleep(1000);
         //log('car = ' + n);   
 		swipes = parseInt( ( n - 1) / 2 );
+        var sLock = 0;
+        if (swipeLimit && swipes > swipeLimit)
+        {    
+            sLock = swipes - swipeLimit;
+            swipes = swipeLimit;
+        }
         // slide left required number of times
 		for(let j = 0; j < swipes; j++) {
 		    sleep(500);
 		    toast("<---");
-		    robot.swipe(firstCar.x + distance.x, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
+		    robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
 		    sleep(500);
 		}
 						  
         var carPoint = {
-            x: firstCar.x,
+            x: firstCar.x + (sLock * distance.x),
             y: firstCar.y + distance.y * ((n - 1) % 2)
         }
         
@@ -1322,7 +1433,7 @@ function hasFuel(level, cars) {
 
         if (colors.equals(carcheckState, firstCar.colorFull)) {
             lastCar = i;
-            robot.click( carPoint.x + distance.x / 2 , parseInt(carPoint.y - distance.y / 2 ));
+            robot.click( carPoint.x + ((distance.x + distance.inertia) / 2) , parseInt(carPoint.y - distance.y / 2 ));
             toastLog(level+"-car-("+n+")-has-fuel");
             return true;
         }
@@ -1335,7 +1446,7 @@ function hasFuel(level, cars) {
     return false;
 }
 //------
-function hasFuelFlat(cars) {
+function hasFuelFlat(cars, swipeLimit) {
     log('checkFuel');
     var firstCar = profile.garage.firstCarFlat;
     var distance = profile.garage.distanceFlat;
@@ -1347,17 +1458,23 @@ function hasFuelFlat(cars) {
         sleep(1000);
         //log('car = ' + n);   
 		swipes = parseInt( ( n - 1) / 2 );
+        var sLock = 0;
+        if (swipeLimit && swipes > swipeLimit)
+        {    
+            sLock = swipes - swipeLimit;
+            swipes = swipeLimit;
+        }
         // slide left required number of times
 		for(let j = 0; j < swipes; j++) {
 		    //let dur = 2000;
 		    sleep(500);
 		    toast("<---");
-		    robot.swipe(firstCar.x + distance.x, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
+		    robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
 		    sleep(500);
 		}
 						  
         var carPoint = {
-            x: firstCar.x,
+            x: firstCar.x + (sLock * distance.x),
             y: firstCar.y + distance.y * ((n - 1) % 2)
         }
         
@@ -1366,7 +1483,7 @@ function hasFuelFlat(cars) {
 
         if (colors.equals(carcheckState, firstCar.colorFull)) {
             lastCar = i;
-            robot.click( carPoint.x + distance.x / 2 , parseInt(carPoint.y - distance.y / 2 ));
+            robot.click( carPoint.x + ((distance.x + distance.inertia) / 2) , parseInt(carPoint.y - distance.y / 2 ));
             toastLog("car-("+n+")-has-fuel");
             return true;
         }
@@ -1593,7 +1710,33 @@ function ImageClicker(folder, region)
     }
     return false
 }
+function FindImage(folder, fileName, region)
+{
+    if (!folder)
+        return null;
+    var path = files.join(folder, fileName);
+    if (!files.isFile(path))
+        return null;
+    var imgad = captureScreen();
+    var template = images.read(path);
+    var pos = null;
+    if (region)
+        pos = images.findImage(imgad, template, {threshold:0.8, region: region});
+    else
+        pos = images.findImage(imgad, template, {threshold:0.8});    
+    width = template.getWidth();
+    height = template.getHeight();
+    template.recycle();
+    if(pos){
 
+        var middle = {
+            x: Math.round(pos.x + width/2), 
+            y: Math.round(pos.y + height/2)
+        };
+        return middle;
+    } 
+    return null;
+}
 //------
 function PrintPixel(img, point)
 {
@@ -1764,7 +1907,7 @@ function RestartWithReset(appName){
     var res = mpCheckState();
     while(res == "unknow") {
         robot.swipe(2000, 400, 500, 400, 400);
-        if (!Closer('./AdCloser2/'))
+        if (!ImageClicker('./AdCloser2/'))
             robot.back();
         sleep(5000); 
         res = mpCheckState();   

@@ -4,9 +4,9 @@ var mpStatus = [false,   true,   true,   true,   true];
 //             legend  platinum  gold   silver  bronze
 var mpCarPick = {
     legend: [1, 2, 3, 4],
-    platinum: [1,2,4,5,6,7,9,11,12,13,14,15],
-    gold: [14,15,17,18,20,22,23,24,26,7,3],
-    silver: [22,23,20,19,16,8,10,11,12,15,7,13],
+    platinum: [1,2,3,4,5,6,7,8,9,10,12,13,14,15,16],
+    gold: [14,16,17,18,20,22,23,24,26,27,29,30,31,32,7,8,9],
+    silver: [22,24,20,21,16,8,10,11,12,15,7,13],
     bronze: [7, 13, 16]
 };
 var mpCarPickSS = {
@@ -29,7 +29,7 @@ var mp2CarPick = {
     // silver
     silver: [5, 8, 11, 12, 13, 15],
     // bronze
-    bronze: [1,2,3,4,5,6,7,8,9,10,11,13,14]
+    bronze: [1,2,3,4,5,6,7,8]
 };
 var chCarPick = [11,13,17,19,21,23,26,27,29];
 //var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
@@ -49,7 +49,7 @@ module.exports = {
     mp1: {
         levelName : mpLevelName,
         status : mpStatus,
-        carPick : mpCarPickSS,
+        carPick : mpCarPick,
         game: 1,
         carPickMode: "ordinary",
     },
@@ -60,6 +60,7 @@ module.exports = {
         carPick : mp2CarPick,
         game: 2,
         carPickMode: "ordinary",
+        carPickSwipeLimit: 1,
     },
     // Start button
     ch:{
@@ -69,7 +70,7 @@ module.exports = {
         noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
 		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
 
-        specialSelector: { x: 442, y:234, color: '#fc0155'},
+        specialSelector: { x: 486, y:606, color: '#fc0155'},
         specialSelected: { x: 1218, y:246, color: '#ed2c23'},
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
@@ -157,13 +158,13 @@ module.exports = {
         firstCar: { x: 406, y: 633, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
-        distance: { x: 674 + 30, y: 345 }, //26-60fps
+        distance: { x: 674, y: 345, inertia: 30 }, //26-60fps
         
         // First car
         firstCarFlat: { x: 223, y: 640, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
-        distanceFlat: { x: 696 + 30, y: 357 }, //26-60fps
+        distanceFlat: { x: 696, y: 357, inertia: 30 }, //26-60fps
     }
 }   
 ///////////
