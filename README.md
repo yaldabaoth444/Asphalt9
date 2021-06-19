@@ -23,7 +23,7 @@ TODO:
 
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
 
-LAST MODIFY:  
+Latest changes:  
 ![image](https://user-images.githubusercontent.com/25618671/122649266-78d3e280-d146-11eb-95f8-530ed53af843.png)
 
 
