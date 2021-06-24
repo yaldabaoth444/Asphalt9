@@ -67,7 +67,7 @@ module.exports = {
             //find > free button
             var pos = FindImage('./AdInfinite-1/', 'Free.png');
             while(pos == null && c < 5) {
-                robot.swipe(2000, 400, 500, 400, 400);
+                robot.swipe(1500, 400, 500, 400, 400);
                 sleep(1000); 
                 c++;
                 pos = FindImage('./AdInfinite-1/', 'Free.png');
@@ -413,18 +413,24 @@ module.exports = {
             //toastLog(PrintPixel(img, profile.mp.game2of2));
             toastLog("mpCheckState " + mpCheckState());
         },
-        adjustSwipe(carNumber, duration){
+        adjustSwipe(carNumber, duration, swipeLimit){
             swipes = parseInt( ( carNumber - 1) / 2 );
+            var sLock = 0;
+            if (swipeLimit && swipes > swipeLimit)
+            {    
+                sLock = swipes - swipeLimit;
+                swipes = swipeLimit;
+            }
             var firstCar = profile.garage.firstCar;
             var distance = profile.garage.distance;
             for(let j = 0; j < swipes; j++) {
-                sleep(500);
                 toast("<---");
+                sleep(500);
                 robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
                 sleep(500);
             }
             var carPoint = {
-                x: firstCar.x,
+                x: firstCar.x + (sLock * distance.x),
                 y: firstCar.y + distance.y * ((carNumber - 1) % 2)
             }
             
@@ -715,8 +721,8 @@ module.exports = {
             var firstCar = profile.garage.firstCarFlat;
             var distance = profile.garage.distanceFlat;
             for(let j = 0; j < swipes; j++) {
-                sleep(500);
                 toast("<---");
+                sleep(500);
                 robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
                 sleep(500);
             }
@@ -1063,8 +1069,8 @@ module.exports = {
             var firstCar = profile.garage.firstCarFlat;
             var distance = profile.garage.distanceFlat;
             for(let j = 0; j < swipes; j++) {
-                sleep(500);
                 toast("<---");
+                sleep(500);
                 robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
                 sleep(500);
             }
@@ -1417,8 +1423,8 @@ function hasFuel(level, cars, swipeLimit) {
         }
         // slide left required number of times
 		for(let j = 0; j < swipes; j++) {
+            //toast("<---");
 		    sleep(500);
-		    toast("<---");
 		    robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
 		    sleep(500);
 		}
@@ -1427,10 +1433,10 @@ function hasFuel(level, cars, swipeLimit) {
             x: firstCar.x + (sLock * distance.x),
             y: firstCar.y + distance.y * ((n - 1) % 2)
         }
-        
+        sleep(1000);
         var img = captureScreen();
         var carcheckState = images.pixel(img, carPoint.x, carPoint.y);
-
+        //log(PrintPixel(img, carPoint));
         if (colors.equals(carcheckState, firstCar.colorFull)) {
             lastCar = i;
             robot.click( carPoint.x + ((distance.x + distance.inertia) / 2) , parseInt(carPoint.y - distance.y / 2 ));
@@ -1466,9 +1472,8 @@ function hasFuelFlat(cars, swipeLimit) {
         }
         // slide left required number of times
 		for(let j = 0; j < swipes; j++) {
-		    //let dur = 2000;
+            //toast("<---");
 		    sleep(500);
-		    toast("<---");
 		    robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
 		    sleep(500);
 		}
@@ -1477,7 +1482,7 @@ function hasFuelFlat(cars, swipeLimit) {
             x: firstCar.x + (sLock * distance.x),
             y: firstCar.y + distance.y * ((n - 1) % 2)
         }
-        
+        sleep(1000);
         var img = captureScreen();
         var carcheckState = images.pixel(img, carPoint.x, carPoint.y);
 
@@ -1907,6 +1912,7 @@ function RestartWithReset(appName){
     var res = mpCheckState();
     while(res == "unknow") {
         robot.swipe(2000, 400, 500, 400, 400);
+        sleep(1000); 
         if (!ImageClicker('./AdCloser2/'))
             robot.back();
         sleep(5000); 
