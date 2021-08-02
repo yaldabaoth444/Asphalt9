@@ -10,7 +10,7 @@ installation instructions from the old version <a href = "./readme/README_EN.md"
 Already done: \ō͡≡o˞̶
 - multiplayer of the first network
 - multiplayer of the second network
-- car hunt
+- car hunt (+ in special events)
 - options for choosing cars in the garage (ordinary/none/flat/up|down)
 - restart app when stuck
 - route selection (by image recognition)
