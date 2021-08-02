@@ -16,8 +16,7 @@ Already done: \ō͡≡o˞̶
 - route selection (by image recognition)
 
 TODO:
-- infinite hunting
-<!-- ¯\\_(ツ)_/¯ -->
+ ¯\\_(ツ)_/¯  
 
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
 
