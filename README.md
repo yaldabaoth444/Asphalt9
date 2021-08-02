@@ -24,7 +24,8 @@ TODO:
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
 
 Latest changes:  
-![image](https://user-images.githubusercontent.com/25618671/127921604-6fe2caaf-4e1d-44df-b977-44d1b85b5f6c.png)
+![image](https://user-images.githubusercontent.com/25618671/127921833-0233cee2-785c-48f1-9b72-46d4bad7b2db.png)
+
 ![image](https://user-images.githubusercontent.com/25618671/122649266-78d3e280-d146-11eb-95f8-530ed53af843.png)
 
 
