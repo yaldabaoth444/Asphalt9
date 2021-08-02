@@ -1,4 +1,4 @@
-﻿"auto";
+"auto";
 const robot = require('./robot.js');
 const profile = require('./profile.js');
 
@@ -34,7 +34,7 @@ module.exports = {
         },
         AdCloser2()
         {
-            return ImageClicker('./AdCloser2/');
+            return ImageClicker('./Images/AdCloser2/');
         },
         AdInfinte(cnt)
         {
@@ -46,7 +46,7 @@ module.exports = {
                 robot.swipe(2000, 400, 500, 400, 400);
                 sleep(1000); 
                 //if (!ImageClicker('./AdInfinite-B/'))
-                ImageClicker('./AdInfinite-B/')
+                ImageClicker('./Images/AdInfinite-B/')
                 sleep(1000); 
                 robot.back();
                 sleep(5000); 
@@ -65,12 +65,12 @@ module.exports = {
             }
 
             //find > free button
-            var pos = FindImage('./AdInfinite-1/', 'Free.png');
+            var pos = FindImage('./Images/AdInfinite-1/', 'Free.png');
             while(pos == null && c < 5) {
                 robot.swipe(1500, 400, 500, 400, 400);
                 sleep(1000); 
                 c++;
-                pos = FindImage('./AdInfinite-1/', 'Free.png');
+                pos = FindImage('./Images/AdInfinite-1/', 'Free.png');
             }
 
             //go free ad
@@ -84,11 +84,11 @@ module.exports = {
             
             //let see advert
             c = 0;
-            pos = FindImage('./AdInfinite-1/', 'See-ad.png');
+            pos = FindImage('./Images/AdInfinite-1/', 'See-ad.png');
             while(pos == null && c < 20) {
                 c++;
                 sleep(200); 
-                pos = FindImage('./AdInfinite-1/', 'See-ad.png');
+                pos = FindImage('./Images/AdInfinite-1/', 'See-ad.png');
             }
             if (pos)
                robot.click(pos.x, pos.y); 
@@ -104,14 +104,14 @@ module.exports = {
             log('state = ' + res);
             while(res != "home" && res != "index" /*&& c < 5*/) {
                 //c++;
-                if (ImageClicker('./AdCloser/'))
+                if (ImageClicker('./Images/AdCloser/'))
                 {
                     sleep(10000);
                     ic++;
                     if (ic > 3)
                         robot.back();
                     if (ic > 10)
-                        ImageClicker('./AdInfinite-S/')       
+                        ImageClicker('./Images/AdInfinite-S/')       
                     if (ic > 12)
                         return "error";
                 }
@@ -193,6 +193,7 @@ module.exports = {
                     case "unknow": {
                         var now = new Date().getTime();
                         if ((now - timer) > 30000) {
+                            Screenshot("blocked");
                             toastLog("(mp-gh)blocked!restart!" + mpCheckState(true));
                             timer = new Date().getTime();
                             if (!ImageClicker(profile.adCloserFolder))
@@ -292,6 +293,7 @@ module.exports = {
                     case "unknow": {
                         var now = new Date().getTime();
                         if ((now - timer) > 300000) {
+                            Screenshot("blocked");
                             toastLog("(mp-br)blocked!restart!" + mpCheckState(true));
                             timer = new Date().getTime();
                             if (!ImageClicker(profile.adCloserFolder))
@@ -322,7 +324,7 @@ module.exports = {
             if (option.carPickMode == "none")
             {
                 // Check if car available fuel
-                if (IsFlashingButton(profile.garage.start, 15))
+                if (IsFlashingButton(profile.garage.start, 7) || IsFlashingButton(profile.garage.istart, 7))
                 {
                     log("chooseCar>> READY");
                     robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
@@ -349,7 +351,7 @@ module.exports = {
                     sleep(4000);
                     
                     // Check if car available fuel
-                    if (IsFlashingButton(profile.garage.start, 15))
+                    if (IsFlashingButton(profile.garage.start, 7) || IsFlashingButton(profile.garage.istart, 7))
                     {
                         log("chooseCar>> READY");
                         robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
@@ -375,6 +377,7 @@ module.exports = {
             while (true) {
                 var nowTime = new Date().getTime();
                 if ((nowTime - runTime) > 250000) {
+                    Screenshot("blocked");
                     toastLog("(mp-run)blocked!restart!" + mpCheckState(true));
                     if (!ImageClicker(profile.adCloserFolder))
                         robot.back();
@@ -411,7 +414,7 @@ module.exports = {
             //var img = captureScreen();
             //toastLog(PrintPixel(img, profile.mp.game1of2));
             //toastLog(PrintPixel(img, profile.mp.game2of2));
-            toastLog("mpCheckState " + mpCheckState());
+            toastLog("mpCheckState " + mpCheckState(true));
         },
         adjustSwipe(carNumber, duration, swipeLimit){
             swipes = parseInt( ( carNumber - 1) / 2 );
@@ -424,8 +427,8 @@ module.exports = {
             var firstCar = profile.garage.firstCar;
             var distance = profile.garage.distance;
             for(let j = 0; j < swipes; j++) {
-                toast("<---");
                 sleep(500);
+                //toast("<---");
                 robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
                 sleep(500);
             }
@@ -485,6 +488,7 @@ module.exports = {
                         var now = new Date().getTime();
                         if ((now - timer) > 15000) {
                             tries++;
+                            Screenshot("ch-blocked");
                             toastLog("(ch-gh)blocked!restart!" + chCheckState(true));
                             timer = new Date().getTime();
                             // exclusive
@@ -593,6 +597,7 @@ module.exports = {
                     case "unknow": {
                         var now = new Date().getTime();
                         if ((now - timer) > 300000) {
+                            Screenshot("ch-blocked");
                             toastLog("(ch-br)blocked!restart!" + chCheckState(true));
                             timer = new Date().getTime();
                             if (!ImageClicker(profile.adCloserFolder))
@@ -662,6 +667,7 @@ module.exports = {
             while (true) {
                 var nowTime = new Date().getTime();
                 if ((nowTime - runTime) > 240000) {
+                    Screenshot("ch-blocked");
                     toastLog("(ch-run)blocked!restart!" + chCheckState(true));
                     robot.back();
 	                sleep(2000);
@@ -721,8 +727,8 @@ module.exports = {
             var firstCar = profile.garage.firstCarFlat;
             var distance = profile.garage.distanceFlat;
             for(let j = 0; j < swipes; j++) {
-                toast("<---");
                 sleep(500);
+                toast("<---");
                 robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
                 sleep(500);
             }
@@ -833,6 +839,7 @@ module.exports = {
                         var now = new Date().getTime();
                         if ((now - timer) > 15000) {
                             tries++;
+                            Screenshot("ch-blocked");
                             toastLog("(ch-gh)blocked!restart!" + chseCheckState(true));
                             timer = new Date().getTime();
                             // exclusive
@@ -879,7 +886,12 @@ module.exports = {
                 switch(chStatus){
                     case "home": {
                         if (tries > 2 && last == "home") {
-                            robot.click(profile.ch.specialSelector.x, profile.ch.specialSelector.y);
+                            //robot.click(profile.ch.specialSelector.x, profile.ch.specialSelector.y);
+                            var pos = FindImage('./Images/Interface/', 'hunt-small.png');
+                            if (pos)
+                               robot.click(pos.x, pos.y);
+                            else   
+                                robot.swipe(300, 500, 300, 250, 800);
                             sleep(2000);
                         }
                         break;
@@ -941,6 +953,7 @@ module.exports = {
                     case "unknow": {
                         var now = new Date().getTime();
                         if ((now - timer) > 300000) {
+                            Screenshot("ch-blocked");
                             toastLog("(ch-br)blocked!restart!" + chCheckState(true));
                             timer = new Date().getTime();
                             if (!ImageClicker(profile.adCloserFolder))
@@ -1010,6 +1023,7 @@ module.exports = {
             while (true) {
                 var nowTime = new Date().getTime();
                 if ((nowTime - runTime) > 240000) {
+                    Screenshot("ch-blocked");
                     toastLog("(ch-run)blocked!restart!" + chCheckState(true));
                     robot.back();
                     sleep(2000);
@@ -1069,8 +1083,8 @@ module.exports = {
             var firstCar = profile.garage.firstCarFlat;
             var distance = profile.garage.distanceFlat;
             for(let j = 0; j < swipes; j++) {
-                toast("<---");
                 sleep(500);
+                toast("<---");
                 robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
                 sleep(500);
             }
@@ -1184,7 +1198,7 @@ function mpCheckState(debug) {
     if (isDialog)
         state = "dialog";
         
-    else if (isToken && isCredit && !isBack && !isStart && isGames && isNetworkPage)
+    else if (isToken && isCredit && !isBack && !isStart && /*isGames &&*/ isNetworkPage)
         state = "home";
 
     else if (isToken && isCredit && !isBack && !isNetworkPage && !isStart)
@@ -1423,8 +1437,8 @@ function hasFuel(level, cars, swipeLimit) {
         }
         // slide left required number of times
 		for(let j = 0; j < swipes; j++) {
-            //toast("<---");
 		    sleep(500);
+		    toast("<---");
 		    robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
 		    sleep(500);
 		}
@@ -1436,10 +1450,11 @@ function hasFuel(level, cars, swipeLimit) {
         sleep(1000);
         var img = captureScreen();
         var carcheckState = images.pixel(img, carPoint.x, carPoint.y);
-        //log(PrintPixel(img, carPoint));
+        log(PrintPixel(img, carPoint));
         if (colors.equals(carcheckState, firstCar.colorFull)) {
             lastCar = i;
-            robot.click( carPoint.x + ((distance.x + distance.inertia) / 2) , parseInt(carPoint.y - distance.y / 2 ));
+            //robot.click( carPoint.x + ((distance.x + distance.inertia) / 2) , parseInt(carPoint.y - distance.y / 2 ));
+            robot.click( carPoint.x + 20, carPoint.y - 20);
             toastLog(level+"-car-("+n+")-has-fuel");
             return true;
         }
@@ -1472,8 +1487,9 @@ function hasFuelFlat(cars, swipeLimit) {
         }
         // slide left required number of times
 		for(let j = 0; j < swipes; j++) {
-            //toast("<---");
+		    //let dur = 2000;
 		    sleep(500);
+		    toast("<---");
 		    robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
 		    sleep(500);
 		}
@@ -1670,7 +1686,7 @@ function IsFlashingButton(point, timeoutSec)
         if (tries > 2)
             return true;
 
-        sleep(200);
+        sleep(444);
     }
     return false;    
 }
@@ -1750,6 +1766,14 @@ function PrintPixel(img, point)
     return txt + "\ncolor: " + colors.toString(color);
 }
 //------
+function Screenshot(name)
+{
+    var fn = name || "screencapture";
+    // Save to storage
+    var time = new Date().getTime();
+    var img = captureScreen("/storage/emulated/0/DCIM/Screenshots/"+fn+"-"+time+".png");
+}
+//------
 function PressNitro()
 {
     robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
@@ -1765,33 +1789,29 @@ function PressBrake(duration) {
 //------
 function Restart(appName){
     log("Restart>> " + appName);
-    var c = 0;
     openAppSetting(getPackageName(appName));
-    sleep(500);
-    while(!click("ОСТАНОВИТЬ")) {
-        if (c++ > 6) {
-           toastLog("kill V timeout!");
-           break;
-        }
-        sleep(5000);
-    }
-    c = 0;
-    sleep(500);
-    while(!click("ОК")) {
-        if (c++ > 3) {
-            toastLog("confirm V timeout!");
-            break;
-        }
-        sleep(5000);
-    }
+    sleep(3500);
+
+    // close
+    robot.click(950, 1020);
+    sleep(1000);
+
+    // ok
+    robot.click(1372, 770);
+    sleep(1000);
 
     launchApp(appName);
     sleep(50000);
 
-    var mpStatus = mpCheckState();
-    if (mpStatus = "unknow")
-    {
-        robot.back();
+    c = 0;
+    var res = mpCheckState();
+    while(res == "unknow") {
+        robot.swipe(2000, 400, 500, 400, 400);
+        sleep(1000); 
+        if (!ImageClicker('./AdCloser2/'))
+            robot.back();
+        sleep(5000); 
+        res = mpCheckState();   
     }
 }
 //------
@@ -1856,12 +1876,17 @@ function RestartWithReset(appName){
     shell("mv /mnt/sdcard/Android/obb/com.gameloft.android.ANMP1.GloftA9HM /mnt/sdcard/Android/obb/com.gameloft.android.ANMP.GloftA9HM", false);
     sleep(500);  */
     launchApp(appName);
-    sleep(50000);
+    sleep(5000);
+    robot.click(1750, 1015); //choose 4g
+    sleep(5000);
+    robot.click(1750, 1015); //choose 4g
+    sleep(5000);
+    robot.click(1750, 1015); //choose 4g
+    sleep(35000);
     //---------------
     // I N I I T
-    sleep(1000);
     
-    robot.click(770, 188); //
+    robot.click(770, 188); //age editor
     sleep(1000);
     
     robot.click(900,670); //2
@@ -1918,22 +1943,4 @@ function RestartWithReset(appName){
         sleep(5000); 
         res = mpCheckState();   
     }
-    /*
-    robot.click(1770, 870); //ok
-    sleep(12000);
-    log("ok1");            
-    robot.click(1890, 900); //ok
-    sleep(12000);
-    log("ok2");
-    robot.click(2220, 42); //home
-    sleep(5000); 
-    log("home");
-    //---------------
-    var mpStatus = mpCheckState();
-    if (mpStatus = "unknow")
-    {
-        if (!Closer('./AdCloser2/'))
-            robot.back();
-    }       */
-}       
-                                        
+}

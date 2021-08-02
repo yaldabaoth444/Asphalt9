@@ -1,13 +1,13 @@
-var mpLevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
 // Whether the legendary, platinum, gold, silver, and bronze cars are available, true means available, false means unavailable
-var mpStatus = [false,   true,   true,   true,   true];  
-//             legend  platinum  gold   silver  bronze
+var mpLevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
+var mpStatus    = [ false,    false,      true,  true,     true];
+
 var mpCarPick = {
     legend: [1, 2, 3, 4],
     platinum: [1,2,3,4,5,6,7,8,9,10,12,13,14,15,16],
-    gold: [14,16,17,18,20,22,23,24,26,27,29,30,31,32,7,8,9],
-    silver: [22,24,20,21,16,8,10,11,12,15,7,13],
-    bronze: [7, 13, 16]
+    gold: [1,3,2],
+    silver: [1,2,3],
+    bronze: [5,7,3]
 };
 var mpCarPickSS = {
     legend: [1, 2, 3, 4],
@@ -17,8 +17,8 @@ var mpCarPickSS = {
     bronze: [21,19,15,13] //ss
 };
 var mp2LevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
-var mp2Status = [ false,   false,  false,   false,   true];
-//                legend platinum   gold   silver   bronze
+var mp2Status    = [ false,    false,      false,  false,    true];
+
 var mp2CarPick = {
     // legend
     legend: [1, 2, 3, 4],
@@ -27,7 +27,7 @@ var mp2CarPick = {
     // gold
     gold: [13, 14,15,16,18,20,22,23],
     // silver
-    silver: [5, 8, 11, 12, 13, 15],
+    silver: [1,2,3],
     // bronze
     bronze: [1,2,3,4,5,6,7,8]
 };
@@ -42,16 +42,16 @@ module.exports = {
     specialPage: 2,
     eventPage: 3,
     networkPage: 4,
-    carHuntPosition: 4, // negative values mean from the end
-    adCloserFolder: './AdCloser/', 
-    routeSelector: './TrafficSigns/',
+    carHuntPosition: 6, // negative values mean from the end
+    adCloserFolder: './Images/AdCloser/', 
+    routeSelector: './Images/TrafficSigns/',
     // Multiplayer 1 data
     mp1: {
         levelName : mpLevelName,
         status : mpStatus,
         carPick : mpCarPick,
         game: 1,
-        carPickMode: "ordinary",
+        carPickMode: "ordinary"
     },
     // Multiplayer 2 data
     mp2: {
@@ -66,7 +66,7 @@ module.exports = {
     ch:{
         start: { x: 1743, y: 900, color: '#c3fb12' },
         carPick : chCarPick,
-        carPickMode: "up",
+        carPickMode: "down",
         noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
 		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
 
@@ -137,6 +137,7 @@ module.exports = {
     },
     garage: {
         start: { x: 1800, y: 888, color: '#c3fb12' },
+        istart: { x: 1800, y: 888, color: '#000921' },
         speed: { x: 245, y: 430, color: '#33effa' },
         accel: { x: 245, y: 530, color: '#33effa' },
         handl: { x: 245, y: 630, color: '#33effa' },
@@ -167,4 +168,4 @@ module.exports = {
         distanceFlat: { x: 696, y: 357, inertia: 30 }, //26-60fps
     }
 }   
-///////////
+//////////////////////////////////////////
