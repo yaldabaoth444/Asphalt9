@@ -15,7 +15,7 @@ Already done: \ō͡≡o˞̶
 - restart app when stuck
 - route selection (by image recognition)
 
-TODO:
+TODO:  
  ¯\\_(ツ)_/¯  
 
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
