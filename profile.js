@@ -45,6 +45,8 @@ module.exports = {
     carHuntPosition: 6, // negative values mean from the end
     adCloserFolder: './Images/AdCloser/', 
     routeSelector: './Images/TrafficSigns/',
+    routeHuntSelector: './Images/TrafficSignsHunt/',
+    
     // Multiplayer 1 data
     mp1: {
         levelName : mpLevelName,

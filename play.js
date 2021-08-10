@@ -14,6 +14,9 @@ module.exports = {
         click(x,y) {
             robot.click(x,y);
         },
+        swipe(x1, y1, x2, y2, d){
+            robot.swipe(x1, y1, x2, y2, d);
+        }, 
         back() {
             robot.back();
         },
@@ -709,8 +712,8 @@ module.exports = {
                         PressBrake();
                     }
                     PressNitro();
-                    if (profile.routeSelector)
-                        ImageClicker(profile.routeSelector, routeRegion);
+                    if (profile.routeHuntSelector)
+                        ImageClicker(profile.routeHuntSelector, routeRegion);
                 }
                 sleep(950);
             }
@@ -954,7 +957,7 @@ module.exports = {
                         var now = new Date().getTime();
                         if ((now - timer) > 300000) {
                             Screenshot("ch-blocked");
-                            toastLog("(ch-br)blocked!restart!" + chCheckState(true));
+                            toastLog("(ch-br)blocked!restart!" + chseCheckState(true));
                             timer = new Date().getTime();
                             if (!ImageClicker(profile.adCloserFolder))
                                 robot.back();
@@ -1024,7 +1027,7 @@ module.exports = {
                 var nowTime = new Date().getTime();
                 if ((nowTime - runTime) > 240000) {
                     Screenshot("ch-blocked");
-                    toastLog("(ch-run)blocked!restart!" + chCheckState(true));
+                    toastLog("(ch-run)blocked!restart!" + chseCheckState(true));
                     robot.back();
                     sleep(2000);
                     robot.back();
@@ -1034,7 +1037,7 @@ module.exports = {
                     break;
                 }
                 
-                chStatus = chCheckState();
+                chStatus = chseCheckState();
                 // exit conditions
                 if (!(chStatus == "unknow" || chStatus == "race")) {
                     // waiting 3 times of no race condition
@@ -1065,8 +1068,8 @@ module.exports = {
                         PressBrake();
                     }
                     PressNitro();
-                    if (profile.routeSelector)
-                        ImageClicker(profile.routeSelector, routeRegion);
+                    if (profile.routeHuntSelector)
+                        ImageClicker(profile.routeHuntSelector, routeRegion);
                 }
                 sleep(950);
             }
@@ -1074,9 +1077,9 @@ module.exports = {
         },
         //----------------------------------------------------------------------   
         test(option) {
-            //toastLog("chCheckState " + chCheckState());
-            var img = captureScreen();
-            toastLog(PrintPixel(img, {x: 2130, y: 81, color: "#39393b"}));
+            toastLog("chCheckState " + chseCheckState());
+            //var img = captureScreen();
+            //toastLog(PrintPixel(img, {x: 2130, y: 81, color: "#39393b"}));
         },
         adjustSwipe(carNumber, duration){
             swipes = parseInt( ( carNumber - 1) / 2 );
@@ -1328,10 +1331,10 @@ function chseCheckState(debug) {
     var isBack = isSimilar(img, profile.common.back, 5) && isSimilar(img, profile.common.backward, 5);
     
     var pageSelected = getMarker(img, profile.common.pagesMarker);
-    var isSpecialPage = pageSelected == profile.specialPage;
+    var isSpecialPage = (pageSelected == profile.specialPage);
     
     var isEventHome = isEquals(img, profile.ch.specialSelector);
-    var isEventSelected = isEquals(img, profile.ch.specialSelected);
+    //var isEventSelected = isEquals(img, profile.ch.specialSelected);
     var isCarHunt = isEquals(img, profile.ch.specialHunt);
 
     // carhunt start button
@@ -1374,7 +1377,7 @@ function chseCheckState(debug) {
         
         txt += "Page" + pageSelected + " ";
         //txt += "Event" + eventSelected + " ";
-        
+        txt += "spec = " + isSpecialPage + " ";
         if (isStart)
             txt += "Start ";
                 
@@ -1390,13 +1393,13 @@ function chseCheckState(debug) {
     if (isDialog)
         state = "dialog";
         
-    else if (isToken && isCredit && !isBack && isSpecialPage && !isEventSelected)
+    else if (isToken && isCredit && !isBack && isSpecialPage /*&& !isEventSelected*/)
         state = "home";
 
     else if (isToken && isCredit && !isBack && !isSpecialPage)
         state = "index";
     
-    else if (isToken && isCredit && !isBack && isSpecialPage && isEventSelected && !isCarHunt)
+    else if (isToken && isCredit && !isBack && isSpecialPage /*&& isEventSelected*/ && !isCarHunt)
         state = "events";
     
     else if (isToken && isCredit && isBack && isCarHunt)
