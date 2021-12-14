@@ -147,11 +147,11 @@ module.exports = {
         ready:  { x: 1664, y: 914, color: '#fd0154' },
         
         // league buttons
-        bronze: { x: 1566, y: 248, color: '#ce7145' },
-        silver: { x: 1700, y: 248, color: '#365ca3' },
-        gold: { x: 1835, y: 248, color: '#d78f23' },
-        platinum: { x: 1970, y: 248, color: '#5d3eb6' },
-        legend: { x: 2105, y: 248, color: '#3f3f3d' },
+        bronze: { x: 1470, y: 250, color: '#be704a' },
+        silver: { x: 1600, y: 248, color: '#365ca3' },
+        gold: { x: 1740, y: 248, color: '#d78f23' },
+        platinum: { x: 1870, y: 248, color: '#5d3eb6' },
+        legend: { x: 2000, y: 248, color: '#3f3f3d' },
         swipeDuration: 1500,
 
         // current league
