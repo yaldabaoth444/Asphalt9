@@ -39,111 +39,32 @@ module.exports = {
         {
             return ImageClicker('./Images/AdCloser2/');
         },
-        AdInfinte(cnt)
+        adjustSwipeFlat(carNumber, swipeLimit){
+            var firstCar = profile.garage.firstCarFlat;
+            var distance = profile.garage.distanceFlat;
+
+            var carPoint = locateCar(carNumber, swipeLimit, firstCar, distance);
+            var img = captureScreen();
+            toastLog(PrintPixel(img, carPoint));
+        },
+        adjustSwipe(carNumber, swipeLimit){
+            var firstCar = profile.garage.firstCar;
+            var distance = profile.garage.distance;
+
+            var carPoint = locateCar(carNumber, swipeLimit, firstCar, distance);
+            var img = captureScreen();
+            toastLog(PrintPixel(img, carPoint));
+        },
+        swipeEventsAtEnd()
         {
-            c = 0;
-            sleep(500);
-            var res = mpCheckState();
-            log('state = ' + res);
-            while(res == "unknow") {
-                robot.swipe(2000, 400, 500, 400, 400);
-                sleep(1000); 
-                //if (!ImageClicker('./AdInfinite-B/'))
-                ImageClicker('./Images/AdInfinite-B/')
-                sleep(1000); 
-                robot.back();
-                sleep(5000); 
-                res = mpCheckState();   
-                log('state = ' + res);
-            }
-
-            //go to the store
-            if (res == "index" || res == "home")
-            {
-                robot.click(1200,50); //store
-                sleep(6000); 
-                robot.click(1200,50); //store to begin
-                sleep(3000); 
-                log('store');
-            }
-
-            //find > free button
-            var pos = FindImage('./Images/AdInfinite-1/', 'Free.png');
-            while(pos == null && c < 5) {
-                robot.swipe(1500, 400, 500, 400, 400);
-                sleep(1000); 
-                c++;
-                pos = FindImage('./Images/AdInfinite-1/', 'Free.png');
-            }
-
-            //go free ad
-            if (pos)
-               robot.click(pos.x, pos.y); 
-            else
-                return "error";
-            log('free ad');
-            sleep(6000);
-
-            
-            //let see advert
-            c = 0;
-            pos = FindImage('./Images/AdInfinite-1/', 'See-ad.png');
-            while(pos == null && c < 20) {
-                c++;
-                sleep(200); 
-                pos = FindImage('./Images/AdInfinite-1/', 'See-ad.png');
-            }
-            if (pos)
-               robot.click(pos.x, pos.y); 
-            else
-                return "noads";
-            log('see ad');
-            sleep(60000);
-            log('60 sec gone');
-
-            c = 0;
-            var ic = 0;
-            res = mpCheckState();
-            log('state = ' + res);
-            while(res != "home" && res != "index" /*&& c < 5*/) {
-                //c++;
-                if (ImageClicker('./Images/AdCloser/'))
-                {
-                    sleep(10000);
-                    ic++;
-                    if (ic > 3)
-                        robot.back();
-                    if (ic > 10)
-                        ImageClicker('./Images/AdInfinite-S/')       
-                    if (ic > 12)
-                        return "error";
-                }
-                else
-                {
-                    robot.back();
-                }
-                sleep(5000); 
-                res = mpCheckState();
-                log('state = ' + res);
-            }
-            if (res == "unknow")
-                return "error";
-
-            /*
-            c = 0;
-            pos = FindImage('./AdInfinite-1/', 'See-ad.png');
-            while(pos == null && c < 3) {
-                c++;
-                if (!ImageClicker('./AdCloser/'))
-                    robot.back();
-                log('try back ' + c);
-                sleep(5000); 
-                pos = FindImage('./AdInfinite-1/', 'See-ad.png');
-            }
-            if (pos == null)
-                return "noads";*/
-            return "ok";
-        }
+            //eventsMarker: { x: 263, y: 1055, color: '#c3fb12', delta: 281, pressXOffset: 0, pressYOffset: -200 },
+            var mrkY = profile.common.eventsMarker.y + profile.common.eventsMarker.pressYOffset;
+            toastLog(mrkY); 
+            for(let j = 0; j < 5; j++) {
+                robot.swipe(2000, mrkY, 500, mrkY, 400);
+                sleep(500);
+            } 
+        },
     },
     //==========================================================================
     // Multiplayer
@@ -375,7 +296,7 @@ module.exports = {
             var left = 0;
             var runTime = new Date().getTime();
             var tries = 0;
-            
+            var routeTime =  new Date().getTime();
             // Check if you have reached the checkout interface
             while (true) {
                 var nowTime = new Date().getTime();
@@ -405,8 +326,12 @@ module.exports = {
                     tries = 0;
                     PressNitro();
                     //PressNitro();
-                    if (profile.routeSelector)
-                        ImageClicker(profile.routeSelector, routeRegion);
+                    if (profile.routeSelector && (nowTime - routeTime) > 3000)
+                    {
+                        var t = ImageClicker(profile.routeSelector, routeRegion);
+                        if (t)
+                            routeTime =  new Date().getTime();
+                    }
                 }
                 sleep(950);
             }
@@ -418,30 +343,6 @@ module.exports = {
             //toastLog(PrintPixel(img, profile.mp.game1of2));
             //toastLog(PrintPixel(img, profile.mp.game2of2));
             toastLog("mpCheckState " + mpCheckState(true));
-        },
-        adjustSwipe(carNumber, duration, swipeLimit){
-            swipes = parseInt( ( carNumber - 1) / 2 );
-            var sLock = 0;
-            if (swipeLimit && swipes > swipeLimit)
-            {    
-                sLock = swipes - swipeLimit;
-                swipes = swipeLimit;
-            }
-            var firstCar = profile.garage.firstCar;
-            var distance = profile.garage.distance;
-            for(let j = 0; j < swipes; j++) {
-                sleep(500);
-                //toast("<---");
-                robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
-                sleep(500);
-            }
-            var carPoint = {
-                x: firstCar.x + (sLock * distance.x),
-                y: firstCar.y + distance.y * ((carNumber - 1) % 2)
-            }
-            
-            var img = captureScreen();
-            toastLog(PrintPixel(img, carPoint));
         }
     },
     // CarHunt
@@ -624,7 +525,7 @@ module.exports = {
                     robot.click(profile.width/2, profile.garage.firstCar.y + profile.garage.distance.y);
                 sleep(2000);
                 
-                if (IsFlashingButton(profile.garage.start, 15))
+                if (IsFlashingButton(profile.garage.start, 7) || IsFlashingButton(profile.garage.istart, 7))
                 {
                     robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
                     return true;
@@ -646,7 +547,7 @@ module.exports = {
                     sleep(4000);
                     
                     // Check if car available fuel
-                    if (IsFlashingButton(profile.garage.start, 15))
+                    if (IsFlashingButton(profile.garage.start, 7) || IsFlashingButton(profile.garage.istart, 7))
                     {
                         //log("chooseCar>> READY");
                         robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
@@ -666,6 +567,7 @@ module.exports = {
             var tries = 0;
             var brkc = 4;
             var chStatus = "";
+            var routeTime =  new Date().getTime();
             // Check if you have reached the checkout interface
             while (true) {
                 var nowTime = new Date().getTime();
@@ -705,17 +607,21 @@ module.exports = {
                 else {
                     // reset accidental exit 
                     tries = 0;
-                    brkc--;
+                    /*brkc--;
                     if (brkc < 0)
                     {
                         brkc = 2;
                         PressBrake();
-                    }
+                    }*/
                     PressNitro();
-                    if (profile.routeHuntSelector)
-                        ImageClicker(profile.routeHuntSelector, routeRegion);
+                    if (profile.routeHuntSelector && (nowTime - routeTime) > 3000)
+                    {
+                      var t = ImageClicker(profile.routeHuntSelector, routeRegion);
+                      if (t)
+                          routeTime =  new Date().getTime();
+                    }    
                 }
-                sleep(950);
+                sleep(250);
             }
             toastLog(++cnt.CH + " car hunt done, t.avg" +parseInt((nowTime - startTime)/1000/cnt.CH)+" second.");
         },
@@ -725,34 +631,7 @@ module.exports = {
             var img = captureScreen();
             toastLog(PrintPixel(img, {x: 2130, y: 81, color: "#39393b"}));
         },
-        adjustSwipe(carNumber, duration){
-            swipes = parseInt( ( carNumber - 1) / 2 );
-            var firstCar = profile.garage.firstCarFlat;
-            var distance = profile.garage.distanceFlat;
-            for(let j = 0; j < swipes; j++) {
-                sleep(500);
-                toast("<---");
-                robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
-                sleep(500);
-            }
-            var carPoint = {
-                x: firstCar.x,
-                y: firstCar.y + distance.y * ((carNumber - 1) % 2)
-            }
-            
-            var img = captureScreen();
-            toastLog(PrintPixel(img, carPoint));
-        },
-        swipeEventsAtEnd()
-        {
-            //eventsMarker: { x: 263, y: 1055, color: '#c3fb12', delta: 281, pressXOffset: 0, pressYOffset: -200 },
-            var mrkY = profile.common.eventsMarker.y + profile.common.eventsMarker.pressYOffset;
-            toastLog(mrkY); 
-            for(let j = 0; j < 5; j++) {
-                robot.swipe(2000, mrkY, 500, mrkY, 400);
-                sleep(500);
-            } 
-        },
+        
         ad(){
             sleep(3000);
             //var img = captureScreen();
@@ -980,7 +859,7 @@ module.exports = {
                     robot.click(profile.width/2, profile.garage.firstCar.y + profile.garage.distance.y);
                 sleep(2000);
                 
-                if (IsFlashingButton(profile.garage.start, 15))
+                if (IsFlashingButton(profile.garage.start, 7) || IsFlashingButton(profile.garage.istart, 7))
                 {
                     robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
                     return true;
@@ -1002,7 +881,7 @@ module.exports = {
                     sleep(4000);
                     
                     // Check if car available fuel
-                    if (IsFlashingButton(profile.garage.start, 15))
+                    if (IsFlashingButton(profile.garage.start, 7) || IsFlashingButton(profile.garage.istart, 7))
                     {
                         //log("chooseCar>> READY");
                         robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
@@ -1022,6 +901,7 @@ module.exports = {
             var tries = 0;
             var brkc = 4;
             var chStatus = "";
+            var routeTime =  new Date().getTime();
             // Check if you have reached the checkout interface
             while (true) {
                 var nowTime = new Date().getTime();
@@ -1068,8 +948,12 @@ module.exports = {
                         PressBrake();
                     }
                     PressNitro();
-                    if (profile.routeHuntSelector)
-                        ImageClicker(profile.routeHuntSelector, routeRegion);
+                    if (profile.routeHuntSelector && (nowTime - routeTime) > 3000)
+                    {
+                        var t = ImageClicker(profile.routeHuntSelector, routeRegion);
+                        if (t)
+                            routeTime =  new Date().getTime();
+                    }
                 }
                 sleep(950);
             }
@@ -1080,34 +964,6 @@ module.exports = {
             toastLog("chCheckState " + chseCheckState());
             //var img = captureScreen();
             //toastLog(PrintPixel(img, {x: 2130, y: 81, color: "#39393b"}));
-        },
-        adjustSwipe(carNumber, duration){
-            swipes = parseInt( ( carNumber - 1) / 2 );
-            var firstCar = profile.garage.firstCarFlat;
-            var distance = profile.garage.distanceFlat;
-            for(let j = 0; j < swipes; j++) {
-                sleep(500);
-                toast("<---");
-                robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, duration);
-                sleep(500);
-            }
-            var carPoint = {
-                x: firstCar.x,
-                y: firstCar.y + distance.y * ((carNumber - 1) % 2)
-            }
-            
-            var img = captureScreen();
-            toastLog(PrintPixel(img, carPoint));
-        },
-        swipeEventsAtEnd()
-        {
-            //eventsMarker: { x: 263, y: 1055, color: '#c3fb12', delta: 281, pressXOffset: 0, pressYOffset: -200 },
-            var mrkY = profile.common.eventsMarker.y + profile.common.eventsMarker.pressYOffset;
-            toastLog(mrkY); 
-            for(let j = 0; j < 5; j++) {
-                robot.swipe(2000, mrkY, 500, mrkY, 400);
-                sleep(500);
-            } 
         },
         state()
         {   
@@ -1418,7 +1274,7 @@ function chseCheckState(debug) {
 }
 //------
 function hasFuel(level, cars, swipeLimit) {
-    //log('checkFuel(' + level + ')');
+    log('checkFuel(' + level + ')');
     var firstCar = profile.garage.firstCar;
     var distance = profile.garage.distance;
     //selectLeague(level);
@@ -1431,7 +1287,7 @@ function hasFuel(level, cars, swipeLimit) {
 		selectLeague(level);
         sleep(1000);
         //log('car = ' + n);   
-		swipes = parseInt( ( n - 1) / 2 );
+		/*swipes = parseInt( ( n - 1) / 2 );
         var sLock = 0;
         if (swipeLimit && swipes > swipeLimit)
         {    
@@ -1449,11 +1305,14 @@ function hasFuel(level, cars, swipeLimit) {
         var carPoint = {
             x: firstCar.x + (sLock * distance.x),
             y: firstCar.y + distance.y * ((n - 1) % 2)
-        }
+        }*/
+        var carPoint = locateCar(n, swipeLimit, firstCar, distance);
+
         sleep(1000);
         var img = captureScreen();
-        var carcheckState = images.pixel(img, carPoint.x, carPoint.y);
         log(PrintPixel(img, carPoint));
+        var carcheckState = images.pixel(img, carPoint.x, carPoint.y);
+        
         if (colors.equals(carcheckState, firstCar.colorFull)) {
             lastCar = i;
             //robot.click( carPoint.x + ((distance.x + distance.inertia) / 2) , parseInt(carPoint.y - distance.y / 2 ));
@@ -1481,7 +1340,7 @@ function hasFuelFlat(cars, swipeLimit) {
 		swipeToBegin();
         sleep(1000);
         //log('car = ' + n);   
-		swipes = parseInt( ( n - 1) / 2 );
+		/*swipes = parseInt( ( n - 1) / 2 );
         var sLock = 0;
         if (swipeLimit && swipes > swipeLimit)
         {    
@@ -1500,9 +1359,12 @@ function hasFuelFlat(cars, swipeLimit) {
         var carPoint = {
             x: firstCar.x + (sLock * distance.x),
             y: firstCar.y + distance.y * ((n - 1) % 2)
-        }
+        }*/
+        var carPoint = locateCar(n, swipeLimit, firstCar, distance);
+
         sleep(1000);
         var img = captureScreen();
+        log(PrintPixel(img, carPoint));
         var carcheckState = images.pixel(img, carPoint.x, carPoint.y);
 
         if (colors.equals(carcheckState, firstCar.colorFull)) {
@@ -1518,6 +1380,31 @@ function hasFuelFlat(cars, swipeLimit) {
         }
     }        
     return false;
+}
+
+function locateCar(carNum, swipeLimit, firstCar, distance)
+{
+    swipes = parseInt( ( carNum - 1) / 2 );
+    var sLock = 0;
+    if (swipes > swipeLimit)
+    {    
+        sLock = swipes - swipeLimit;
+        swipes = swipeLimit;
+        log("swipeLimit = " + swipeLimit + "  sLock = " + sLock + "  swipes = " + swipes); 
+    }
+    // slide left required number of times
+    for(let j = 0; j < swipes; j++) {
+        //let dur = 2000;
+        sleep(500);
+        toast("<---");
+        robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
+        sleep(500);
+    }
+                      
+    return {
+        x: firstCar.x + (sLock * distance.x),
+        y: firstCar.y + distance.y * ((carNum - 1) % 2)
+    }
 }
 //------
 //from mp start screen
@@ -1599,6 +1486,7 @@ function getLeagueCars(level, cars)
 //------
 function pressMarkerButton(num, data)
 {
+    //log('pressMarkerButton ' + num)
     if (num > 0)
     {
         var x = data.x + (num -1)*data.delta + data.pressXOffset;
