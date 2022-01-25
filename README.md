@@ -23,7 +23,7 @@ TODO:
 Latest changes:  
 new cars pick mode
 ![image](https://user-images.githubusercontent.com/25618671/151057874-25e0d8a1-c81a-4240-acfa-589710c33903.png)
-![image](https://user-images.githubusercontent.com/25618671/151058331-05d634fb-01d7-4c23-8efb-09fe47914912.png)
+![image](https://user-images.githubusercontent.com/25618671/151058686-835431ca-24b8-48e9-8095-f6e7b8a24e29.png)
 
 ![image](https://user-images.githubusercontent.com/25618671/129003862-c02b4ad4-6e7c-4d51-8911-f836e44c7e65.png)
 
