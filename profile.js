@@ -1,20 +1,26 @@
 // Whether the legendary, platinum, gold, silver, and bronze cars are available, true means available, false means unavailable
 var mpLevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
-var mpStatus    = [ false,    false,      true,  true,     true];
-
+var mpStatus    = [ true,    true,      true,  true,     true];
+var mpCarPickABC = {
+    legend: ['B5', 'A5', 'S5'],
+    platinum: ['C5', 'B5', 'A4'],
+    gold: ['C4', 'B4'],
+    silver: ['D4', 'C4'],
+    bronze: ['D4']
+};
 var mpCarPick = {
     legend: [1, 2, 3, 4],
     platinum: [1,2,3,4,5,6,7,8,9,10,12,13,14,15,16],
-    gold: [1,3,2],
-    silver: [1,2,3],
-    bronze: [5,7,3]
+    gold: [1,2,3,4,6,5,10,11,12,16],
+    silver: [7,8,9,11,12,13,14,6,5,4,3,2,1],
+    bronze: [13,16,22]
 };
 var mpCarPickSS = {
     legend: [1, 2, 3, 4],
     platinum: [1,2,4,5,6,7,9,11,12,13,14,15],
-    gold: [6,8,11,12,13,18,20,22,23,24,26], 
-    silver: [21,22,23,20,19,15,14,16,7], //ss
-    bronze: [21,19,15,13] //ss
+    gold: [17,8,11,10,18,21,3,15,6,4,2,1,5], 
+    silver: [7,8,9,11,13,14,12,16,4,6,1,2,3,5], //ss
+    bronze: [15,13,22] //ss
 };
 var mp2LevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
 var mp2Status    = [ false,    false,      false,  false,    true];
@@ -25,13 +31,21 @@ var mp2CarPick = {
     // platinum
     platinum: [1, 2, 3, 4],
     // gold
-    gold: [13, 14,15,16,18,20,22,23],
+    gold: [1,2,3,4],
     // silver
-    silver: [1,2,3],
+    silver: [1,2,3,4],
     // bronze
     bronze: [1,2,3,4,5,6,7,8]
 };
-var chCarPick = [11,13,17,19,21,23,26,27,29];
+var mp2CarPickABC = {
+    legend: ['D0', 'C0', 'B0', 'A0', 'S0'],
+    platinum: ['D0', 'C0', 'B0', 'A0', 'S0'],
+    gold: ['D0', 'C0', 'B0', 'A0', 'S0'],
+    silver: ['D0', 'C0', 'B0', 'A0', 'S0'],
+    bronze: ['D0', 'C0', 'B0', 'A0', 'S0']
+};
+var chCarPick = [32,35];
+var chCarPickABC = ['D4'];
 //var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
 module.exports = {
     traceOn: false,
@@ -42,7 +56,7 @@ module.exports = {
     specialPage: 2,
     eventPage: 3,
     networkPage: 4,
-    carHuntPosition: 6, // negative values mean from the end
+    carHuntPosition: 4, // negative values mean from the end
     adCloserFolder: './Images/AdCloser/', 
     routeSelector: './Images/TrafficSigns/',
     routeHuntSelector: './Images/TrafficSignsHunt/',
@@ -51,24 +65,24 @@ module.exports = {
     mp1: {
         levelName : mpLevelName,
         status : mpStatus,
-        carPick : mpCarPick,
+        carPick : chCarPickABC,
         game: 1,
-        carPickMode: "ordinary"
+        carPickMode: "ordinary-abc"
     },
     // Multiplayer 2 data
     mp2: {
         levelName : mp2LevelName,
         status : mp2Status,
-        carPick : mp2CarPick,
+        carPick : mp2CarPickABC,
         game: 2,
-        carPickMode: "ordinary",
+        carPickMode: "ordinary-abc",
         carPickSwipeLimit: 1,
     },
     // Start button
     ch:{
         start: { x: 1743, y: 900, color: '#c3fb12' },
-        carPick : chCarPick,
-        carPickMode: "down",
+        carPick : mpCarPickABC,
+        carPickMode: "flat-abc",
         noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
 		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
 
@@ -147,7 +161,7 @@ module.exports = {
         ready:  { x: 1664, y: 914, color: '#fd0154' },
         
         // league buttons
-        bronze: { x: 1470, y: 250, color: '#be704a' },
+        bronze: { x: 1470, y: 248, color: '#ce7145' },
         silver: { x: 1600, y: 248, color: '#365ca3' },
         gold: { x: 1740, y: 248, color: '#d78f23' },
         platinum: { x: 1870, y: 248, color: '#5d3eb6' },
@@ -161,13 +175,13 @@ module.exports = {
         firstCar: { x: 406, y: 633, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
-        distance: { x: 674, y: 345, inertia: 30 }, //26-60fps
+        distance: { x: 674, y: 345, inertia: 12 }, //26-60fps
         
         // First car
         firstCarFlat: { x: 223, y: 640, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
-        distanceFlat: { x: 696, y: 357, inertia: 30 }, //26-60fps
+        distanceFlat: { x: 696, y: 357, inertia: 12}, //26-60fps
     }
 }   
 //////////////////////////////////////////

@@ -288,6 +288,35 @@ module.exports = {
                 return false;
             }
             
+            if (option.carPickMode == "ordinary-abc")
+            {
+                var FOUND = false;
+
+                for (let i = lastLevel; i < 5 && !FOUND; i++){
+                    if (option.status[i]){
+                        if (hasFuelABC(option.levelName[i], option.carPick)){
+                            FOUND = true;
+                        }
+                    }
+                }
+
+                log("chooseCar>> FOUND = " + FOUND);            
+                if (FOUND){
+                    // Find a car with gas
+                    sleep(4000);
+                    
+                    // Check if car available fuel
+                    if (IsFlashingButton(profile.garage.start, 7) || IsFlashingButton(profile.garage.istart, 7))
+                    {
+                        log("chooseCar>> READY");
+                        robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                        return true;
+                    }
+                }
+                toastLog("No fuel.");
+                return false;   
+            }
+
             return false;
         },
         //----------------------------------------------------------------------
@@ -558,6 +587,26 @@ module.exports = {
                 toastLog("No fuel.");
             }
             
+            if (profile.ch.carPickMode == "flat-abc")
+            {
+                var FOUND = hasFuelFlatABC(profile.ch.carPick);
+
+                log("chooseCar>> FOUND = " + FOUND);            
+                if (FOUND){
+                    // Find a car with gas
+                    sleep(4000);
+                    
+                    // Check if car available fuel
+                    if (IsFlashingButton(profile.garage.start, 7) || IsFlashingButton(profile.garage.istart, 7))
+                    {
+                        log("chooseCar>> READY");
+                        robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                        return true;
+                    }
+                }
+                toastLog("No fuel.");
+                return false;   
+            }
             return false;
         },  
         //----------------------------------------------------------------------
@@ -621,7 +670,7 @@ module.exports = {
                           routeTime =  new Date().getTime();
                     }    
                 }
-                sleep(250);
+                sleep(950);
             }
             toastLog(++cnt.CH + " car hunt done, t.avg" +parseInt((nowTime - startTime)/1000/cnt.CH)+" second.");
         },
@@ -1273,6 +1322,136 @@ function chseCheckState(debug) {
     return state;              
 }
 //------
+function hasFuelABC(level, cars)
+{
+    log('checkFuel(' + level + ')');
+    selectNextLeague(level);
+    sleep(1000);
+    var cars = getLeagueCars(level, cars);
+    var startTime = new Date().getTime();
+
+    //last bottom car
+    log('click last bottom car');
+    robot.click( 1000, 800);
+    sleep(2000);
+
+    nowTime = new Date().getTime();
+    while((nowTime - startTime) < (2*60000)) {
+        nowTime = new Date().getTime();
+
+        var img = captureScreen();
+
+        var canGo = isSimilar(img, {x: 1664, y: 914, color: "#ff0054"}, 3) && !isEquals(img, {x: 1813, y: 1015, color: "#ffffff"});
+        if (canGo)
+        {    
+            var currCarStar = GetCarStar(img);
+            var currCarClass = GetCarClass(img);
+
+            for (let i = 0; i < cars.length; i++) {
+                let car = cars[i];
+                if (currCarClass == car[0])
+                {
+                    if (currCarStar >= parseInt(car[1], 10))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        //prev car
+        robot.click( 818, 538);
+        sleep(300);
+    }        
+    return false;
+}
+function hasFuelFlatABC(cars)
+{
+    log('checkFuel(Flat-ABC)');
+    //selectNextLeague(level);
+    //sleep(1000);
+    //var cars = getLeagueCars(level, cars);
+    var startTime = new Date().getTime();
+
+    //last bottom car
+    log('click last bottom car');
+    robot.click( 1000, 800);
+    sleep(2000);
+
+    nowTime = new Date().getTime();
+    while((nowTime - startTime) < (2*60000)) {
+        nowTime = new Date().getTime();
+
+        var img = captureScreen();
+
+        var canGo = isSimilar(img, {x: 1664, y: 914, color: "#ff0054"}, 3) && !isEquals(img, {x: 1813, y: 1015, color: "#ffffff"});
+        if (canGo)
+        {    
+            var currCarStar = GetCarStar(img);
+            var currCarClass = GetCarClass(img);
+
+            for (let i = 0; i < cars.length; i++) {
+                let car = cars[i];
+                if (currCarClass == car[0])
+                {
+                    if (currCarStar >= parseInt(car[1], 10))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        //prev car
+        robot.click( 818, 538);
+        sleep(300);
+    }        
+    return false;
+}
+//------
+function GetCarStar(img)
+{
+    var currStar = 0;
+
+    if (isSimilar(img, {x: 516, y: 148, color: "#ffea3a"}, 3))
+        currStar = 6;
+    else if (isSimilar(img, {x: 475, y: 148, color: "#ffeb3d"}, 3))
+        currStar = 5;
+    else if (isSimilar(img, {x: 433, y: 148, color: "#ffea3a"}, 3))
+        currStar = 4;
+    else if (isSimilar(img, {x: 392, y: 148, color: "#ffec3e"}, 3))
+        currStar = 3;
+    else if (isSimilar(img, {x: 350, y: 148, color: "#ffea3a"}, 3))
+        currStar = 2;
+    else if (isSimilar(img, {x: 309, y: 148, color: "#ffec3d"}, 3))
+        currStar = 1;
+    return currStar;
+}
+//------
+function GetCarClass(img)
+{
+    var img = captureScreen();
+    var currClass = 'D';
+
+    if (isSimilar(img, {x: 2150, y: 220, color: "#162431"}, 5))
+    {    
+        currClass = 'A';
+    }
+    else if (isSimilar(img, {x: 2149, y: 208, color: "#162431"}, 5))
+    {
+        if (isSimilar(img, {x: 2135, y: 213, color: "#162431"}, 5))
+            currClass = 'B';    
+        else
+            currClass = 'S'; 
+    }
+    else 
+    {
+        if (isSimilar(img, {x: 2163, y: 208, color: "#162431"}, 5))
+            currClass = 'D';    
+        else
+            currClass = 'C'; 
+    }
+    return currClass;
+}
+//------
 function hasFuel(level, cars, swipeLimit) {
     log('checkFuel(' + level + ')');
     var firstCar = profile.garage.firstCar;
@@ -1286,26 +1465,6 @@ function hasFuel(level, cars, swipeLimit) {
         let n = cars[i];
 		selectLeague(level);
         sleep(1000);
-        //log('car = ' + n);   
-		/*swipes = parseInt( ( n - 1) / 2 );
-        var sLock = 0;
-        if (swipeLimit && swipes > swipeLimit)
-        {    
-            sLock = swipes - swipeLimit;
-            swipes = swipeLimit;
-        }
-        // slide left required number of times
-		for(let j = 0; j < swipes; j++) {
-		    sleep(500);
-		    toast("<---");
-		    robot.swipe(firstCar.x + distance.x + distance.inertia, firstCar.y, firstCar.x, firstCar.y, profile.garage.swipeDuration);
-		    sleep(500);
-		}
-						  
-        var carPoint = {
-            x: firstCar.x + (sLock * distance.x),
-            y: firstCar.y + distance.y * ((n - 1) % 2)
-        }*/
         var carPoint = locateCar(n, swipeLimit, firstCar, distance);
 
         sleep(1000);
@@ -1469,6 +1628,30 @@ function selectLeague(level)
     } 
 }
 //------
+function selectNextLeague(level)
+{
+    // Assign a value to cars[]
+    if (level == 'legend'){
+        log('click legend league');
+        robot.click(profile.garage.legend.x, profile.garage.legend.y);
+    } else if (level == 'platinum'){
+        log('click legend league');
+        robot.click(profile.garage.legend.x, profile.garage.legend.y);
+    } else if (level == 'gold'){
+        log('click platinum league');
+        robot.click(profile.garage.platinum.x, profile.garage.platinum.y);
+    } else if (level == 'silver'){
+        log('click gold league');
+        robot.click(profile.garage.gold.x, profile.garage.gold.y);
+    } else if (level == 'bronze'){
+        log('click silver league');
+        robot.click(profile.garage.silver.x, profile.garage.silver.y);
+    } else {
+        log('click silver league');
+        robot.click(profile.garage.silver.x, profile.garage.silver.y);
+    }
+}
+//------
 function getLeagueCars(level, cars)
 {
     if (level == 'legend'){
@@ -1577,7 +1760,7 @@ function IsFlashingButton(point, timeoutSec)
         if (tries > 2)
             return true;
 
-        sleep(444);
+        sleep(111);
     }
     return false;    
 }
@@ -1706,132 +1889,3 @@ function Restart(appName){
     }
 }
 //------
-function RestartWithReset(appName){
-    log("Restart>> " + appName);
-    openAppSetting(getPackageName(appName));
-    sleep(3500);
-
-    // close
-    robot.click(950, 1020);
-    sleep(1000);
-
-    // ok
-    robot.click(1372, 770);
-    sleep(1000);
-
-    // safe cache
-    shell("mv /mnt/sdcard/Android/obb/com.gameloft.android.ANMP.GloftA9HM /mnt/sdcard/Android/obb/com.gameloft.android.ANMP1.GloftA9HM", false);
-
-    // clear
-    robot.click(1330, 1020);
-    sleep(1000);
-
-    // clear all
-    robot.click(800, 467);
-    sleep(1000);
-    
-    // ok
-    robot.click(1372, 770);
-    sleep(1000);
-    
-    // restore cache
-    shell("mv /mnt/sdcard/Android/obb/com.gameloft.android.ANMP1.GloftA9HM /mnt/sdcard/Android/obb/com.gameloft.android.ANMP.GloftA9HM", false);
-    
-    /*
-    var c = 0;
-    openAppSetting(getPackageName(appName));
-    sleep(500);
-    while(!click("ОСТАНОВИТЬ")) {
-        if (c++ > 6) {
-           toastLog("kill V timeout!");
-           break;
-        }
-        sleep(5000);
-    }
-    c = 0;
-    sleep(500);
-    while(!click("ОК")) {
-        if (c++ > 3) {
-            toastLog("confirm V timeout!");
-            break;
-        }
-        sleep(5000);
-    }
-    
-    shell("am force-stop com.gameloft.android.ANMP.GloftA9HM", false);
-    sleep(1000);
-    shell("mv /mnt/sdcard/Android/obb/com.gameloft.android.ANMP.GloftA9HM /mnt/sdcard/Android/obb/com.gameloft.android.ANMP1.GloftA9HM", false);
-    sleep(500);
-    shell("pm clear com.gameloft.android.ANMP.GloftA9HM", false);
-    sleep(500);
-    shell("mv /mnt/sdcard/Android/obb/com.gameloft.android.ANMP1.GloftA9HM /mnt/sdcard/Android/obb/com.gameloft.android.ANMP.GloftA9HM", false);
-    sleep(500);  */
-    launchApp(appName);
-    sleep(5000);
-    robot.click(1750, 1015); //choose 4g
-    sleep(5000);
-    robot.click(1750, 1015); //choose 4g
-    sleep(5000);
-    robot.click(1750, 1015); //choose 4g
-    sleep(35000);
-    //---------------
-    // I N I I T
-    
-    robot.click(770, 188); //age editor
-    sleep(1000);
-    
-    robot.click(900,670); //2
-    sleep(1000);
-    
-    robot.click(900,670); //2
-    sleep(1000);
-    
-    robot.click(1960, 1015); //ok
-    sleep(1000);
-    
-    robot.click(215, 697); //v
-    sleep(1000);
-    
-    robot.click(1170, 968); //принять
-    sleep(1000);
-    
-    robot.click(1158, 985); //принять
-    sleep(15000);
-    
-    if (profile.accountType == "google")
-    {
-        robot.click(701, 300); //google
-        sleep(10000);
-    }
-    if (profile.accountType == "facebook")
-    {
-        robot.click(701, 710); //facebook
-        sleep(7000);
-    
-        robot.click(1162, 995); //as user
-        sleep(15000);
-    }
-    
-    robot.click(2100, 875); //switch acc B
-    sleep(5000);
-    
-    robot.click(578, 761); //yes
-    sleep(20000);
-    
-    for(let j = 0; j < 5; j++) {
-        robot.swipe(2000, 400, 500, 400, 400);
-        sleep(500);
-    } 
-    
-    c = 0;
-    sleep(500);
-    var res = mpCheckState();
-    while(res == "unknow") {
-        robot.swipe(2000, 400, 500, 400, 400);
-        sleep(1000); 
-        if (!ImageClicker('./AdCloser2/'))
-            robot.back();
-        sleep(5000); 
-        res = mpCheckState();   
-    }
-}
