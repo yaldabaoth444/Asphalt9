@@ -21,6 +21,9 @@ TODO:
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
 
 Latest changes:  
+new cars pick mode
+![image](https://user-images.githubusercontent.com/25618671/151057874-25e0d8a1-c81a-4240-acfa-589710c33903.png)
+
 ![image](https://user-images.githubusercontent.com/25618671/129003862-c02b4ad4-6e7c-4d51-8911-f836e44c7e65.png)
 
 ![image](https://user-images.githubusercontent.com/25618671/127921833-0233cee2-785c-48f1-9b72-46d4bad7b2db.png)
