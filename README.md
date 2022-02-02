@@ -24,12 +24,13 @@ Latest changes:
 hunt navigation
 ![image](https://user-images.githubusercontent.com/25618671/152152510-dc8512a2-aaa4-4d1b-81ef-0d241273a5ff.png)
 only 2 commands so far  
-route - change the directory with navigation signs  
-drift - pressing the brake with a specified duration  
-format: {action|time|option}  
-- action: action (only 2 so far)
+*route* - change the directory with navigation signs  
+*drift* - pressing the brake with a specified duration  
+format: {*action*|time|option}  
+- *action*: route or drift
 - time: time of command execution from the start of the race in milliseconds
 - option: parameter depends on the command  
+
 new cars pick mode
 ![image](https://user-images.githubusercontent.com/25618671/151057874-25e0d8a1-c81a-4240-acfa-589710c33903.png)
 ![image](https://user-images.githubusercontent.com/25618671/151058686-835431ca-24b8-48e9-8095-f6e7b8a24e29.png)
