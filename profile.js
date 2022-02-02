@@ -92,10 +92,10 @@ module.exports = {
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
         specialNext: { x: 1746, y: 927, color: '#c3fb12' },
         navigation: [
-            "route|1000|TrafficSignsHunt2",
-            "drift|12000|3000", 
-            "drift|16000|2000",
-            "route|13000|TrafficSignsHunt"
+            "1000|route|TrafficSignsHunt2",
+            "11000|drift-flash|3000", 
+            "15000|drift-flash|2000",
+            "12000|route|TrafficSignsHunt"
             ],
         nitroTick: 300 //900-perfect|300-double
     },

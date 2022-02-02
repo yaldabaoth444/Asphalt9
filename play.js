@@ -65,6 +65,10 @@ module.exports = {
                 sleep(500);
             } 
         },
+        testParseNavigation()
+        {
+            log(parseNavigation(profile.ch.navigation));
+        }
     },
     //==========================================================================
     // Multiplayer
@@ -617,6 +621,7 @@ module.exports = {
             var brkc = 4;
             var chStatus = "";
             var routeTime =  new Date().getTime();
+            var nitroTime =  new Date().getTime();
             var raceStart = false;
             var raceTime =  null;
 
@@ -692,23 +697,54 @@ module.exports = {
                                 if (item.type == "drift")
                                     PressBrake(item.dur);
 
+                                if (item.type == "drift-flash")
+                                {
+                                    PressBrake(item.dur);
+                                    sleep(50);
+                                    PressNitro();
+                                    PressNitro();
+                                }
+
+                                if (item.type == "flash")
+                                {
+                                    PressNitro();
+                                    PressNitro();
+                                }
+
+                                if (item.type == "360")
+                                {
+                                    PressBrake();
+                                    PressBrake();
+                                }
+
+                                if (item.type == "360-flash")
+                                {
+                                    PressBrake();
+                                    PressBrake();
+                                    sleep(50);
+                                    PressNitro();
+                                    PressNitro();
+                                }
+
                                 if (item.type == "route")
                                     currentRoute = item.path
                             }
                         }
                     }
 
-                    PressNitro();
+                    if ((nowTime - nitroTime) > nitroTick)
+                        PressNitro();
+
                     if (currentRoute && (nowTime - routeTime) > 3000)
                     {
                         var t = ImageClicker(currentRoute, routeRegion);
-                      if (t)
+                        if (t)
                         {
-                          routeTime =  new Date().getTime();
+                            routeTime =  new Date().getTime();
+                        }
                     }    
                 }
-                }
-                sleep(nitroTick);
+                sleep(100);
             }
             toastLog(++cnt.CH + " car hunt done, t.avg" +parseInt((nowTime - startTime)/1000/cnt.CH)+" second.");
         },
@@ -1935,26 +1971,54 @@ function PressBrake(duration) {
 //------
 function parseNavigation(nav)
 {
-    //var route = [{fire:false, time: 12000-1000, dur:3000},{fire:false, time: 16000-1000, dur:2000}];
     var res = [];
     if (nav != null)
     {
         for (let i = 0; i < nav.length; i++) {
             let navParams = nav[i].split('|');
-            if (navParams[0] == "drift")
+            if (navParams[1] == "drift")
             {
                 res.push({
                     fire: false, 
                     type:"drift", 
-                    time: parseInt(navParams[1], 10), 
+                    time: parseInt(navParams[0], 10), 
                     dur: parseInt(navParams[2], 10)});
             }
-            if (navParams[0] == "route")
+            if (navParams[1] == "drift-flash")
+            {
+                res.push({
+                    fire: false, 
+                    type:"drift-flash", 
+                    time: parseInt(navParams[0], 10), 
+                    dur: parseInt(navParams[2], 10)});
+            }
+            if (navParams[1] == "flash")
+            {
+                res.push({
+                    fire: false, 
+                    type:"flash", 
+                    time: parseInt(navParams[0], 10)});
+            }
+            if (navParams[1] == "360")
+            {
+                res.push({
+                    fire: false, 
+                    type:"360", 
+                    time: parseInt(navParams[0], 10)});
+            }
+            if (navParams[1] == "360-flash")
+            {
+                res.push({
+                    fire: false, 
+                    type:"360-flash", 
+                    time: parseInt(navParams[0], 10)});
+            }
+            if (navParams[1] == "route")
             {
                 res.push({
                     fire: false, 
                     type:"route", 
-                    time: parseInt(navParams[1], 10), 
+                    time: parseInt(navParams[0], 10), 
                     path: './Images/' + navParams[2]});
             }
         }
