@@ -617,20 +617,6 @@ module.exports = {
             var brkc = 4;
             var chStatus = "";
             var routeTime =  new Date().getTime();
-            var raceStart = false;
-            var raceTime =  null;
-
-            //check nav data
-            var route = null;
-            if (profile.ch.navigation != null)
-                route = parseNavigation(profile.ch.navigation);
-            
-            var nitroTick = 200;
-            if (profile.ch.nitroTick != null)
-                nitroTick = profile.ch.nitroTick;
-
-            var currentRoute = profile.routeHuntSelector;
-
             // Check if you have reached the checkout interface
             while (true) {
                 var nowTime = new Date().getTime();
@@ -668,11 +654,6 @@ module.exports = {
                 }
                 // If you have not finished running, you can still click on nitrogen
                 else {
-                    if (!raceStart && chStatus == "race")
-                    {
-                        raceStart = true;
-                        raceTime =  new Date().getTime();
-                    }
                     // reset accidental exit 
                     tries = 0;
                     /*brkc--;
@@ -681,34 +662,15 @@ module.exports = {
                         brkc = 2;
                         PressBrake();
                     }*/
-                    if (raceStart && route != null)
-                    {
-                        for (let i = 0; i < route.length; i++) {
-                            let item = route[i];
-                            if (!item.fire && (nowTime-raceTime) > item.time)
-                            {
-                                item.fire = true;
-
-                                if (item.type == "drift")
-                                    PressBrake(item.dur);
-
-                                if (item.type == "route")
-                                    currentRoute = item.path
-                            }
-                        }
-                    }
-
                     PressNitro();
-                    if (currentRoute && (nowTime - routeTime) > 3000)
+                    if (profile.routeHuntSelector && (nowTime - routeTime) > 3000)
                     {
-                        var t = ImageClicker(currentRoute, routeRegion);
+                      var t = ImageClicker(profile.routeHuntSelector, routeRegion);
                       if (t)
-                        {
                           routeTime =  new Date().getTime();
                     }    
                 }
-                }
-                sleep(nitroTick);
+                sleep(950);
             }
             toastLog(++cnt.CH + " car hunt done, t.avg" +parseInt((nowTime - startTime)/1000/cnt.CH)+" second.");
         },
@@ -1639,7 +1601,7 @@ function getCurrentLeagueLevel()
 function swipeToBegin()
 {
     let slp = 500;
-    for(let j = 0; j < 8; j++) {
+    for(let j = 0; j < 5; j++) {
         toast("--->");
         sleep(slp);
         robot.swipe(profile.width / 5, profile.garage.firstCar.y, (profile.width / 5) * 4, profile.garage.firstCar.y, 400);
@@ -1803,40 +1765,6 @@ function IsFlashingButton(point, timeoutSec)
     return false;    
 }
 //------
-function ImageFinder(folder, region)
-{
-    //var folder = profile.adCloserFolder;
-    if (!folder)
-        return false;
-    var list = files.listDir(folder);
-    var len = list.length;
-    if(len > 0){
-        var imgad = captureScreen();
-        for(let i = 0; i < len; i++){
-            var fileName = list[i];
-            if (fileName.toLowerCase().endsWith(".png") || fileName.toLowerCase().endsWith(".jpg"))
-            {
-                var templatePath = files.join(folder, fileName);
-                var template = images.read(templatePath);
-                var pos = null;
-                if (region)
-                    pos = images.findImage(imgad, template, {threshold:0.85, region: region});
-                else
-                    pos = images.findImage(imgad, template, {threshold:0.85});    
-                width = template.getWidth();
-                height = template.getHeight();
-                template.recycle();
-                if(pos){
-                    imgad.recycle();
-                    return true
-                }  
-            }
-        }
-        imgad.recycle();
-    }
-    return false
-}
-//------
 function ImageClicker(folder, region)
 {
     //var folder = profile.adCloserFolder;
@@ -1931,35 +1859,6 @@ function PressBrake(duration) {
     } else {
         robot.click(profile.width * 1 / 5, profile.height / 2);
     }
-}
-//------
-function parseNavigation(nav)
-{
-    //var route = [{fire:false, time: 12000-1000, dur:3000},{fire:false, time: 16000-1000, dur:2000}];
-    var res = [];
-    if (nav != null)
-    {
-        for (let i = 0; i < nav.length; i++) {
-            let navParams = nav[i].split('|');
-            if (navParams[0] == "drift")
-            {
-                res.push({
-                    fire: false, 
-                    type:"drift", 
-                    time: parseInt(navParams[1], 10), 
-                    dur: parseInt(navParams[2], 10)});
-            }
-            if (navParams[0] == "route")
-            {
-                res.push({
-                    fire: false, 
-                    type:"route", 
-                    time: parseInt(navParams[1], 10), 
-                    path: './Images/' + navParams[2]});
-            }
-        }
-    }
-    return res;
 }
 //------
 function Restart(appName){

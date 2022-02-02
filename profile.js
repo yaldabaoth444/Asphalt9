@@ -56,7 +56,7 @@ module.exports = {
     specialPage: 2,
     eventPage: 3,
     networkPage: 4,
-    carHuntPosition: 4, // negative values mean from the end
+    carHuntPosition: 5, // negative values mean from the end
     adCloserFolder: './Images/AdCloser/', 
     routeSelector: './Images/TrafficSigns/',
     routeHuntSelector: './Images/TrafficSignsHunt/',
@@ -65,7 +65,7 @@ module.exports = {
     mp1: {
         levelName : mpLevelName,
         status : mpStatus,
-        carPick : chCarPickABC,
+        carPick : mpCarPickABC,
         game: 1,
         carPickMode: "ordinary-abc"
     },
@@ -81,7 +81,7 @@ module.exports = {
     // Start button
     ch:{
         start: { x: 1743, y: 900, color: '#c3fb12' },
-        carPick : mpCarPickABC,
+        carPick : chCarPickABC,
         carPickMode: "flat-abc",
         noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
 		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
@@ -91,6 +91,13 @@ module.exports = {
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
         specialNext: { x: 1746, y: 927, color: '#c3fb12' },
+        navigation: [
+            "route|1000|TrafficSignsHunt2",
+            "drift|12000|3000", 
+            "drift|16000|2000",
+            "route|13000|TrafficSignsHunt"
+            ],
+        nitroTick: 300 //900-perfect|300-double
     },
     common: {
         // The top token icon = #0090ff blue, there will be color difference
