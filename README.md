@@ -23,10 +23,10 @@ TODO:
 Latest changes:  
 hunt navigation
 ![image](https://user-images.githubusercontent.com/25618671/152152510-dc8512a2-aaa4-4d1b-81ef-0d241273a5ff.png)
-only 2 commands so far
-route - change the directory with navigation signs
-drift - pressing the brake with a specified duration
-format: {action|time|option}
+only 2 commands so far  
+route - change the directory with navigation signs  
+drift - pressing the brake with a specified duration  
+format: {action|time|option}  
 - action: action (only 2 so far)
 - time: time of command execution from the start of the race in milliseconds
 - option: parameter depends on the command  
