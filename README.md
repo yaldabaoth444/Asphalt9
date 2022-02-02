@@ -32,7 +32,7 @@ __actions__:
 - *360-flash* - double-tap on the brake then double-tap on the gas  
 
 __format__: {*action*|time|option}  
-- *action*: route or drift
+- *action*: see actions above
 - time: time of command execution from the start of the race in milliseconds
 - option: parameter depends on the command  
 
