@@ -30,7 +30,7 @@ commands:
 - *360* - double-tap on the brake  
 - *drift-flash* - pressing the brake with a specified duration then double-tap on the gas  
 - *360-flash* - double-tap on the brake then double-tap on the gas  
-- 
+
 format: {*action*|time|option}  
 - *action*: route or drift
 - time: time of command execution from the start of the race in milliseconds
