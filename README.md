@@ -21,7 +21,7 @@ TODO:
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
 
 Latest changes:  
-hunt navigation
+💥hunt navigation
 ![image](https://user-images.githubusercontent.com/25618671/152245137-fd79636b-e7fa-4f84-ab56-c99c3053e8ce.png)
 __actions__:
 - *route* - change the directory with navigation signs  
@@ -36,7 +36,7 @@ __format__: {*action*|time|option}
 - time: time of command execution from the start of the race in milliseconds
 - option: parameter depends on the command  
 
-new cars pick mode
+💥new cars pick mode
 ![image](https://user-images.githubusercontent.com/25618671/151057874-25e0d8a1-c81a-4240-acfa-589710c33903.png)
 ![image](https://user-images.githubusercontent.com/25618671/151058686-835431ca-24b8-48e9-8095-f6e7b8a24e29.png)
 
