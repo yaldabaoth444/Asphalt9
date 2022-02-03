@@ -38,12 +38,13 @@ __format__: {*action*|time|option}
 <hr>
 💥new cars pick mode
 ![image](https://user-images.githubusercontent.com/25618671/151057874-25e0d8a1-c81a-4240-acfa-589710c33903.png)
+<hr>
 ![image](https://user-images.githubusercontent.com/25618671/151058686-835431ca-24b8-48e9-8095-f6e7b8a24e29.png)
-
+<hr>
 ![image](https://user-images.githubusercontent.com/25618671/129003862-c02b4ad4-6e7c-4d51-8911-f836e44c7e65.png)
-
+<hr>
 ![image](https://user-images.githubusercontent.com/25618671/127921833-0233cee2-785c-48f1-9b72-46d4bad7b2db.png)
-
+<hr>
 ![image](https://user-images.githubusercontent.com/25618671/122649266-78d3e280-d146-11eb-95f8-530ed53af843.png)
 
 
