@@ -35,8 +35,8 @@ __format__: {*action*|time|option}
 - *action*: see actions above
 - time: time of command execution from the start of the race in milliseconds
 - option: parameter depends on the command  
-<hr>
-💥new cars pick mode  
+
+💥new cars pick mode
 ![image](https://user-images.githubusercontent.com/25618671/152342720-a816db41-a0f2-40df-8c9a-901c545c12b8.png)
 ![image](https://user-images.githubusercontent.com/25618671/152342782-00fbbcbd-e1af-4035-8e93-5ba5959a7a1e.png)
 <hr>
