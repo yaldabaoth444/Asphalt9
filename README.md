@@ -37,14 +37,13 @@ __format__: {*action*|time|option}
 - option: parameter depends on the command  
 <hr>
 💥new cars pick mode  
-![image](https://user-images.githubusercontent.com/25618671/151057874-25e0d8a1-c81a-4240-acfa-589710c33903.png)
+![image](https://user-images.githubusercontent.com/25618671/152342720-a816db41-a0f2-40df-8c9a-901c545c12b8.png)
+![image](https://user-images.githubusercontent.com/25618671/152342782-00fbbcbd-e1af-4035-8e93-5ba5959a7a1e.png)
 <hr>
-![image](https://user-images.githubusercontent.com/25618671/151058686-835431ca-24b8-48e9-8095-f6e7b8a24e29.png)
+![image](https://user-images.githubusercontent.com/25618671/152342822-e86691f0-fb55-4318-9b84-de350041a7cb.png)
 <hr>
-![image](https://user-images.githubusercontent.com/25618671/129003862-c02b4ad4-6e7c-4d51-8911-f836e44c7e65.png)
+![image](https://user-images.githubusercontent.com/25618671/152342856-3384f3e0-eaaf-40eb-a486-71d95a6d84cc.png)
 <hr>
-![image](https://user-images.githubusercontent.com/25618671/127921833-0233cee2-785c-48f1-9b72-46d4bad7b2db.png)
-<hr>
-![image](https://user-images.githubusercontent.com/25618671/122649266-78d3e280-d146-11eb-95f8-530ed53af843.png)
+![image](https://user-images.githubusercontent.com/25618671/152342891-4ee37d45-b6a7-4d23-b15a-6b3c15208c96.png)
 
 
