@@ -1406,7 +1406,7 @@ function hasFuelABC(level, cars)
 
     //last bottom car
     log('click last bottom car');
-    robot.click( 1050, 800);
+    robot.click( 1000, 800);
     sleep(2000);
 
     nowTime = new Date().getTime();
