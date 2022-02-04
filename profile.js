@@ -45,8 +45,21 @@ var mp2CarPickABC = {
     bronze: ['D0', 'C0', 'B0', 'A0', 'S0']
 };
 var chCarPick = [32,35];
-var chCarPickABC = ['D4'];
+var chCarPickABC = ['C4'];
 //var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
+var New_York_ZEPPELIN_RACE_D = [
+    "1000|route|TrafficSignsHunt2",
+    "11000|drift|3000", 
+    "14500|drift|2000",
+    "11000|route|TrafficSignsHunt"
+];
+var Cairo_SUBTERRANEAN_DASH_B = [
+    "9000|drift-flash|3000", 
+    "14000|route|TrafficSignsHunt2",
+    "15000|drift-flash|3500",
+    "22000|drift-flash|3500",
+    "30000|drift-flash|3000"
+];
 module.exports = {
     traceOn: false,
     width: 2340,
@@ -56,7 +69,7 @@ module.exports = {
     specialPage: 2,
     eventPage: 3,
     networkPage: 4,
-    carHuntPosition: 5, // negative values mean from the end
+    carHuntPosition: 6, // negative values mean from the end
     adCloserFolder: './Images/AdCloser/', 
     routeSelector: './Images/TrafficSigns/',
     routeHuntSelector: './Images/TrafficSignsHunt/',
@@ -91,12 +104,7 @@ module.exports = {
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
         specialNext: { x: 1746, y: 927, color: '#c3fb12' },
-        navigation: [
-            "1000|route|TrafficSignsHunt2",
-            "11000|drift-flash|3000", 
-            "15000|drift-flash|2000",
-            "12000|route|TrafficSignsHunt"
-            ],
+        navigation: Cairo_SUBTERRANEAN_DASH_B,
         nitroTick: 300 //900-perfect|300-double
     },
     common: {
