@@ -62,6 +62,7 @@ var Cairo_SUBTERRANEAN_DASH_B = [
     "22000|drift-flash|3500",
     "30000|drift-flash|3000"
 ];
+//no signs
 var New_York_FRIENDLY_NEIGHBORHOOD_C = [
     "4000|360-flash", 
     "8000|drift-flash|2000", 
