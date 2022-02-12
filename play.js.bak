@@ -1415,7 +1415,7 @@ function hasFuelABC(level, cars)
 
         var img = captureScreen();
 
-        var canGo = isSimilar(img, {x: 1664, y: 914, color: "#ff0054"}, 3) && !(isEquals(img, {x: 1813, y: 1015, color: "#ffffff"}) || isEquals(img, {x: 1813, y: 1015, color: "#000921"}));
+        var canGo = isSimilar(img, {x: 1664, y: 914, color: "#ff0054"}, 3) && !isEquals(img, {x: 1813, y: 1015, color: "#ffffff"});
         if (canGo)
         {    
             var currCarStar = GetCarStar(img);
@@ -1457,7 +1457,7 @@ function hasFuelFlatABC(cars)
 
         var img = captureScreen();
 
-        var canGo = isSimilar(img, {x: 1664, y: 914, color: "#ff0054"}, 3) && !(isEquals(img, {x: 1813, y: 1015, color: "#ffffff"}) || isEquals(img, {x: 1813, y: 1015, color: "#000921"}));
+        var canGo = isSimilar(img, {x: 1664, y: 914, color: "#ff0054"}, 3) && !isEquals(img, {x: 1813, y: 1015, color: "#ffffff"});
         if (canGo)
         {    
             var currCarStar = GetCarStar(img);

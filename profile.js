@@ -47,18 +47,25 @@ var mp2CarPickABC = {
 var chCarPick = [32,35];
 var chCarPickABC = ['C4'];
 //var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
+//bottle | bottle2
 var New_York_ZEPPELIN_RACE_D = [
     "1000|route|TrafficSignsHunt2",
     "11000|drift|3000", 
     "14500|drift|2000",
     "11000|route|TrafficSignsHunt"
 ];
+//bottle2,dir-right | dir-right, ramp, ramp_left, turn-right
 var Cairo_SUBTERRANEAN_DASH_B = [
     "9000|drift-flash|3000", 
     "14000|route|TrafficSignsHunt2",
     "15000|drift-flash|3500",
     "22000|drift-flash|3500",
     "30000|drift-flash|3000"
+];
+var New_York_FRIENDLY_NEIGHBORHOOD_C = [
+    "4700|360-flash", 
+    "9000|drift-flash|3000", 
+    "13000|drift|100", 
 ];
 module.exports = {
     traceOn: false,
@@ -69,7 +76,7 @@ module.exports = {
     specialPage: 2,
     eventPage: 3,
     networkPage: 4,
-    carHuntPosition: 6, // negative values mean from the end
+    carHuntPosition: 7, // negative values mean from the end
     adCloserFolder: './Images/AdCloser/', 
     routeSelector: './Images/TrafficSigns/',
     routeHuntSelector: './Images/TrafficSignsHunt/',
@@ -86,10 +93,10 @@ module.exports = {
     mp2: {
         levelName : mp2LevelName,
         status : mp2Status,
-        carPick : mp2CarPickABC,
+        carPick : none,
         game: 2,
         carPickMode: "ordinary-abc",
-        carPickSwipeLimit: 1,
+        //carPickSwipeLimit: 4,
     },
     // Start button
     ch:{
@@ -104,7 +111,7 @@ module.exports = {
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
         specialNext: { x: 1746, y: 927, color: '#c3fb12' },
-        navigation: Cairo_SUBTERRANEAN_DASH_B,
+        navigation: New_York_FRIENDLY_NEIGHBORHOOD_C,
         nitroTick: 300 //900-perfect|300-double
     },
     common: {
