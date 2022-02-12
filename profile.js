@@ -63,9 +63,9 @@ var Cairo_SUBTERRANEAN_DASH_B = [
     "30000|drift-flash|3000"
 ];
 var New_York_FRIENDLY_NEIGHBORHOOD_C = [
-    "4700|360-flash", 
-    "9000|drift-flash|3000", 
-    "13000|drift|100", 
+    "4000|360-flash", 
+    "8000|drift-flash|2000", 
+    "12000|drift|100", 
 ];
 module.exports = {
     traceOn: false,
