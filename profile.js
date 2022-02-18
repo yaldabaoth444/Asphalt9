@@ -62,10 +62,11 @@ var Cairo_SUBTERRANEAN_DASH_B = [
     "22000|drift-flash|3500",
     "30000|drift-flash|3000"
 ];
+//no signs
 var New_York_FRIENDLY_NEIGHBORHOOD_C = [
-    "4700|360-flash", 
-    "9000|drift-flash|3000", 
-    "13000|drift|100", 
+    "4000|360-flash", 
+    "8000|drift-flash|2000", 
+    "12000|drift|100", 
 ];
 var US_Midwest_ROLLING_MOTORWAY = [
     "20000|route|TrafficSignsHunt2",
