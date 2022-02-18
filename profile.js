@@ -67,6 +67,9 @@ var New_York_FRIENDLY_NEIGHBORHOOD_C = [
     "9000|drift-flash|3000", 
     "13000|drift|100", 
 ];
+var US_Midwest_ROLLING_MOTORWAY = [
+    "20000|route|TrafficSignsHunt2",
+];
 module.exports = {
     traceOn: false,
     width: 2340,
@@ -76,7 +79,7 @@ module.exports = {
     specialPage: 2,
     eventPage: 3,
     networkPage: 4,
-    carHuntPosition: 7, // negative values mean from the end
+    carHuntPosition: 5, // negative values mean from the end
     adCloserFolder: './Images/AdCloser/', 
     routeSelector: './Images/TrafficSigns/',
     routeHuntSelector: './Images/TrafficSignsHunt/',
@@ -93,7 +96,7 @@ module.exports = {
     mp2: {
         levelName : mp2LevelName,
         status : mp2Status,
-        carPick : none,
+        carPick : mp2CarPickABC,
         game: 2,
         carPickMode: "ordinary-abc",
         //carPickSwipeLimit: 4,
@@ -111,7 +114,7 @@ module.exports = {
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
         specialNext: { x: 1746, y: 927, color: '#c3fb12' },
-        navigation: New_York_FRIENDLY_NEIGHBORHOOD_C,
+        navigation: US_Midwest_ROLLING_MOTORWAY,
         nitroTick: 300 //900-perfect|300-double
     },
     common: {
