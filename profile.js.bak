@@ -68,19 +68,8 @@ var New_York_FRIENDLY_NEIGHBORHOOD_C = [
     "8000|drift-flash|2000", 
     "12000|drift|100", 
 ];
-//ramp_left, ramp_right | bottle2
 var US_Midwest_ROLLING_MOTORWAY = [
     "20000|route|TrafficSignsHunt2",
-];
-//bottle, dir-right, ramp, tunnel
-var Osaka_RAT_RACE_D = [
-    "5000|drift-flash|5000", 
-    "12000|drift|100", 
-    "17000|drift-flash|2500", 
-    "24000|drift-flash|2000", 
-    "38000|drift-flash|2000", 
-    "42000|flash",
-    "43000|flash"
 ];
 module.exports = {
     traceOn: false,
@@ -110,7 +99,7 @@ module.exports = {
         status : mp2Status,
         carPick : mp2CarPickABC,
         game: 2,
-        carPickMode: "none",
+        carPickMode: "ordinary-abc",
         //carPickSwipeLimit: 4,
     },
     // Start button
@@ -126,7 +115,7 @@ module.exports = {
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
         specialNext: { x: 1746, y: 927, color: '#c3fb12' },
-        navigation: Osaka_RAT_RACE_D,
+        navigation: US_Midwest_ROLLING_MOTORWAY,
         nitroTick: 300 //900-perfect|300-double
     },
     common: {
