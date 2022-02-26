@@ -23,7 +23,7 @@ TODO:
 Latest changes:  
 💥navigation refactoring  
 Now there is only one directory with all available signs, and in the route sets the signs that will be active 
-![image](https://user-images.githubusercontent.com/25618671/155859563-d037c338-ab37-4b02-b7d9-538b89ae2d80.png)
+![image](https://user-images.githubusercontent.com/25618671/155859660-de0f80e0-7660-479b-9e60-939ab20ab3da.png)
 
 <hr>
 
