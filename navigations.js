@@ -24,7 +24,7 @@ module.exports = {
         "20000|route|bottle2",
     ],
     Osaka_RAT_RACE_D: [
-        "500|route|bottle,dir-right,ramp,tunnel",
+        "500|route|bottle,dir_right,ramp,tunnel",
         "5000|drift-flash|5000", 
         "12000|drift|100", 
         "17000|drift-flash|2500", 
