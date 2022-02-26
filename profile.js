@@ -1,3 +1,4 @@
+const navs = require('./navigations.js');
 // Whether the legendary, platinum, gold, silver, and bronze cars are available, true means available, false means unavailable
 var mpLevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
 var mpStatus    = [ true,    true,      true,  true,     true];
@@ -47,41 +48,7 @@ var mp2CarPickABC = {
 var chCarPick = [32,35];
 var chCarPickABC = ['C4'];
 //var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
-//bottle | bottle2
-var New_York_ZEPPELIN_RACE_D = [
-    "1000|route|TrafficSignsHunt2",
-    "11000|drift|3000", 
-    "14500|drift|2000",
-    "11000|route|TrafficSignsHunt"
-];
-//bottle2,dir-right | dir-right, ramp, ramp_left, turn-right
-var Cairo_SUBTERRANEAN_DASH_B = [
-    "9000|drift-flash|3000", 
-    "14000|route|TrafficSignsHunt2",
-    "15000|drift-flash|3500",
-    "22000|drift-flash|3500",
-    "30000|drift-flash|3000"
-];
-//no signs
-var New_York_FRIENDLY_NEIGHBORHOOD_C = [
-    "4000|360-flash", 
-    "8000|drift-flash|2000", 
-    "12000|drift|100", 
-];
-//ramp_left, ramp_right | bottle2
-var US_Midwest_ROLLING_MOTORWAY = [
-    "20000|route|TrafficSignsHunt2",
-];
-//bottle, dir-right, ramp, tunnel
-var Osaka_RAT_RACE_D = [
-    "5000|drift-flash|5000", 
-    "12000|drift|100", 
-    "17000|drift-flash|2500", 
-    "24000|drift-flash|2000", 
-    "38000|drift-flash|2000", 
-    "42000|flash",
-    "43000|flash"
-];
+
 module.exports = {
     traceOn: false,
     width: 2340,
@@ -93,9 +60,10 @@ module.exports = {
     networkPage: 4,
     carHuntPosition: 5, // negative values mean from the end
     adCloserFolder: './Images/AdCloser/', 
-    routeSelector: './Images/TrafficSigns/',
-    routeHuntSelector: './Images/TrafficSignsHunt/',
-    
+    signsFolder: './Images/TrafficSigns/',
+    mpSignSet: 'ramp, ramp_left, ramp_right',
+    huntSignSet: 'ramp, ramp_left, ramp_right',
+    huntSESignSet: 'ramp, ramp_left, ramp_right',
     // Multiplayer 1 data
     mp1: {
         levelName : mpLevelName,
@@ -107,8 +75,8 @@ module.exports = {
     // Multiplayer 2 data
     mp2: {
         levelName : mp2LevelName,
-        status : mp2Status,
-        carPick : mp2CarPickABC,
+        status : mpStatus,
+        carPick : mpCarPickABC,
         game: 2,
         carPickMode: "none",
         //carPickSwipeLimit: 4,
@@ -126,7 +94,7 @@ module.exports = {
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
         specialNext: { x: 1746, y: 927, color: '#c3fb12' },
-        navigation: Osaka_RAT_RACE_D,
+        navigation: navs.Osaka_RAT_RACE_D,
         nitroTick: 300 //900-perfect|300-double
     },
     common: {

@@ -359,9 +359,9 @@ module.exports = {
                     tries = 0;
                     PressNitro();
                     //PressNitro();
-                    if (profile.routeSelector && (nowTime - routeTime) > 3000)
+                    if (profile.mpSignSet && (nowTime - routeTime) > 3000)
                     {
-                        var t = ImageClicker(profile.routeSelector, routeRegion);
+                        var t = SignClicker(profile.mpSignSet, routeRegion);
                         if (t)
                             routeTime =  new Date().getTime();
                     }
@@ -634,7 +634,7 @@ module.exports = {
             if (profile.ch.nitroTick != null)
                 nitroTick = profile.ch.nitroTick;
 
-            var currentRoute = profile.routeHuntSelector;
+            var currentRoute = profile.huntSignSet;
 
             // Check if you have reached the checkout interface
             while (true) {
@@ -737,7 +737,7 @@ module.exports = {
 
                     if (currentRoute && (nowTime - routeTime) > 3000)
                     {
-                        var t = ImageClicker(currentRoute, routeRegion);
+                        var t = SignClicker(currentRoute, routeRegion);
                         if (t)
                         {
                             routeTime =  new Date().getTime();
@@ -1071,9 +1071,9 @@ module.exports = {
                         PressBrake();
                     }
                     PressNitro();
-                    if (profile.routeHuntSelector && (nowTime - routeTime) > 3000)
+                    if (profile.huntSESignSet && (nowTime - routeTime) > 3000)
                     {
-                        var t = ImageClicker(profile.routeHuntSelector, routeRegion);
+                        var t = SignClicker(profile.huntSESignSet, routeRegion);
                         if (t)
                             routeTime =  new Date().getTime();
                     }
@@ -1873,6 +1873,48 @@ function ImageFinder(folder, region)
     return false
 }
 //------
+function SignClicker(filter, region)
+{
+    //var folder = profile.adCloserFolder;
+    if (!filter)
+        return false;
+
+    let folder = profile.signsFolder;
+
+    var list = filter.split(',');;
+    var len = list.length;
+    if(len > 0){
+        var imgad = captureScreen();
+        for(let i = 0; i < len; i++){
+            var fileName = files.join(folder, list[i].trim()+'.png');
+            log(fileName);
+            var sign = images.read(fileName);
+            var pos = null;
+            if (region)
+                pos = images.findImage(imgad, sign, {threshold:0.8, region: region});
+            else
+                pos = images.findImage(imgad, sign, {threshold:0.8});    
+            width = sign.getWidth();
+            height = sign.getHeight();
+            sign.recycle();
+            if(pos){
+
+                var middle = {
+                    x: Math.round(pos.x + width/2), 
+                    y: Math.round(pos.y + height/2)
+                };
+                robot.click(middle.x, middle.y);
+                log('Click button ' + fileName + ' ' + middle.x + ', ' +  middle.y)
+                //sleep(2000)
+                return true;
+            }  
+
+        }
+        imgad.recycle();
+    }
+    return false
+}
+//------
 function ImageClicker(folder, region)
 {
     //var folder = profile.adCloserFolder;
@@ -1913,6 +1955,7 @@ function ImageClicker(folder, region)
     }
     return false
 }
+//------
 function FindImage(folder, fileName, region)
 {
     if (!folder)
@@ -2015,15 +2058,29 @@ function parseNavigation(nav)
             }
             if (navParams[1] == "route")
             {
+                let newSigns = "";
+                if (navParams.length >= 3)
+                    newSigns = navParams[2];
                 res.push({
                     fire: false, 
                     type:"route", 
                     time: parseInt(navParams[0], 10), 
-                    path: './Images/' + navParams[2]});
+                    path: newSigns});
             }
         }
     }
     return res;
+}
+//------
+function SignAllowed(arr, item){
+    if (!arr || !item)
+        return false;
+
+    for(let i = 0; i < arr.length; i++){
+        if (arr[i].trim()+'.png' == item.trim())
+            return true;
+    }
+    return false;
 }
 //------
 function Restart(appName){
