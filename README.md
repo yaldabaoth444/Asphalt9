@@ -21,6 +21,12 @@ TODO:
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
 
 Latest changes:  
+💥navigation refactoring
+Now there is only one directory with all available signs, and in the route sets the signs that will be active 
+![image](https://user-images.githubusercontent.com/25618671/155859563-d037c338-ab37-4b02-b7d9-538b89ae2d80.png)
+
+<hr>
+
 💥hunt navigation
 ![image](https://user-images.githubusercontent.com/25618671/152245137-fd79636b-e7fa-4f84-ab56-c99c3053e8ce.png)
 __actions__:
