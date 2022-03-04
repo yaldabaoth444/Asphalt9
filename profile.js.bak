@@ -46,7 +46,7 @@ var mp2CarPickABC = {
     bronze: ['D0', 'C0', 'B0', 'A0', 'S0']
 };
 var chCarPick = [32,35];
-var chCarPickABC = ['D4'];
+var chCarPickABC = ['C4'];
 //var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
 
 module.exports = {
@@ -94,8 +94,8 @@ module.exports = {
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
         specialNext: { x: 1746, y: 927, color: '#c3fb12' },
-        navigation: navs.Scotland_LIGHTHOUSE_C,
-        nitroTick: 900 //900-perfect|300-double
+        navigation: navs.Osaka_RAT_RACE_D,
+        nitroTick: 300 //900-perfect|300-double
     },
     common: {
         // The top token icon = #0090ff blue, there will be color difference

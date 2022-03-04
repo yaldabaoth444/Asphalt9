@@ -32,12 +32,5 @@ module.exports = {
         "38000|drift-flash|2000", 
         "42000|flash",
         "43000|flash"
-    ],
-    Scotland_LIGHTHOUSE_C: [
-        "500|route|ramp,ramp_right",
-        "46000|flash",
-        "6000|360-flash",
-        "25000|route|bottle,bottle2",
-        "36000|route|ramp"
     ]
 }
