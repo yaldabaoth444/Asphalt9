@@ -46,7 +46,7 @@ var mp2CarPickABC = {
     bronze: ['D0', 'C0', 'B0', 'A0', 'S0']
 };
 var chCarPick = [32,35];
-var chCarPickABC = ['D4'];
+var chCarPickABC = ['C4'];
 //var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
 
 module.exports = {
@@ -70,7 +70,8 @@ module.exports = {
         status : mpStatus,
         carPick : mpCarPickABC,
         game: 1,
-        carPickMode: "ordinary-abc"
+        carPickMode: "ordinary-abc",
+        nitroTick: 900 //900-perfect|300-double
     },
     // Multiplayer 2 data
     mp2: {
@@ -78,8 +79,9 @@ module.exports = {
         status : mpStatus,
         carPick : mpCarPickABC,
         game: 2,
-        carPickMode: "none",
+        carPickMode: "ordinary-abc",
         //carPickSwipeLimit: 4,
+        nitroTick: 900 //900-perfect|300-double        
     },
     // Start button
     ch:{
@@ -94,7 +96,7 @@ module.exports = {
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
         specialNext: { x: 1746, y: 927, color: '#c3fb12' },
-        navigation: navs.Scotland_LIGHTHOUSE_C,
+        navigation: navs.Rome_BREAD_AND_CIRCUSES,
         nitroTick: 900 //900-perfect|300-double
     },
     common: {

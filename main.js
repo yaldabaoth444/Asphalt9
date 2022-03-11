@@ -20,8 +20,9 @@ var mp2Time = new Date().getTime();
 var chTime = new Date().getTime();
 
 var counter = { MP: 0, CH: 0 };
-const option1 = require('./profile.js').mp1;
-const option2 = require('./profile.js').mp2;
+const option_1 = require('./profile.js').mp1;
+const option_2 = require('./profile.js').mp2;
+const option_ch = require('./profile.js').ch;
 
 var huntCounts = 1;
 var huntEveryMinutes = huntCounts * 2 * 10;
@@ -43,10 +44,10 @@ for (;;) {
             HUNT.goingHome();
             for ( let i = 0; i < huntCounts; i++ ) {
                  
-                HUNT.beforeRun(option2);
+                HUNT.beforeRun(option_ch);
                 if(HUNT.chooseCar()){
                     sleep(5000);
-                    HUNT.run(counter);
+                    HUNT.run(counter, option_ch);
                 } else
                     break;
             }
@@ -71,11 +72,11 @@ for (;;) {
                     break;
             }
 
-            PLAY.beforeRun(option2);
+            PLAY.beforeRun(option_2);
       
-            if(PLAY.chooseCar(option2)){
+            if(PLAY.chooseCar(option_2)){
                 sleep(25000);
-                PLAY.run(counter);
+                PLAY.run(counter, option_2);
             } else {
                 // No oil
                 base.back();
@@ -108,11 +109,11 @@ for (;;) {
                 if ((nowTime - mp2Time) > mp2EveryMinutes * 60000)
                     break;
             }
-            PLAY.beforeRun(option1);
+            PLAY.beforeRun(option_1);
       
-            if(PLAY.chooseCar(option1)){
+            if(PLAY.chooseCar(option_1)){
                 sleep(25000);
-                PLAY.run(counter);
+                PLAY.run(counter, option_1);
             } else {
                 // No oil
                 base.back();

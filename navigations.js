@@ -39,5 +39,11 @@ module.exports = {
         "6000|360-flash",
         "25000|route|bottle,bottle2",
         "36000|route|ramp"
+    ],
+    Rome_BREAD_AND_CIRCUSES: [
+        "500|route|bottle2,ramp_left,ramp_right",
+        "10000|drift-flash|5000",
+        "30000|route|ramp_right",
     ]
+
 }

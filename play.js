@@ -324,12 +324,18 @@ module.exports = {
             return false;
         },
         //----------------------------------------------------------------------
-        run(cnt) {
+        run(cnt, option) {
             log("run"); 
             var left = 0;
             var runTime = new Date().getTime();
             var tries = 0;
             var routeTime =  new Date().getTime();
+            var nitroTime =  new Date().getTime();
+
+            var nitroTick = 200;
+            if (option.nitroTick != null)
+                nitroTick = option.nitroTick;
+
             // Check if you have reached the checkout interface
             while (true) {
                 var nowTime = new Date().getTime();
@@ -357,8 +363,12 @@ module.exports = {
                 else {
                     // reset accidental exit 
                     tries = 0;
+
+                    if ((nowTime - nitroTime) > nitroTick)
+                    {   
+                        nitroTime = new Date().getTime();
                     PressNitro();
-                    //PressNitro();
+                    }
                     if (profile.mpSignSet && (nowTime - routeTime) > 3000)
                     {
                         var t = SignClicker(profile.mpSignSet, routeRegion);
@@ -614,7 +624,7 @@ module.exports = {
             return false;
         },  
         //----------------------------------------------------------------------
-        run(cnt) {
+        run(cnt, option) {
                         
             var runTime = new Date().getTime();
             var tries = 0;
@@ -631,8 +641,8 @@ module.exports = {
                 route = parseNavigation(profile.ch.navigation);
             
             var nitroTick = 200;
-            if (profile.ch.nitroTick != null)
-                nitroTick = profile.ch.nitroTick;
+            if (option.nitroTick != null)
+                nitroTick = option.nitroTick;
 
             var currentRoute = profile.huntSignSet;
 
@@ -733,8 +743,10 @@ module.exports = {
                     }
 
                     if ((nowTime - nitroTime) > nitroTick)
+                    {   
+                        nitroTime = new Date().getTime();
                         PressNitro();
-
+                    }
                     if (currentRoute && (nowTime - routeTime) > 3000)
                     {
                         var t = SignClicker(currentRoute, routeRegion);
