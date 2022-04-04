@@ -504,13 +504,13 @@ module.exports = {
                         break;
                     }
                     
-                    case "hunt": {
-                        if (tries > 2 && last == "hunt") {
-                            pressMarkerButton(profile.carHuntPosition, profile.common.eventsMarker);
-                            sleep(2000);
-                        }
-                        break;
-                    }
+                    //case "hunt": {
+                    //    if (tries > 2 && last == "hunt") {
+                    //        pressMarkerButton(profile.carHuntPosition, profile.common.eventsMarker);
+                    //        sleep(2000);
+                    //    }
+                    //    break;
+                    //}
                     
                     case "start": {
                         if (tries > 2 && last == "start") {
@@ -1226,8 +1226,8 @@ function chCheckState(debug) {
     var isEventPage = pageSelected == profile.eventPage;
     
     var eventSelected = getMarker(img, profile.common.eventsMarker);
-    var isEventHome = eventSelected == 1;
-    var isCarHunt = eventSelected == profile.carHuntPosition;
+    //var isEventHome = eventSelected == 1;
+    //var isCarHunt = eventSelected == profile.carHuntPosition;
     
     // carhunt start button
     var start = images.pixel(img, profile.ch.start.x, profile.ch.start.y);
@@ -1291,11 +1291,11 @@ function chCheckState(debug) {
     else if (isToken && isCredit && !isBack && !isEventPage)
         state = "index";
     
-    else if (isToken && isCredit && isBack && (pageSelected == 0) && !isCarHunt && !isStart)
+    else if (isToken && isCredit && isBack && (pageSelected == 0) && !isStart)
         state = "events";
     
-    else if (isToken && isCredit && isBack && (pageSelected == 0) && isCarHunt && !isStart)
-        state = "hunt";
+    //else if (isToken && isCredit && isBack && (pageSelected == 0) && isCarHunt && !isStart)
+    //    state = "hunt";
 
     else if (isToken && isCredit && isBack && (pageSelected == 0) && (eventSelected == 0) && isStart)
         state = "start";
@@ -1755,15 +1755,39 @@ function getLeagueCars(level, cars)
 //------
 function pressMarkerButton(num, data)
 {
+    var mrkY = data.y + data.pressYOffset; 
     //log('pressMarkerButton ' + num)
     if (num > 0)
     {
+        if (num > 8)
+        {
+            var swipes = num - 8;
+            // slide left required number of times
+            for(let j = 0; j < swipes; j++) {
+                sleep(500);
+                toast("<---");
+                robot.swipe(1000, mrkY, 1000 - (data.delta + profile.garage.distance.inertia), mrkY, 510);
+                sleep(500);
+            }
+
+            var x = data.x + (num - 1 - swipes)*data.delta + data.pressXOffset;
+            var y = data.y + data.pressYOffset;
+            //toastLog("x: " + x + " y: " + y);
+            robot.click(x, y);
+            sleep(2500);
+            robot.click(x, y);
+        }
+        else
+        {
         var x = data.x + (num -1)*data.delta + data.pressXOffset;
         var y = data.y + data.pressYOffset;
         //toastLog("x: " + x + " y: " + y);
         robot.click(x, y);
+            sleep(2500);
+            robot.click(x, y);
+        }
     } else {
-        var mrkY = profile.common.eventsMarker.y + profile.common.eventsMarker.pressYOffset; 
+        
         for(let j = 0; j < 5; j++) {
             robot.swipe(2000, mrkY, 500, mrkY, 400);
              sleep(500);
@@ -1772,6 +1796,8 @@ function pressMarkerButton(num, data)
         var x = profile.width - data.x - (-1*num -1)*data.delta + data.pressXOffset;
         var y = data.y + data.pressYOffset;
         toastLog("x: " + x + " y: " + y);
+        robot.click(x, y);
+        sleep(2500);
         robot.click(x, y);
     }
 }
@@ -2093,6 +2119,16 @@ function SignAllowed(arr, item){
             return true;
     }
     return false;
+}
+//------
+function CloseApp()
+{
+    robot.swipe(2340, 600, 1000, 610, 200);
+    sleep(2000);
+    robot.click(2270, 780);
+    sleep(3000);
+    robot.swipe(1200, 600, 100, 611, 200);
+    sleep(2000); 
 }
 //------
 function Restart(appName){
