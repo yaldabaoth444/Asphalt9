@@ -46,7 +46,7 @@ var mp2CarPickABC = {
     bronze: ['D0', 'C0', 'B0', 'A0', 'S0']
 };
 var chCarPick = [32,35];
-var chCarPickABC = ['B4'];
+var chCarPickABC = ['D4'];
 //var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
 
 module.exports = {
@@ -58,7 +58,7 @@ module.exports = {
     specialPage: 2,
     eventPage: 3,
     networkPage: 4,
-    carHuntPosition: 9, // negative values mean from the end
+    carHuntPosition: 7, // negative values mean from the end
     adCloserFolder: './Images/AdCloser/', 
     signsFolder: './Images/TrafficSigns/',
     mpSignSet: 'ramp, ramp_left, ramp_right',

@@ -44,6 +44,14 @@ module.exports = {
         "500|route|bottle2,ramp_left,ramp_right",
         "10000|drift-flash|5000",
         "30000|route|ramp_right",
+    ],
+    The_Caribbean_ISLET_RACE: [
+        "500|route|dir_left",
+        "7000|route|dir_staight",
+        "9000|drift-flash|3000",
+        "15000|route|ramp_left,bottle",
+        "16000|drift|100",
+        "24000|drift-flash|2000",
+        "30000|route|ramp_left"
     ]
-
 }

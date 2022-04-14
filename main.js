@@ -29,7 +29,7 @@ var huntEveryMinutes = huntCounts * 2 * 10;
 
 var mp1Counts = 1000;
 
-var mp2Counts = 0;
+var mp2Counts = 3;
 var mp2EveryMinutes = 30;
 
 for (;;) {
