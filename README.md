@@ -1,6 +1,6 @@
 Revival of the project <a href = "https://github.com/DrOmega9834/Asphalt9" target = "_blank">DrOmega9834\/Asphalt9</a>
 
-for Auto.js 4.1.0 <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?id=%e7%bb%bc%e8%bf%b0" target = "_blank">Docs</a> <a href = "https://download.csdn.net/tagalbum/1611" target = "_blank">Downloads</a>
+for Auto.js 4.1.0 <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?id=%e7%bb%bc%e8%bf%b0" target = "_blank">Docs</a> <a href = "http://chorblack.top:8000/autojs/Auto.js-4.1.1%20Alpha2.apk" target = "_blank">Downloads (v4.1.1 alpha2)</a>
 
 This project is being tested on the Xiaomi Mi 9 smartphone with a resolution of 1080x2340 pixels and an aspect ratio of 19.5:9.
 Default DPI most likely 392.
