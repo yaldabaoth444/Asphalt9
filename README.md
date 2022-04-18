@@ -59,3 +59,7 @@ __format__: {*action*|time|option}
 <hr>
 
 ![image](https://user-images.githubusercontent.com/25618671/152342891-4ee37d45-b6a7-4d23-b15a-6b3c15208c96.png)
+___
+**Donation**  
+If you think my scripts is helpful for you, you can donate me, your donation is the best encouragement to me.  
+###### <a href = "https://paypal.me/AzamatGizatullin" target = "_blank">PayPalMe</a>
