@@ -2,14 +2,13 @@ Revival of the project <a href = "https://github.com/DrOmega9834/Asphalt9" targe
 
 for Auto.js *v4.1.1 alpha2* <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?id=%e7%bb%bc%e8%bf%b0" target = "_blank">Docs</a> | <a href = "http://chorblack.top:8000/autojs/Auto.js-4.1.1%20Alpha2.apk" target = "_blank">Downloads</a>
 
-This project is being tested on the Xiaomi Mi 9 smartphone with a resolution of 1080x2340 pixels and an aspect ratio of 19.5:9.
-Default DPI most likely 392.
+This project is being tested on the Xiaomi Mi 9 smartphone with a resolution of 2340x1080.
+Add new 2280x1080 profile (thanks for <a href = "https://github.com/Dexya" target = "_blank">Dexya</a>)
 
 installation instructions from the old version <a href = "./readme/README_EN.md" target = "_blank">Click here to read instructions</a>
 
 Already done: \ō͡≡o˞̶
-- multiplayer of the first network
-- multiplayer of the second network
+- multiplayer MP1 & MP2
 - car hunt (+ in special events)
 - options for choosing cars in the garage (ordinary/none/flat/up|down)
 - restart app when stuck
