@@ -53,5 +53,9 @@ module.exports = {
         "16000|drift|100",
         "24000|drift-flash|2000",
         "30000|route|ramp_left"
+    ],
+    Auckland_SIDE_VIEW: [
+        "500|route|ramp_right,bottle2,bottle",
+        "45000|drift-flash|3000"
     ]
 }
