@@ -57,5 +57,28 @@ module.exports = {
     Auckland_SIDE_VIEW: [
         "500|route|ramp_right,bottle2,bottle",
         "45000|drift-flash|3000"
+    ],
+    /*Buenos_Aires_TO_THE_DOCKS: [
+        "500|route|ramp,ramp_right",
+        "4000|drift-flash|3000",
+        "11000|drift-flash|2000",
+        "16000|route|bottle2,turn_left",
+        "16500|drift|500",
+        "17500|perfect-nitro",
+        "20500|drift|100",
+        "23000|flash",
+        "24100|drift|100",
+        "25150|perfect-nitro",
+        "27000|drift-flash|1500",
+        "29100|drift-flash|2200",
+        "32300|drift-flash|2800",
+        "36000|drift-flash|2000"
+    ]*/
+    Buenos_Aires_TO_THE_DOCKS: [
+        "500|route|dir_staight",
+        "5000|route|ramp_left",
+        "11000|route|ramp_right",
+        "16000|route|bottle2,turn_left",
+        "29100|drift-flash|2200"
     ]
 }

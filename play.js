@@ -944,6 +944,25 @@ module.exports = {
                                     PressNitro();
                                 }
 
+                                if (item.type == "normal-nitro")
+                                {
+                                    PressNitro();
+                                }
+
+                                if (item.type == "perfect-nitro")
+                                {
+                                    PressNitro();
+                                    sleep(750);
+                                    PressNitro();
+                                }
+
+                                if (item.type == "double-nitro")
+                                {
+                                    PressNitro();
+                                    sleep(300);
+                                    PressNitro();
+                                }
+
                                 if (item.type == "flash")
                                 {
                                     PressNitro();
@@ -976,7 +995,7 @@ module.exports = {
                         nitroTime = new Date().getTime();
                         PressNitro();
                     }
-                    if (currentRoute && (nowTime - routeTime) > 3000)
+                    if (currentRoute && (nowTime - routeTime) > 2000)
                     {
                         var t = SignClicker(currentRoute, routeRegion);
                         if (t)
@@ -1257,16 +1276,51 @@ module.exports = {
                 toastLog("No fuel.");
             }
             
+            if (profile.ch.carPickMode == "flat-abc")
+            {
+                var FOUND = hasFuelFlatABC(profile.ch.carPick);
+
+                log("chooseCar>> FOUND = " + FOUND);            
+                if (FOUND){
+                    // Find a car with gas
+                    sleep(4000);
+                    
+                    // Check if car available fuel
+                    if (IsFlashingButton(profile.garage.start, 7) || IsFlashingButton(profile.garage.istart, 7))
+                    {
+                        log("chooseCar>> READY");
+                        robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                        return true;
+                    }
+                }
+                toastLog("No fuel.");
+                return false;   
+            }
             return false;
         },  
         //----------------------------------------------------------------------
-        run(cnt) {
+        run(cnt, option) {
                         
             var runTime = new Date().getTime();
             var tries = 0;
             var brkc = 4;
             var chStatus = "";
             var routeTime =  new Date().getTime();
+            var nitroTime =  new  Date().getTime();
+            var raceStart  = false;
+            var raceTime =   null;
+ 
+            //check nav data 
+             var route = null;
+            if (profile.ch.navigation != null)
+                route = parseNavigation(profile.ch.navigation);
+            
+            var nitroTick = 200;
+            if (option.nitroTick != null)
+                nitroTick = option.nitroTick;
+
+            var currentRoute = profile.huntSESignSet;
+
             // Check if you have reached the checkout interface
             while (true) {
                 var nowTime = new Date().getTime();
@@ -1304,23 +1358,99 @@ module.exports = {
                 }
                 // If you have not finished running, you can still click on nitrogen
                 else {
+                    if (!raceStart && chStatus == "race")
+                    {
+                        raceStart = true;
+                        raceTime =  new Date().getTime();
+                    }
                     // reset accidental exit 
                     tries = 0;
-                    brkc--;
+                    /*brkc--;
                     if (brkc < 0)
                     {
                         brkc = 2;
                         PressBrake();
-                    }
-                    PressNitro();
-                    if (profile.huntSESignSet && (nowTime - routeTime) > 3000)
+                    }*/
+                    if (raceStart && route != null)
                     {
-                        var t = SignClicker(profile.huntSESignSet, routeRegion);
+                        for (let i = 0; i < route.length; i++) {
+                            let item = route[i];
+                            if (!item.fire && (nowTime-raceTime) > item.time)
+                            {
+                                item.fire = true;
+
+                                if (item.type == "drift")
+                                    PressBrake(item.dur);
+
+                                if (item.type == "drift-flash")
+                                {
+                                    PressBrake(item.dur);
+                                    sleep(50);
+                                    PressNitro();
+                                    PressNitro();
+                                }
+
+                                if (item.type == "normal-nitro")
+                                {
+                                    PressNitro();
+                                }
+
+                                if (item.type == "perfect-nitro")
+                                {
+                                    PressNitro();
+                                    sleep(750);
+                                    PressNitro();
+                                }
+
+                                if (item.type == "double-nitro")
+                                {
+                                    PressNitro();
+                                    sleep(300);
+                                    PressNitro();
+                                }
+
+                                if (item.type == "flash")
+                                {
+                                    PressNitro();
+                                    PressNitro();
+                                }
+
+                                if (item.type == "360")
+                                {
+                                    PressBrake();
+                                    PressBrake();
+                                }
+
+                                if (item.type == "360-flash")
+                                {
+                                    PressBrake();
+                                    PressBrake();
+                                    sleep(50);
+                                    PressNitro();
+                                    PressNitro();
+                    }
+
+                                if (item.type == "route")
+                                    currentRoute = item.path
+                            }
+                        }
+                    }
+
+                    if ((nowTime - nitroTime) > nitroTick)
+                    {   
+                        nitroTime = new Date().getTime();
+                    PressNitro();
+                    }
+                    if (currentRoute && (nowTime - routeTime) > 2000)
+                    {
+                        var t = SignClicker(currentRoute, routeRegion);
                         if (t)
+                        {
                             routeTime =  new Date().getTime();
                     }
                 }
-                sleep(950);
+                }
+                sleep(100);
             }
             toastLog(++cnt.CH + " car hunt done, t.avg" +parseInt((nowTime - startTime)/1000/cnt.CH)+" second.");
         },
@@ -2320,6 +2450,27 @@ function parseNavigation(nav)
                     time: parseInt(navParams[0], 10), 
                     dur: parseInt(navParams[2], 10)});
             }
+            if (navParams[1] == "normal-nitro")
+            {
+                res.push({
+                    fire: false, 
+                    type:"normal-nitro", 
+                    time: parseInt(navParams[0], 10)});
+            }
+            if (navParams[1] == "perfect-nitro")
+            {
+                res.push({
+                    fire: false, 
+                    type:"perfect-nitro", 
+                    time: parseInt(navParams[0], 10)});
+            }
+            if (navParams[1] == "double-nitro")
+            {
+                res.push({
+                    fire: false, 
+                    type:"double-nitro", 
+                    time: parseInt(navParams[0], 10)});
+            }                    
             if (navParams[1] == "flash")
             {
                 res.push({
