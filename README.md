@@ -5,7 +5,9 @@ for Auto.js *v4.1.1 alpha2* <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?
 This project is being tested on the Xiaomi Mi 9 smartphone with a resolution of 2340x1080.  
 Add new 2280x1080 profile (thanks to <a href = "https://github.com/Dexya" target = "_blank">Dexya</a>)
 
-installation instructions from the old version <a href = "./readme/README_EN.md" target = "_blank">Click here to read instructions</a>
+installation instructions from the old version <a href = "./readme/README_EN.md" target = "_blank">Click here to read instructions</a>  
+https://www.youtube.com/watch?v=O-ROD0nzIhE  
+https://www.youtube.com/watch?v=dC_V8fuvykQ  
 
 Already done: \ō͡≡o˞̶
 - multiplayer MP1 & MP2
