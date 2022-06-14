@@ -6,8 +6,7 @@ This project is being tested on the Xiaomi Mi 9 smartphone with a resolution of 
 Add new 2280x1080 profile (thanks to <a href = "https://github.com/Dexya" target = "_blank">Dexya</a>)
 
 installation instructions from the old version <a href = "./readme/README_EN.md" target = "_blank">Click here to read instructions</a>  
-https://www.youtube.com/watch?v=O-ROD0nzIhE  
-https://www.youtube.com/watch?v=dC_V8fuvykQ  
+video instructions <a href = "https://www.youtube.com/watch?v=O-ROD0nzIhE" target = "_blank">#1</a> <a href = "https://www.youtube.com/watch?v=dC_V8fuvykQ" target = "_blank">#2</a>  
 
 Already done: \ō͡≡o˞̶
 - multiplayer MP1 & MP2
