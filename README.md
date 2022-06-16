@@ -30,7 +30,7 @@ If it is, the cycle is interrupted and the Hunt race cycle is started a specifie
 During MP1, every race there is a check: It is not the time to go Hunt or MP2  
 If it is, the cycle is interrupted and the corresponding Hunt or MP2 cycle is started a specified number of times  
 
-if both cycles have been run a given number of times, the Hunt cycle is started automatically  
+if both cycles (MP1&2) have been run a given number of times, the Hunt cycle is started automatically  
  
 🔹 By setting 0 in the huntCounts|mp1Counts|mp2Counts parameters, we exclude them from work,  
 thus setting which cycles we need at the moment.  
