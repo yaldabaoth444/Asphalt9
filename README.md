@@ -19,9 +19,9 @@ TODO:
  ¯\\_(ツ)_/¯  
 
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
-
-The principle of the main.js:  
-```If Hunt + MP2 + MP1 are activated  
+```
+**The principle of the main.js:**  
+If Hunt + MP2 + MP1 are activated  
 The main cycle is a race in MP1  
 
 During MP2, every race there is a check: Is it time to go Hunt  
@@ -34,8 +34,8 @@ if both cycles have been run a given number of times, the Hunt cycle is started 
  
 By setting 0 in the huntCounts|mp1Counts|mp2Counts parameters, we exclude them from work, thus setting which cycles we need at the moment.  
 mp2EveryMinutes - preferably set in such a way that in the next cycle the machines will be refueled and will be able to pass a specified number of times  
-huntEveryMinutes - calculated automatically because it depends on the availability of tickets```
-
+huntEveryMinutes - calculated automatically because it depends on the availability of tickets
+```
 Latest changes:  
 💥navigation refactoring  
 Now there is only one directory with all available signs, and in the route sets the signs that will be active 
