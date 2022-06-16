@@ -38,7 +38,7 @@ thus setting which cycles we need at the moment.
 and will be able to drive a specified number of times  
 🔹 huntEveryMinutes - calculated automatically because it depends on the availability of tickets
 ```
-⚠️ which hunt will be triggered is regulated as follows  
+⚠️ which hunt will be launched is adjusted as follows    
 Car Hunt Special Events ![image](https://user-images.githubusercontent.com/25618671/174010423-6d6a0dae-3214-4f23-9930-e4ec585a6dc3.png)  
 Car Hunt Daily Events ![image](https://user-images.githubusercontent.com/25618671/174010184-f7c35baa-4508-4789-a020-a3113018c277.png)  
 
