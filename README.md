@@ -37,11 +37,11 @@ thus setting which cycles we need at the moment.
 🔹 mp2EveryMinutes - preferably set in such a way that in the next cycle the car will be refueled  
 and will be able to drive a specified number of times  
 🔹 huntEveryMinutes - calculated automatically because it depends on the availability of tickets
-
-⚠️ which hunt will be triggered is regulated as follows
-Car Hunt Special Events ![image](https://user-images.githubusercontent.com/25618671/174010026-4ab26e21-aff0-4be6-8821-69cef1fbf621.png)
-Car Hunt Daily Events ![image](https://user-images.githubusercontent.com/25618671/174010184-f7c35baa-4508-4789-a020-a3113018c277.png)
 ```
+⚠️ which hunt will be triggered is regulated as follows  
+Car Hunt Special Events ![image](https://user-images.githubusercontent.com/25618671/174010026-4ab26e21-aff0-4be6-8821-69cef1fbf621.png)  
+Car Hunt Daily Events ![image](https://user-images.githubusercontent.com/25618671/174010184-f7c35baa-4508-4789-a020-a3113018c277.png)  
+
 Latest changes:  
 💥navigation refactoring  
 Now there is only one directory with all available signs, and in the route sets the signs that will be active 
