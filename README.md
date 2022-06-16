@@ -20,7 +20,7 @@ TODO:
 
 [example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
 ```
-*The principle of the main.js:*  
+💡 The principle of the main.js:  
 If Hunt + MP2 + MP1 are activated  
 The main cycle is a race in MP1  
 
