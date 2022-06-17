@@ -41,6 +41,7 @@ and will be able to drive a specified number of times
 ⚠️ which hunt will be launched is adjusted as follows    
 Car Hunt Special Events ![image](https://user-images.githubusercontent.com/25618671/174010423-6d6a0dae-3214-4f23-9930-e4ec585a6dc3.png)  
 Car Hunt Daily Events ![image](https://user-images.githubusercontent.com/25618671/174010184-f7c35baa-4508-4789-a020-a3113018c277.png)  
+![image](https://user-images.githubusercontent.com/25618671/174287133-d226b7af-4bcd-492d-97a4-41b0ce9e2272.png)
 
 Latest changes:  
 💥navigation refactoring  
