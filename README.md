@@ -11,7 +11,7 @@ video instructions <a href = "https://www.youtube.com/watch?v=O-ROD0nzIhE" targe
 Already done: \ō͡≡o˞̶
 - multiplayer MP1 & MP2
 - car hunt (+ in special events)
-- options for choosing cars in the garage (ordinary/none/flat/up|down)
+- options for choosing cars in the garage (ordinary-abc/none/flat-abc/up|down)
 - restart app when stuck
 - route selection (by image recognition)
 
