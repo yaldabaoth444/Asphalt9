@@ -44,7 +44,7 @@ Car Hunt Daily Events ![image](https://user-images.githubusercontent.com/2561867
 ![image](https://user-images.githubusercontent.com/25618671/174287133-d226b7af-4bcd-492d-97a4-41b0ce9e2272.png)
 
 Latest changes:  
-💥simplification
+💥simplification  
 Due to the non-usability and excruciating need to constantly monitor the correctness of the specified sequence of cars "ordinary" and "flat" modes are excluded
 Remaining modes: ordinary-abc, flat-abc, none, up, down.  
 
