@@ -5,6 +5,12 @@ module.exports = {
         "14500|drift|2000",
         "11000|route|bottle2"
     ],
+    New_York_ZEPPELIN_RACE_C: [
+        "500|route|bottle",
+        "10000|drift|3000", 
+        "13000|drift|2000",
+        "10000|route|bottle2"
+    ],
     Cairo_SUBTERRANEAN_DASH_B: [  
         "500|route|bottle2,dir_right",
         "9000|drift-flash|3000", 
@@ -33,6 +39,17 @@ module.exports = {
         "42000|flash",
         "43000|flash"
     ],
+    Osaka_RAT_RACE_C: [
+        "500|route|bottle,dir_right,ramp,tunnel",
+        "3500|drift|4000", 
+        "8500|flash",
+        "12000|drift|100", 
+        "15000|drift-flash|2500", 
+        "22000|drift-flash|2000", 
+        "35000|drift-flash|2000", 
+        "40000|flash",
+        "41000|flash"
+    ],
     Scotland_LIGHTHOUSE_C: [
         "500|route|ramp,ramp_right",
         "46000|flash",
@@ -57,6 +74,10 @@ module.exports = {
     Auckland_SIDE_VIEW: [
         "500|route|ramp_right,bottle2,bottle",
         "45000|drift-flash|3000"
+    ],
+    US_Midwest_ROLLING_MOTORWAY:[
+        "500|route|bottle2",
+        "25500|route|ramp"
     ],
     /*Buenos_Aires_TO_THE_DOCKS: [
         "500|route|ramp,ramp_right",
