@@ -9,35 +9,9 @@ var mpCarPickABC = {
     silver: ['D4', 'C4'],
     bronze: ['D4']
 };
-var mpCarPick = {
-    legend: [1, 2, 3, 4],
-    platinum: [1,2,3,4,5,6,7,8,9,10,12,13,14,15,16],
-    gold: [1,2,3,4,6,5,10,11,12,16],
-    silver: [7,8,9,11,12,13,14,6,5,4,3,2,1],
-    bronze: [13,16,22]
-};
-var mpCarPickSS = {
-    legend: [1, 2, 3, 4],
-    platinum: [1,2,4,5,6,7,9,11,12,13,14,15],
-    gold: [17,8,11,10,18,21,3,15,6,4,2,1,5], 
-    silver: [7,8,9,11,13,14,12,16,4,6,1,2,3,5], //ss
-    bronze: [15,13,22] //ss
-};
+
 var mp2LevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
 var mp2Status    = [ false,    false,      false,  false,    true];
-
-var mp2CarPick = {
-    // legend
-    legend: [1, 2, 3, 4],
-    // platinum
-    platinum: [1, 2, 3, 4],
-    // gold
-    gold: [1,2,3,4],
-    // silver
-    silver: [1,2,3,4],
-    // bronze
-    bronze: [1,2,3,4,5,6,7,8]
-};
 var mp2CarPickABC = {
     legend: ['D0', 'C0', 'B0', 'A0', 'S0'],
     platinum: ['D0', 'C0', 'B0', 'A0', 'S0'],
@@ -45,24 +19,24 @@ var mp2CarPickABC = {
     silver: ['D0', 'C0', 'B0', 'A0', 'S0'],
     bronze: ['D0', 'C0', 'B0', 'A0', 'S0']
 };
-var chCarPick = [32,35];
+
 var chCarPickABC = ['D4'];
 //var simpleRouteSelector = ['ramp.png', 'ramp_left', 'ramp_right'];
 
 module.exports = {
-    traceOn: false,
     width: 2280,
     height: 1080,
-    accountType: "google",
     networkGamesCount: 2,
     specialPage: 2,
     eventPage: 3,
     networkPage: 4,
+
     carHuntPosition: 8, // negative values mean from the end
+
     adCloserFolder: './Images/AdCloser/', 
     signsFolder: './Images/TrafficSigns/',
-    //mpSignSet: 'ramp, ramp_left, ramp_right',
-    //huntSignSet: 'ramp, ramp_left, ramp_right',
+    mpSignSet: 'ramp, ramp_left, ramp_right',
+    huntSignSet: 'ramp, ramp_left, ramp_right',
     huntSESignSet: 'ramp, ramp_left, ramp_right',
     // Multiplayer 1 data
     mp1: {
@@ -80,24 +54,24 @@ module.exports = {
         carPick : mp2CarPickABC,
         game: 2,
         carPickMode: "ordinary-abc",
-        //carPickSwipeLimit: 4,
         nitroTick: 300 //900-perfect|300-double        
     },
     // Start button
     ch:{
-        start: { x: 1744, y: 904, color: '#c3fb12' },
         carPick : chCarPickABC,
-        carPickMode: "flat-abc",
+        carPickMode: "flat-abc",    
+        navigation: navs.Osaka_RAT_RACE_C,
+        nitroTick: 900, //900-perfect|300-double   
+         
+        start: { x: 1744, y: 904, color: '#c3fb12' },
         noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
 		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
-
         specialSelector: { x: 486, y:606, color: '#fc0155'},
         specialSelected: { x: 1218, y:246, color: '#ed2c23'},
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
-        specialNext: { x: 1746, y: 927, color: '#c3fb12' },
-        //navigation: navs.The_Caribbean_ISLET_RACE,
-        nitroTick: 900 //900-perfect|300-double
+        specialNext: { x: 1746, y: 927, color: '#c3fb12' }
+
     },
     common: {
         // The top token icon = #0090ff blue, there will be color difference
@@ -184,7 +158,7 @@ module.exports = {
         gold: { x: 1695, y: 230, color: '#xxxxxx' }, /*!*/
         platinum: { x: 1822, y: 230, color: '#xxxxxx' }, /*!*/
         legend: { x: 1958, y: 230, color: '#xxxxxx' }, /*!*/
-        swipeDuration: 1500,
+
         switchSpeed: 1000, /*!*/
 
         // current league
@@ -202,5 +176,4 @@ module.exports = {
         // Vehicle spacing
         distanceFlat: { x: 696, y: 357, inertia: 12}, //26-60fps
     }
-}   
-//////////////////////////////////////////
+}

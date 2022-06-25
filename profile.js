@@ -83,7 +83,7 @@ module.exports = {
         //Navigation instructions for hunt
         navigation: navs.Osaka_RAT_RACE_C,
         //Nitro mode (750-900 for perfect, 100-300 for double)
-        nitroTick: 800  
+        nitroTick: 800,  
           
         // Start button
         start: { x: 1743, y: 900, color: '#c3fb12' },
@@ -94,7 +94,7 @@ module.exports = {
         specialSelected: { x: 1218, y:246, color: '#ed2c23'},
         specialHunt: { x: 578, y:909, color: '#0e7c9c'},
         specialStart: { x: 1857, y: 729, color: '#c3fb12' },
-        specialNext: { x: 1746, y: 927, color: '#c3fb12' },
+        specialNext: { x: 1746, y: 927, color: '#c3fb12' }
     },
     common: {
         // The top token icon = #0090ff blue, there will be color difference
