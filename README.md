@@ -46,7 +46,7 @@ Car Hunt Daily Events ![image](https://user-images.githubusercontent.com/2561867
 Latest changes:  
 💥simplification  
 Due to the non-usability and excruciating need to constantly monitor the correctness of the specified sequence of cars "ordinary" and "flat" modes are excluded  
-Remaining modes: ordinary-abc, flat-abc, none, up, down.  
+Remaining modes: *ordinary-abc, flat-abc, none, up, down*.  
 
 💥navigation refactoring  
 Now there is only one directory with all available signs, and in the route sets the signs that will be active 
