@@ -143,7 +143,7 @@ module.exports = {
 	                sleep(2000);
                     tries = 1;
                 }
-                
+                log(mpStatus);
                 switch(mpStatus){
                     case "home": {
                         if (tries > 2 && last == "home") {
@@ -167,8 +167,8 @@ module.exports = {
                     }
                     
                     case "start": {
-                        if (tries > 15 && last == "start") {
-                            sleep(2000);
+                        if (tries > 2 && last == "start") {
+                            //sleep(2000);
                             Flag = true;
                         }
                         break;
@@ -225,7 +225,7 @@ module.exports = {
 	       	}
             robot.click(profile.mp.start.x, profile.mp.start.y);
             sleep(4000);
-            
+
             if (option.carPickMode == "none")
             {
                 // Check if car available fuel
@@ -315,9 +315,9 @@ module.exports = {
                         nitroTime = new Date().getTime();
                         PressNitro();
                     }
-                    if (profile.mpSignSet && (nowTime - routeTime) > 3000)
+                    if (option.signSet && (nowTime - routeTime) > 3000)
                     {
-                        var t = SignClicker(profile.mpSignSet, routeRegion);
+                        var t = SignClicker(option.signSet, routeRegion);
                         if (t)
                             routeTime =  new Date().getTime();
                     }
@@ -335,7 +335,7 @@ module.exports = {
         }
     },
     // CarHunt
-    ch: {
+    ch:{
         goingHome(){
             var tries = 0;
             var Flag = false;
@@ -399,7 +399,7 @@ module.exports = {
             }
         }, 
         //----------------------------------------------------------------------
-        beforeRun() {
+        beforeRun(option) {
             var tries = 0;
             var last = "";
             var Flag = false;
@@ -444,7 +444,7 @@ module.exports = {
                     
                     case "events": {
                         if (tries > 2 && last == "events") {
-                            pressMarkerButton(profile.carHuntPosition, profile.common.eventsMarker);
+                            pressMarkerButton(option.carHuntPosition, profile.common.eventsMarker);
                             sleep(2000);
                         }
                         break;
@@ -495,13 +495,25 @@ module.exports = {
              }
         }, 
         //----------------------------------------------------------------------
-        chooseCar() {
+        chooseCar(option) {
             robot.click(profile.ch.start.x, profile.ch.start.y);
             sleep(4000);
-            
-            if (profile.ch.carPickMode == "up" || profile.ch.carPickMode == "down")
+
+            if (option.carPickMode == "none")
             {
-                if (profile.ch.carPickMode == "up")
+                // Check if car available fuel
+                if (IsFlashingButton(profile.garage.start, 7) || IsFlashingButton(profile.garage.istart, 7))
+                {
+                    log("chooseCar>> READY");
+                    robot.click(profile.mp.goldenPoint.x, profile.mp.goldenPoint.y);
+                    return true;
+                }
+                return false;
+            }            
+            
+            if (option.carPickMode == "up" || option.carPickMode == "down")
+            {
+                if (option.carPickMode == "up")
                     robot.click(profile.width/2, profile.garage.firstCar.y);
                 else
                     robot.click(profile.width/2, profile.garage.firstCar.y + profile.garage.distance.y);
@@ -520,9 +532,9 @@ module.exports = {
                 sleep(1500);
             }
             
-            if (profile.ch.carPickMode == "flat-abc")
+            if (option.carPickMode == "flat-abc")
             {
-                var FOUND = hasFuelFlatABC(profile.ch.carPick);
+                var FOUND = hasFuelFlatABC(option.carPick);
 
                 log("chooseCar>> FOUND = " + FOUND);            
                 if (FOUND){
@@ -540,6 +552,8 @@ module.exports = {
                 toastLog("No fuel.");
                 return false;   
             }
+
+
             return false;
         },  
         //----------------------------------------------------------------------
@@ -556,14 +570,14 @@ module.exports = {
 
             //check nav data
             var route = null;
-            if (profile.ch.navigation != null)
-                route = parseNavigation(profile.ch.navigation);
+            if (option.navigation != null)
+                route = parseNavigation(option.navigation);
             
             var nitroTick = 200;
             if (option.nitroTick != null)
                 nitroTick = option.nitroTick;
 
-            var currentRoute = profile.huntSignSet;
+            var currentRoute = option.signSet;
 
             // Check if you have reached the checkout interface
             while (true) {
@@ -701,8 +715,9 @@ module.exports = {
         //----------------------------------------------------------------------   
         test(option) {
             //toastLog("chCheckState " + chCheckState());
-            var img = captureScreen();
-            toastLog(PrintPixel(img, {x: 2130, y: 81, color: "#39393b"}));
+            //var img = captureScreen();
+            //toastLog(PrintPixel(img, {x: 2130, y: 81, color: "#39393b"}));
+            toastLog("chCheckState " + chCheckState(true));
         },
         //----------------------------------------------------------------------  
         state()
@@ -711,7 +726,7 @@ module.exports = {
         }
     },
     // CarHunt
-    chse: {
+    chse:{
         goingHome(){
             var tries = 0;
             var Flag = false;
@@ -838,7 +853,7 @@ module.exports = {
                     
                     case "start": {
                         if (tries > 2 && last == "start") {
-                            sleep(2000);
+                            //sleep(2000);
                             Flag = true;
                         }
                         break;
@@ -880,13 +895,13 @@ module.exports = {
                 sleep(500);
              }
         }, 
-        chooseCar() {
+        chooseCar(option) {
             robot.click(profile.ch.specialNext.x, profile.ch.specialNext.y);
             sleep(4000);
             
-            if (profile.ch.carPickMode == "up" || profile.ch.carPickMode == "down")
+            if (option.carPickMode == "up" || option.carPickMode == "down")
             {
-                if (profile.ch.carPickMode == "up")
+                if (option.carPickMode == "up")
                     robot.click(profile.width/2, profile.garage.firstCar.y);
                 else
                     robot.click(profile.width/2, profile.garage.firstCar.y + profile.garage.distance.y);
@@ -905,9 +920,9 @@ module.exports = {
                 sleep(1500);
             }
             
-            if (profile.ch.carPickMode == "flat-abc")
+            if (option.carPickMode == "flat-abc")
             {
-                var FOUND = hasFuelFlatABC(profile.ch.carPick);
+                var FOUND = hasFuelFlatABC(option.carPick);
 
                 log("chooseCar>> FOUND = " + FOUND);            
                 if (FOUND){
@@ -941,14 +956,14 @@ module.exports = {
  
             //check nav data 
              var route = null;
-            if (profile.ch.navigation != null)
-                route = parseNavigation(profile.ch.navigation);
+            if (option.navigation != null)
+                route = parseNavigation(option.navigation);
             
             var nitroTick = 200;
             if (option.nitroTick != null)
                 nitroTick = option.nitroTick;
 
-            var currentRoute = profile.huntSESignSet;
+            var currentRoute = option.signSet;
 
             // Check if you have reached the checkout interface
             while (true) {
@@ -1017,7 +1032,7 @@ module.exports = {
                                     sleep(50);
                                     PressNitro();
                                     PressNitro();
-                                }
+                    }
 
                                 if (item.type == "normal-nitro")
                                 {
@@ -1041,14 +1056,14 @@ module.exports = {
                                 if (item.type == "flash")
                                 {
                                     PressNitro();
-                                    PressNitro();
+                    PressNitro();
                                 }
 
                                 if (item.type == "360")
                                 {
                                     PressBrake();
                                     PressBrake();
-                                }
+                    }
 
                                 if (item.type == "360-flash")
                                 {
@@ -1056,7 +1071,7 @@ module.exports = {
                                     PressBrake();
                                     sleep(50);
                                     PressNitro();
-                                    PressNitro();
+                    PressNitro();
                                 }
 
                                 if (item.type == "route")
@@ -1066,7 +1081,7 @@ module.exports = {
                     }
 
                     if ((nowTime - nitroTime) > nitroTick)
-                    {   
+                    {
                         nitroTime = new Date().getTime();
                         PressNitro();
                     }
@@ -1076,8 +1091,8 @@ module.exports = {
                         if (t)
                         {
                             routeTime =  new Date().getTime();
-                        }
                     }
+                }
                 }
                 sleep(100);
             }
@@ -1112,13 +1127,10 @@ function mpCheckState(debug)
     
     // Multiplayer start button
     var start = images.pixel(img, profile.mp.start.x, profile.mp.start.y);
-    var isStart = isEquals(img, profile.mp.start) || 
-        (colors.red(start) < colors.green(start) && 
-         colors.blue(start) < colors.green(start) && 
-         colors.green(start) > 250 && 
+    var isStart =  
          isButtonEdge(img, profile.mp.reward) && 
          isButtonEdge(img, profile.mp.rate) && 
-         isButtonEdge(img, profile.mp.stage));
+         isButtonEdge(img, profile.mp.stage);
     
     var isGames = isNetworkGames(img);
    
@@ -1156,26 +1168,14 @@ function mpCheckState(debug)
     {
         var txt = "";
         
-        if (isToken)
-			txt += "Token ";
-
-		if (isCredit)
-			txt += "Credit ";
-        
-        if (isBack)
-            txt += "Back ";
-        
-        if (isGames)
-            txt += "Game" + profile.networkGamesCount + " ";
-        
-        if (isNetworkPage)
-            txt += "Network ";
-            
-        if (isRace)
-            txt += "Race ";    
-        
-        if (isDialog)
-            txt += "Dialog ";
+        if (isToken) txt += "Token ";
+    	if (isCredit) txt += "Credit ";
+        if (isBack) txt += "Back ";
+        if (isGames) txt += "Game" + profile.networkGamesCount + " ";
+        if (isNetworkPage) txt += "Network ";
+        if (isStart) txt += "Start ";
+        if (isRace) txt += "Race ";    
+        if (isDialog) txt += "Dialog ";
         
         return txt;    
     }
@@ -1223,7 +1223,7 @@ function chCheckState(debug)
     //var isCarHunt = eventSelected == profile.carHuntPosition;
     
     // carhunt start button
-    var start = images.pixel(img, profile.ch.start.x, profile.ch.start.y);
+    // /var start = images.pixel(img, profile.ch.start.x, profile.ch.start.y);
     var isStart = isEquals(img, profile.ch.start);
      
     var racePause = isSimilar(img, profile.common.racePause, 3);
@@ -1251,26 +1251,16 @@ function chCheckState(debug)
     if (debug) 
     {
         var txt = "";
-        if (isToken)
-			txt += "Token ";
-
-		if (isCredit)
-			txt += "Credit ";
-        
-        if (isBack)
-            txt += "Back ";
-        
+        if (isBack) txt += "Back ";
+        if (isToken) txt += "Token ";
+		if (isCredit) txt += "Credit ";
+           
         txt += "Page" + pageSelected + " ";
         txt += "Event" + eventSelected + " ";
         
-        if (isStart)
-            txt += "Start ";
-                
-        if (isRace)
-            txt += "Race ";    
-        
-        if (isDialog)
-            txt += "Dialog ";
+        if (isStart) txt += "Start ";
+        if (isRace) txt += "Race ";    
+        if (isDialog) txt += "Dialog ";
                             
         return txt;
     }
@@ -1455,7 +1445,8 @@ function hasFuelFlatABC(cars)
 
     //last bottom car
     log('click last bottom car');
-    robot.click( 1000, 800);
+    //robot.click( 1000, 800);
+    robot.click( 900, 800)
     sleep(2000);
 
     nowTime = new Date().getTime();
@@ -1786,7 +1777,7 @@ function SignClicker(filter, region)
         var imgad = images.copy(_img);
         for(let i = 0; i < len; i++){
             var fileName = files.join(folder, list[i].trim()+'.png');
-            log(fileName);
+            //log(fileName);
             var sign = images.read(fileName);
             var pos = null;
             if (region)
@@ -1803,7 +1794,7 @@ function SignClicker(filter, region)
                     y: Math.round(pos.y + height/2)
                 };
                 robot.click(middle.x, middle.y);
-                log('Click button ' + fileName + ' ' + middle.x + ', ' +  middle.y)
+                //log('Click button ' + fileName + ' ' + middle.x + ', ' +  middle.y)
                 //sleep(2000)
                 return true;
             }  

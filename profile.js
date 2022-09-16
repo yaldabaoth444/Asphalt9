@@ -1,23 +1,23 @@
 const navs = require('./navigations.js');
 // Whether the legendary, platinum, gold, silver, and bronze cars are available, true means available, false means unavailable
 var mpLevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
-var mpStatus    = [ true,     true,       true,   true,     true];
+var mpStatus    = [ true,    true,      true,  true,     true];
 var mpCarPickABC = {
     legend: ['B5', 'A5', 'S5'],
-    platinum: ['C5', 'B5', 'A4'],
-    gold: ['C4', 'B4'],
-    silver: ['D4', 'C4'],
-    bronze: ['D4']
+    platinum: ['C5', 'B5', 'A4', 'S4'],
+    gold: ['C4', 'B4', 'A4'],
+    silver: ['D4', 'C4', 'B4'],
+    bronze: ['D4', 'C3', 'B3']
 };
 
 var mp2LevelName = ['legend', 'platinum', 'gold', 'silver', 'bronze'];
-var mp2Status    = [ false,    false,      false,  false,    true];
+var mp2Status    = [ true,    true,      true,  true,    true];
 var mp2CarPickABC = {
     legend: ['D0', 'C0', 'B0', 'A0', 'S0'],
     platinum: ['D0', 'C0', 'B0', 'A0', 'S0'],
     gold: ['D0', 'C0', 'B0', 'A0', 'S0'],
-    silver: ['D0', 'C0', 'B0', 'A0', 'S0'],
-    bronze: ['D0', 'C0', 'B0', 'A0', 'S0']
+    silver: ['D4', 'C0', 'B0', 'A0', 'S0'],
+    bronze: ['D4', 'C0', 'B0', 'A0', 'S0']
 };
 
 var chCarPickABC = ['C4'];
@@ -32,16 +32,12 @@ module.exports = {
     specialPage: 2,
     eventPage: 3,
     networkPage: 4,
-    //Car hunt position at daily events
-    carHuntPosition: 6, // negative values mean from the end
+    
     //Folder with ad closing buttons
     adCloserFolder: './Images/AdCloser/', 
     //Folder with traffic signs
     signsFolder: './Images/TrafficSigns/',
-    //Default signs sets
-    mpSignSet: 'ramp, ramp_left, ramp_right',
-    huntSignSet: 'ramp, ramp_left, ramp_right',
-    huntSESignSet: 'ramp, ramp_left, ramp_right',
+    
     // Multiplayer 1 data
     mp1: {
         //League names (for informational purposes only)
@@ -56,7 +52,9 @@ module.exports = {
         //Supported mode (ordinary-abc | flat-abc | none)
         carPickMode: "ordinary-abc",
         //Nitro mode (750-900 for perfect, 100-300 for double)
-        nitroTick: 900 
+        nitroTick: 900,
+        //Default signs sets 
+        signSet: 'ramp, ramp_left, ramp_right'
     },
     // Multiplayer 2 data
     mp2: {
@@ -72,29 +70,48 @@ module.exports = {
         //Supported mode (ordinary-abc | flat-abc | none)
         carPickMode: "ordinary-abc",
         //Nitro mode (750-900 for perfect, 100-300 for double)
-        nitroTick: 900         
+        nitroTick: 750,
+        //Default signs sets 
+        signSet: 'ramp, ramp_left, ramp_right'
     },
-    // Start button
-    ch:{
+    ch1:{
+        //Car hunt position at daily events
+        carHuntPosition: 9, // negative values mean from the end
         //Restrictions on the choice of cars
-        carPick : chCarPickABC,
-        //Supported mode (flat-abc | up | down)
-        carPickMode: "flat-abc",    
+        carPick : ['C4'],
+        //Supported mode (flat-abc | up | down | none)
+        carPickMode: "flat-abc",
         //Navigation instructions for hunt
-        navigation: navs.Osaka_RAT_RACE_C,
+        navigation: navs.Rome_BREAD_AND_CIRCUSES_C,
         //Nitro mode (750-900 for perfect, 100-300 for double)
         nitroTick: 800,  
-          
-        // Start button
-        start: { x: 1743, y: 900, color: '#c3fb12' },
-        noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
-		noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
-        //Special hunt internal settings
-        specialSelector: { x: 486, y:606, color: '#fc0155'},
-        specialSelected: { x: 1218, y:246, color: '#ed2c23'},
-        specialHunt: { x: 578, y:909, color: '#0e7c9c'},
-        specialStart: { x: 1857, y: 729, color: '#c3fb12' },
-        specialNext: { x: 1746, y: 927, color: '#c3fb12' }
+        signSet: 'bottle2, ramp, ramp_left, ramp_right'
+    },
+    ch2:{
+        //Car hunt position at daily events
+        carHuntPosition: 1, // negative values mean from the end
+        //Restrictions on the choice of cars
+        carPick : chCarPickABC,
+        //Supported mode (flat-abc | up | down | none)
+        carPickMode: "none",
+        //Navigation instructions for hunt
+        //navigation: navs.Cairo_SUBTERRANEAN_DASH_D,
+        //Nitro mode (750-900 for perfect, 100-300 for double)
+        nitroTick: 800,  
+        signSet: 'bottle2, ramp, ramp_left, ramp_right'
+    },
+    chse1:{
+        //Car hunt position at daily events
+        carHuntPosition: 1, // negative values mean from the end
+        //Restrictions on the choice of cars
+        carPick : chCarPickABC,
+        //Supported mode (flat-abc | up | down | none)
+        carPickMode: "none",
+        //Navigation instructions for hunt
+        //navigation: navs.Cairo_SUBTERRANEAN_DASH_D,
+        //Nitro mode (750-900 for perfect, 100-300 for double)
+        nitroTick: 800,  
+        signSet: 'bottle2, ramp, ramp_left, ramp_right',
     },
     common: {
         // The top token icon = #0090ff blue, there will be color difference
@@ -107,8 +124,10 @@ module.exports = {
         back: { x: 25, y: 25, color: '#ffffff' },
     
         // Dark pixel in the return button
-        backward: { x: 110, y: 52, color: '#171717' },
-        
+        //backward: { x: 110, y: 52, color: '#494949' },
+        //backward: { x: 110, y: 52, color: '#676767' },
+		backward: { x: 70, y: 60, color: '#ffffff' },
+
         //race attributes
         racePause: { x: 170, y: 65, color: '#ffffff' },
         raceTD: { x: 380, y: 192, color: '#3daaed' },
@@ -124,7 +143,7 @@ module.exports = {
         //Buttons at mp lobby (for added accuracy)
         reward: { x: 480, y: 740, color: '#ffffff' }, 
         rate: { x: 576, y: 911, color: '#ffffff' },
-        stage: { x: 1475, y: 739, color: '#ffffff' },
+        stage: { x: 1477, y: 739, color: '#ffffff' },
         
         // Multiplayer above>tip=#ffffff white, y will change when multiplayer matches are adjusted
         game1of2: { x: 2186, y: 260, color: '#ffffff' },
@@ -156,7 +175,18 @@ module.exports = {
         
         networkErrorLeft: { x: 299, y: 816, color: '#2358a6'},
 		networkErrorRight: { x: 2040, y:816, color: '#2458a4'},
-        
+    },
+    ch:{
+        // Start button
+        start: { x: 1745, y: 902, color: '#c3fb12' },
+        noTicketLeft: { x: 171, y: 938, color: '#1c5ab1'},
+        noTicketRight: { x: 2172, y:938, color: '#1c5ab1'},
+        //Special hunt internal settings
+        specialSelector: { x: 486, y:606, color: '#fc0155'},
+        specialSelected: { x: 1218, y:246, color: '#ed2c23'},
+        specialHunt: { x: 578, y:909, color: '#0e7c9c'},
+        specialStart: { x: 1857, y: 729, color: '#c3fb12' },
+        specialNext: { x: 1746, y: 927, color: '#c3fb12' }
     },
     garage: {
         start: { x: 1800, y: 888, color: '#c3fb12' },
@@ -180,10 +210,10 @@ module.exports = {
         //can Play
         canGo1: { x: 1664, y: 914, color: "#ff0054" }, 
         //need star up
-        cantGo1: { x: 1813, y: 1015, color: "#ffffff" },
+        cantGo1: { x: 1813, y: 1015, color: "#ffffff" }, 
         //need blueprints or key 
         cantGo2: { x: 1813, y: 1015, color: "#000921" }, 
-
+        
         // league buttons
         bronze: { x: 1470, y: 248, color: '#ce7145' },
         silver: { x: 1600, y: 248, color: '#365ca3' },
@@ -201,12 +231,12 @@ module.exports = {
         firstCar: { x: 406, y: 633, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
-        distance: { x: 674, y: 345, inertia: 12 }, //26-60fps
+        distance: { x: 674, y: 345, inertia: 30 }, //26-60fps
         
         // First car
         firstCarFlat: { x: 223, y: 640, colorFull: '#c3fb13', colorEmpty: '#ff0054' },
 
         // Vehicle spacing
-        distanceFlat: { x: 696, y: 357, inertia: 12}, //26-60fps
+        distanceFlat: { x: 696, y: 357, inertia: 30 }, //26-60fps
     }
 }

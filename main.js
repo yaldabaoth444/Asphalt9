@@ -1,6 +1,6 @@
 const DEVICE = require('device.js');
 const PLAY = require('play.js').mp;
-const HUNT = require('play.js').chse;
+const HUNT = require('play.js').ch;
 const base = require('play.js').base;
 
 toast("The program will start running after 7 seconds, please quickly switch to the main interface of the game");
@@ -20,17 +20,17 @@ var mp2Time = new Date().getTime();
 var chTime = new Date().getTime();
 
 var counter = { MP: 0, CH: 0 };
-const option_1 = require('./profile.js').mp1;
-const option_2 = require('./profile.js').mp2;
-const option_ch = require('./profile.js').ch;
+const mpOp1 = require('./profile.js').mp1;
+const mpOp2 = require('./profile.js').mp2;
+const chOp = require('./profile.js').ch1;
 
 var huntCounts = 1;
 var huntEveryMinutes = huntCounts * 2 * 10;
 
 var mp1Counts = 1000;
 
-var mp2Counts = 0;
-var mp2EveryMinutes = 30;
+var mp2Counts = 3;
+var mp2EveryMinutes = 60*6;
 
 for (;;) {
     //ch
@@ -44,10 +44,10 @@ for (;;) {
             HUNT.goingHome();
             for ( let i = 0; i < huntCounts; i++ ) {
                  
-                HUNT.beforeRun(option_ch);
-                if(HUNT.chooseCar()){
+                HUNT.beforeRun(chOp);
+                if(HUNT.chooseCar(chOp)){
                     sleep(5000);
-                    HUNT.run(counter, option_ch);
+                    HUNT.run(counter, chOp);
                 } else
                     break;
             }
@@ -65,18 +65,18 @@ for (;;) {
         for ( let i = 0; i < mp2Counts; i++ ) {
         
             // check for hunt time 
-            if (huntCounts > 0){     
+            if (huntEveryMinutes > 0 && huntCounts > 0){     
                 nowTime = new Date().getTime();
                 toast(Math.ceil(huntEveryMinutes - ((nowTime - chTime)/60000)) + "min left to hunt");
                 if ((nowTime - chTime) > huntEveryMinutes * 60000)
                     break;
             }
 
-            PLAY.beforeRun(option_2);
+            PLAY.beforeRun(mpOp2);
       
-            if(PLAY.chooseCar(option_2)){
+            if(PLAY.chooseCar(mpOp2)){
                 sleep(25000);
-                PLAY.run(counter, option_2);
+                PLAY.run(counter, mpOp2);
             } else {
                 // No oil
                 base.back();
@@ -95,25 +95,23 @@ for (;;) {
         PLAY.goingHome();
 
         for ( let i = 0; i < mp1Counts; i++ ) {
-        
+            nowTime = new Date().getTime();
             // check for hunt time
-            if (huntCounts > 0){
-                nowTime = new Date().getTime();
+            if (huntEveryMinutes > 0 && huntCounts > 0){
                 toast(Math.ceil(huntEveryMinutes - ((nowTime - chTime)/60000)) + "min left to hunt");
                 if ((nowTime - chTime) > huntEveryMinutes * 60000)
                     break;
             }
             // check for mp2 time
-            if (mp2Counts > 0){
+            if (mp2EveryMinutes > 0 && mp2Counts > 0){
                 toast(Math.ceil(mp2EveryMinutes - ((nowTime - mp2Time)/60000)) + "min left to MP2");    
                 if ((nowTime - mp2Time) > mp2EveryMinutes * 60000)
                     break;
             }
-            PLAY.beforeRun(option_1);
-      
-            if(PLAY.chooseCar(option_1)){
+            PLAY.beforeRun(mpOp1);
+            if(PLAY.chooseCar(mpOp1)){
                 sleep(25000);
-                PLAY.run(counter, option_1);
+                PLAY.run(counter, mpOp1);
             } else {
                 // No oil
                 base.back();

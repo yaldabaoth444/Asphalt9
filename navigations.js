@@ -11,6 +11,14 @@ module.exports = {
         "13000|drift|2000",
         "10000|route|bottle2"
     ],
+    Cairo_SUBTERRANEAN_DASH_D: [  
+        "500|route|bottle2,dir_right",
+        "10000|drift-flash|3000", 
+        "14000|route|dir_right,ramp,ramp_left,turn_right",
+        "17000|drift-flash|3500",
+        "25000|drift-flash|3500",
+        "34000|drift-flash|3000"
+    ],
     Cairo_SUBTERRANEAN_DASH_B: [  
         "500|route|bottle2,dir_right",
         "9000|drift-flash|3000", 
@@ -62,6 +70,11 @@ module.exports = {
         "10000|drift-flash|5000",
         "30000|route|ramp_right",
     ],
+    Rome_BREAD_AND_CIRCUSES_C: [
+        "500|route|bottle2,ramp_left,ramp_right",
+        "9000|drift-flash|4500",
+        "27000|route|ramp_left",
+    ],
     The_Caribbean_ISLET_RACE: [
         "500|route|dir_left",
         "7000|route|dir_staight",
@@ -75,31 +88,44 @@ module.exports = {
         "500|route|ramp_right,bottle2,bottle",
         "45000|drift-flash|3000"
     ],
+    Buenos_Aires_TO_THE_DOCKS: [
+        "500|route|ramp",
+        "3000|drift-flash|3000",
+        "10000|drift-flash|2000",
+        "15000|route|bottle2,turn_left",
+        "16000|drift|500",
+        "17000|perfect-nitro",
+        "20000|drift|100",
+        "22000|flash",
+        "23100|drift|100",
+        "24150|perfect-nitro",
+        "26000|drift-flash|1500",
+        "28000|drift-flash|2200",
+        "31000|drift-flash|2800",
+        "35000|drift-flash|2000"
+    ],
     US_Midwest_ROLLING_MOTORWAY:[
         "500|route|bottle2",
         "25500|route|ramp"
     ],
+    Himalayas_SNOW_VAULT:[
+        "500|route|bottle",
+        "10000|route|",
+        "17000|route|bottle"
+    ],
+    Nevada_HAIRPIN_SPRINT:[
+        "500|route|ramp",
+        "10000|route|bottle",
+        "24000|drift-flash|4000" 
+    ]    
     /*Buenos_Aires_TO_THE_DOCKS: [
-        "500|route|ramp,ramp_right",
-        "4000|drift-flash|3000",
-        "11000|drift-flash|2000",
-        "16000|route|bottle2,turn_left",
-        "16500|drift|500",
-        "17500|perfect-nitro",
-        "20500|drift|100",
-        "23000|flash",
-        "24100|drift|100",
-        "25150|perfect-nitro",
-        "27000|drift-flash|1500",
-        "29100|drift-flash|2200",
-        "32300|drift-flash|2800",
-        "36000|drift-flash|2000"
-    ]*/
-    Buenos_Aires_TO_THE_DOCKS: [
         "500|route|dir_staight",
         "5000|route|ramp_left",
         "11000|route|ramp_right",
-        "16000|route|bottle2,turn_left",
-        "29100|drift-flash|2200"
-    ]
+        "16000|route|bottle2",
+        "18000|drift-flash|2000",
+        "22000|drift-flash|2000",
+        "26000|drift-flash|1000",
+        "29000|drift-flash|2000"
+    ]*/
 }
