@@ -717,7 +717,7 @@ module.exports = {
             //toastLog("chCheckState " + chCheckState());
             //var img = captureScreen();
             //toastLog(PrintPixel(img, {x: 2130, y: 81, color: "#39393b"}));
-            toastLog("chCheckState " + chCheckState(true));
+            toastLog("chCheckState " + chCheckState(true) + ' = ' + chCheckState());
         },
         //----------------------------------------------------------------------  
         state()
@@ -1274,7 +1274,7 @@ function chCheckState(debug)
     else if (isToken && isCredit && !isBack && !isEventPage)
         state = "index";
     
-    else if (isToken && isCredit && isBack && (pageSelected == 0) && !isStart)
+    else if (isToken && isCredit && isBack && (eventSelected != 0) && !isStart)
         state = "events";
     
     //else if (isToken && isCredit && isBack && (pageSelected == 0) && isCarHunt && !isStart)
