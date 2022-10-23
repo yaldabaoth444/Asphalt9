@@ -76,16 +76,16 @@ module.exports = {
     },
     ch1:{
         //Car hunt position at daily events
-        carHuntPosition: 9, // negative values mean from the end
+        carHuntPosition: 4, // negative values mean from the end
         //Restrictions on the choice of cars
-        carPick : ['C4'],
+        carPick : ['B5'],
         //Supported mode (flat-abc | up | down | none)
         carPickMode: "flat-abc",
         //Navigation instructions for hunt
-        navigation: navs.Rome_BREAD_AND_CIRCUSES_C,
+        navigation: navs.Auckland_STRAIGHT_SPRINT,
         //Nitro mode (750-900 for perfect, 100-300 for double)
         nitroTick: 800,  
-        signSet: 'bottle2, ramp, ramp_left, ramp_right'
+        signSet: 'bottle2, ramp, ramp_right'
     },
     ch2:{
         //Car hunt position at daily events
@@ -156,7 +156,7 @@ module.exports = {
         continue3: { x: 1640, y: 875, color: '#c3fb12' },
         continue4: { x: 1874, y: 898, color: '#ffffff' }, //league up  
         
-        continue5: { x: 1945, y: 904, color: '#ffffff' }, //reward
+        continue5: { x: 1946, y: 905, color: '#ffffff' }, //reward
         continue6: { x: 1741, y: 899, color: '#000921' }, //inverted
         
         advert1: { x: 1460, y: 825, color: '#9bff01' },

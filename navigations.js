@@ -73,7 +73,7 @@ module.exports = {
     Rome_BREAD_AND_CIRCUSES_C: [
         "500|route|bottle2,ramp_left,ramp_right",
         "9000|drift-flash|4500",
-        "27000|route|ramp_left",
+        "29000|route|ramp_left",
     ],
     The_Caribbean_ISLET_RACE: [
         "500|route|dir_left",
@@ -88,6 +88,13 @@ module.exports = {
         "500|route|ramp_right,bottle2,bottle",
         "45000|drift-flash|3000"
     ],
+	Auckland_STRAIGHT_SPRINT:[
+		"500|route|ramp_right,bottle2,bottle",
+		"10000|route|bottle",
+		"12500|drift-flash|3000",
+		"14000|route|ramp_left",
+		"20000|drift-flash|3000"
+	],
     Buenos_Aires_TO_THE_DOCKS: [
         "500|route|ramp",
         "3000|drift-flash|3000",
@@ -117,6 +124,13 @@ module.exports = {
         "500|route|ramp",
         "10000|route|bottle",
         "24000|drift-flash|4000" 
+    ],
+    Greenland_ICE_BREAKERS:[
+        "500|route|ramp",
+		    "4000|drift-flash|3000",
+        "27000|drift-flash|4500",
+        "33000|drift-flash|3000",
+		    "38000|drift-flash|2500" 		
     ]    
     /*Buenos_Aires_TO_THE_DOCKS: [
         "500|route|dir_staight",

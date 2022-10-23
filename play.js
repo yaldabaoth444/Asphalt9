@@ -1261,7 +1261,8 @@ function chCheckState(debug)
         if (isStart) txt += "Start ";
         if (isRace) txt += "Race ";    
         if (isDialog) txt += "Dialog ";
-                            
+        if (isNext) txt += " Next ";
+
         return txt;
     }
     
