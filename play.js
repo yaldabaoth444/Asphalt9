@@ -331,7 +331,7 @@ module.exports = {
             //var img = captureScreen();
             //toastLog(PrintPixel(img, profile.mp.game1of2));
             //toastLog(PrintPixel(img, profile.mp.game2of2));
-            toastLog("mpCheckState " + mpCheckState(true));
+			toastLog("mpCheckState " + mpCheckState(true) + ' = ' + mpCheckState());
         }
     },
     // CarHunt
