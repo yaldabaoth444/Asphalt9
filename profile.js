@@ -76,13 +76,13 @@ module.exports = {
     },
     ch1:{
         //Car hunt position at daily events
-        carHuntPosition: 5, // negative values mean from the end
+        carHuntPosition: 6, // negative values mean from the end
         //Restrictions on the choice of cars
         carPick : ['D4'],
         //Supported mode (flat-abc | up | down | none)
         carPickMode: "flat-abc",
         //Navigation instructions for hunt
-        navigation: navs.Scotland_LIGHTHOUSE_C,
+        navigation: navs.Auckland_TOP_RUN_D,
         //Nitro mode (750-900 for perfect, 100-300 for double)
         nitroTick: 800,  
         signSet: 'bottle2, ramp, ramp_right'

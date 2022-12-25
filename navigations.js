@@ -131,7 +131,15 @@ module.exports = {
         "27000|drift-flash|4500",
         "33000|drift-flash|3000",
 		    "38000|drift-flash|2500" 		
-    ]    
+    ],
+	Auckland_TOP_RUN_D:[
+        "500|route|bottle,ramp_right",
+        "15000|drift-flash|2000",
+		    "18000|route|bottle2,ramp_left",
+        "18300|drift-flash|2000", 
+	    	"32000|drift|4000", 
+	    	"43000|drift-flash|4500"
+    ],
     /*Buenos_Aires_TO_THE_DOCKS: [
         "500|route|dir_staight",
         "5000|route|ramp_left",
