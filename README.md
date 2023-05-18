@@ -1,4 +1,4 @@
-‼️ I sold the account for android, so it is no longer possible to support this version of the bot ‼️  
+‼️ I sold the account for android, so it is no longer possible to support this version of the bot
 ---
 Revival of the project <a href = "https://github.com/DrOmega9834/Asphalt9" target = "_blank">DrOmega9834\/Asphalt9</a>
 
