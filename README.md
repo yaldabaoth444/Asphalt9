@@ -2,7 +2,7 @@
 ---
 Revival of the project <a href = "https://github.com/DrOmega9834/Asphalt9" target = "_blank">DrOmega9834\/Asphalt9</a>
 
-for Auto.js *v4.1.1 alpha2* <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?id=%e7%bb%bc%e8%bf%b0" target = "_blank">Docs</a> | <a href = "https://drive.google.com/file/d/15Y-p6lKDv5PJU17pd1eV_09ynn05X1B6/view?usp=sharing" target = "_blank">Downloads</a>
+for Auto.js *v4.1.1 alpha2* <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?id=%e7%bb%bc%e8%bf%b0" target = "_blank">Docs</a> | <a href = "https://drive.google.com/file/d/15Y-p6lKDv5PJU17pd1eV_09ynn05X1B6/view?usp=sharing" target = "_blank">Downloads</a> (install with the internet off)   
 
 This project is being tested on the Xiaomi Mi 9 smartphone with a resolution of 2340x1080.  
 Add new 2280x1080 profile (thanks to <a href = "https://github.com/Dexya" target = "_blank">Dexya</a>)
