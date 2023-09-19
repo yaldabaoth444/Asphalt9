@@ -80,14 +80,6 @@ __format__: {*action*|time|option}
 <hr>
 
 ![image](https://user-images.githubusercontent.com/25618671/152342822-e86691f0-fb55-4318-9b84-de350041a7cb.png)
-
-<hr>
-
-![image](https://user-images.githubusercontent.com/25618671/152342856-3384f3e0-eaaf-40eb-a486-71d95a6d84cc.png)
-
-<hr>
-
-![image](https://user-images.githubusercontent.com/25618671/152342891-4ee37d45-b6a7-4d23-b15a-6b3c15208c96.png)
 ___
 **Donation**  
 If you think my scripts is helpful for you, you can donate me, your donation is the best encouragement to me.  
