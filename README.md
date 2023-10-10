@@ -1,4 +1,4 @@
-:boom: <a href = "https://boosty.to/a9bot/posts/01a000df-bf5e-404e-b555-7ed3834dfefd?share=post_link" target = "_blank">Ported revised version</a> (with 2340x1080 profile)
+:boom: <a href = "https://boosty.to/a9bot/posts/01a000df-bf5e-404e-b555-7ed3834dfefd?share=post_link" target = "_blank">Ported revised version</a> (AutoJs6 +profile 2340x1080)
 
 ‼️ I sold the account for android, so it is no longer possible to support this version of the bot
 ---
