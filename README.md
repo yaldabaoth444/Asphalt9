@@ -2,7 +2,7 @@
 ---
 I use Auto.js *v6.3.3* <a href = "https://drive.google.com/file/d/1xS-VaeyOzDAXF32NAkXiTDNLmf3r3BVE" target = "_blank">Downloads</a> (install with the internet off)   
 
-This project is being tested on the Xiaomi Mi 9T smartphone with a resolution of 2340x1080.  
+This project is used on the Xiaomi Mi 9T smartphone. Other resolutions require a complete reconfiguration.
 
 Already done: \ō͡≡o˞̶
 - Multiplayer MP1, MP2, MP3
