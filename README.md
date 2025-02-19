@@ -7,7 +7,7 @@ This project is used on the Xiaomi Mi 9T smartphone. Other resolutions require a
 Already done: \ō͡≡o˞̶
 - Multiplayer MP1, MP2, MP3
 - Daily Events (DE)
-- Special Events (SE)
+- Special Events, include Showroom (SE) 
 - Cars filtering
 - Preventing the selection of some cars (by hash)
 - Restarting the application when it gets stuck or after sleeps
