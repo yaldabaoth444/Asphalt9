@@ -1,6 +1,6 @@
 :boom: Ported revised version for ALU (AutoJs6 for 2340x1080)
 ---
-I use Auto.js *v6.3.3* <a href = "https://drive.google.com/file/d/1xS-VaeyOzDAXF32NAkXiTDNLmf3r3BVE" target = "_blank">Downloads</a> (install with the internet off)   
+I use Auto.js *v6.3.3* <a href = "https://drive.google.com/file/d/1xS-VaeyOzDAXF32NAkXiTDNLmf3r3BVE" target = "_blank">Downloads</a>  
 
 This project is used on the Xiaomi Mi 9T smartphone. Other resolutions require a complete reconfiguration.
 
