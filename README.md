@@ -1,8 +1,9 @@
 :boom: Ported revised version for ALU (AutoJs6 for 2340x1080)
 ---
-I use Auto.js *v6.3.3* <a href = "https://drive.google.com/file/d/1xS-VaeyOzDAXF32NAkXiTDNLmf3r3BVE" target = "_blank">Downloads</a>  
+I use Auto.js *v6.3.3* <a href="https://drive.google.com/file/d/1xS-VaeyOzDAXF32NAkXiTDNLmf3r3BVE" target = "_blank">Downloads</a>  
 
-This project is used on the Xiaomi Mi 9T smartphone. Other resolutions require a complete reconfiguration.
+This project is used on the Xiaomi Mi 9T smartphone. Other resolutions require a complete reconfiguration.  
+<sub>It is made in the likeness of `The BOT` (win), so you can get some hints from the old docks for it <a href="http://monopolist.temp.swtest.ru" target = "_blank">here</a><sub>
 
 Already done: \ō͡≡o˞̶
 - Multiplayer MP1, MP2, MP3 +Downgrade
