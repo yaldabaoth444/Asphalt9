@@ -17,7 +17,8 @@ Already done: \ō͡≡o˞̶
 TODO:  
  ¯\\_(ツ)_/¯  
 
-The code is open, you can figure out how it works on your own.
+The code is open, you can figure out how it works on your own.  
+Good luck
 ___
 **Donation**  
 If you think my scripts is helpful for you, you can donate me, your donation is the best encouragement to me.  
