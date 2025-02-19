@@ -1,17 +1,18 @@
 :boom: Ported revised version</a> (AutoJs6 for 2340x1080)
 ---
-I use Auto.js *v6.3.3* <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?id=%e7%bb%bc%e8%bf%b0" target = "_blank">Docs</a> | <a href = "https://drive.google.com/file/d/1xS-VaeyOzDAXF32NAkXiTDNLmf3r3BVE" target = "_blank">Downloads</a> (install with the internet off)   
+I use Auto.js *v6.3.3* <a href = "https://drive.google.com/file/d/1xS-VaeyOzDAXF32NAkXiTDNLmf3r3BVE" target = "_blank">Downloads</a> (install with the internet off)   
 
 This project is being tested on the Xiaomi Mi 9T smartphone with a resolution of 2340x1080.  
 
 Already done: \ō͡≡o˞̶
-- multiplayer MP1, MP2, MP3
+- Multiplayer MP1, MP2, MP3
 - Daily Events (DE)
 - Special Events (SE)
-- cars filtering
-- preventing the selection of some cars (by hash)
-- restart app when stuck
-- navigation (2 ways)
+- Cars filtering
+- Preventing the selection of some cars (by hash)
+- Restart app when stuck
+- Ads watching
+- Navigation (2 ways)
 
 TODO:  
  ¯\\_(ツ)_/¯  
