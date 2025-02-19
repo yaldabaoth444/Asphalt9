@@ -5,7 +5,7 @@ I use Auto.js *v6.3.3* <a href = "https://drive.google.com/file/d/1xS-VaeyOzDAXF
 This project is used on the Xiaomi Mi 9T smartphone. Other resolutions require a complete reconfiguration.
 
 Already done: \ō͡≡o˞̶
-- Multiplayer MP1, MP2, MP3
+- Multiplayer MP1, MP2, MP3 +Downgrade
 - Daily Events (DE)
 - Special Events, include Showroom (SE) 
 - Cars filtering
