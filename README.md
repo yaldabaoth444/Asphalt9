@@ -1,4 +1,4 @@
-:boom: Ported revised version</a> (AutoJs6 for 2340x1080)
+:boom: Ported revised version for ALU (AutoJs6 for 2340x1080)
 ---
 I use Auto.js *v6.3.3* <a href = "https://drive.google.com/file/d/1xS-VaeyOzDAXF32NAkXiTDNLmf3r3BVE" target = "_blank">Downloads</a> (install with the internet off)   
 
@@ -10,7 +10,7 @@ Already done: \ō͡≡o˞̶
 - Special Events (SE)
 - Cars filtering
 - Preventing the selection of some cars (by hash)
-- Restart app when stuck
+- Restarting the application when it gets stuck or after sleeps
 - Ads watching
 - Navigation (2 ways)
 
