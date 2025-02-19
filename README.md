@@ -1,6 +1,10 @@
+:boom: <a href = "https://boosty.to/a9bot/posts/01a000df-bf5e-404e-b555-7ed3834dfefd?share=post_link" target = "_blank">Ported revised version</a> (AutoJs6 +profile 2340x1080)
+
+‼️ I sold the account for android, so it is no longer possible to support this version of the bot
+---
 Revival of the project <a href = "https://github.com/DrOmega9834/Asphalt9" target = "_blank">DrOmega9834\/Asphalt9</a>
 
-for Auto.js *v4.1.1 alpha2* <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?id=%e7%bb%bc%e8%bf%b0" target = "_blank">Docs</a> | <a href = "https://drive.google.com/file/d/15Y-p6lKDv5PJU17pd1eV_09ynn05X1B6/view?usp=sharing" target = "_blank">Downloads</a>
+for Auto.js *v4.1.1 alpha2* <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?id=%e7%bb%bc%e8%bf%b0" target = "_blank">Docs</a> | <a href = "https://drive.google.com/file/d/15Y-p6lKDv5PJU17pd1eV_09ynn05X1B6/view?usp=sharing" target = "_blank">Downloads</a> (install with the internet off)   
 
 This project is being tested on the Xiaomi Mi 9 smartphone with a resolution of 2340x1080.  
 Add new 2280x1080 profile (thanks to <a href = "https://github.com/Dexya" target = "_blank">Dexya</a>)
@@ -78,15 +82,8 @@ __format__: {*action*|time|option}
 <hr>
 
 ![image](https://user-images.githubusercontent.com/25618671/152342822-e86691f0-fb55-4318-9b84-de350041a7cb.png)
-
-<hr>
-
-![image](https://user-images.githubusercontent.com/25618671/152342856-3384f3e0-eaaf-40eb-a486-71d95a6d84cc.png)
-
-<hr>
-
-![image](https://user-images.githubusercontent.com/25618671/152342891-4ee37d45-b6a7-4d23-b15a-6b3c15208c96.png)
 ___
 **Donation**  
 If you think my scripts is helpful for you, you can donate me, your donation is the best encouragement to me.  
 ###### <a href = "https://payeer.com/" target = "_blank">Payeer account: P1073238462</a>
+<a href = "https://boosty.to/a9bot/single-payment/donation/470318/target?share=target_link" target = "_blank">porting to autojs6</a>
