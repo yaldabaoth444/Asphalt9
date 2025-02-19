@@ -19,6 +19,8 @@ TODO:
 
 The code is open, you can figure out how it works on your own.  
 Good luck
+
+_P.S. I apologize in advance for the bad coding style_ 😅  
 ___
 **Donation**  
 If you think my scripts is helpful for you, you can donate me, your donation is the best encouragement to me.  
