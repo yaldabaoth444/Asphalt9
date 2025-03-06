@@ -6,15 +6,16 @@ const se_navs = require('./Navs/nav-se-ultima.js');
 module.exports = {
 	//====================U=S=E=R=========================
     mp1: {
-    	preset: {
-		    legend:   ['C5', 'B5', 'A5', 'S5'],
-		    platinum: ['C5', 'B4', 'A3', 'S0'],
-		    gold:     ['C4', 'B4', 'A3'],
-		    silver:   ['C4', 'B4', 'A3'],
-		    bronze:   ['D3', 'C3', 'B3']
+     	preset: {
+		     legend:   ['C5', 'B5', 'A5', 'S5'],
+		     platinum: ['C5', 'B4', 'A3', 'S0'],
+		     gold:     ['C4', 'B4', 'A3'],
+		     silver:   ['C4', 'B4', 'A3'],
+		     bronze:   ['D3', 'C3', 'B3']
 		},
-		car_owned_only: false,
-		disable_league_selector: true,
+		//preset: presets.D_CLASS,
+		car_owned_only: true,
+		disable_league_selector: false,
 		sign_set: 'ramp, ramp_left, ramp_right',
 		auto_nitro: presets.PERFECT_NITRO,
 		auto_drift: presets.MEDIUM_DRIFT,
@@ -24,6 +25,7 @@ module.exports = {
 
 		auto_nitro_enable_at_sec: 2000,    	//in ms
 	    //auto_nitro_disable_after: 90, 	//in track %
+	    //car_switch_direction: "right",
     },
     downgrade1: {
     	preset: presets.D_CLASS,
@@ -72,9 +74,9 @@ module.exports = {
 		forceMode: true,
     },
     hunt: {
-    	preset: ['D4'],
+    	preset: ['C4'],
 		sign_set: 'ramp, ramp_left, ramp_right',
-		navigation: navs.NEW_YORK_FRIENDLY_NEIGHBORHOOD,
+		navigation: navs.US_MIDWEST_TIME_TRAVEL,
 		sign_set_click_limiter: 1500,
 		auto_nitro: null,
 		auto_drift: null,

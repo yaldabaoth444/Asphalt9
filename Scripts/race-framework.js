@@ -31,7 +31,7 @@ _rfw.doMP1 = function(cnt) {
 	for(let i = 1; i <= cnt; i++) {
 		MP(1);
 		toastLog('done mp1 #' + i);
-		files.append("result.txt", formatDate(new Date()) + " MP1 "+ cnt +"\n");
+		files.append("result.txt", formatDate(new Date()) + " MP1 "+ i +" of " + cnt +"\n");
 	}
 }
 
@@ -39,7 +39,7 @@ _rfw.doMP2 = function(cnt) {
 	for(let i = 1; i <= cnt; i++) {
 		MP(2);
 		toastLog('done mp2 #' + i);
-		files.append("result.txt", formatDate(new Date()) + " MP2 "+ cnt +"\n");
+		files.append("result.txt", formatDate(new Date()) + " MP2 "+ i +" of " + cnt +"\n");
 	}
 }
 
@@ -47,7 +47,7 @@ _rfw.doMP3 = function(cnt) {
 	for(let i = 1; i <= cnt; i++) {
 		MP(3);
 		toastLog('done mp3 #' + i);
-		files.append("result.txt", formatDate(new Date()) + " MP3 "+ cnt +"\n");
+		files.append("result.txt", formatDate(new Date()) + " MP3 "+ i +" of " + cnt +"\n");
 	}
 }
 
@@ -55,7 +55,7 @@ _rfw.doDowngrade1 = function(cnt) {
 	for(let i = 1; i <= cnt; i++) {
 		Downgrade(1);
 		toastLog('downgrade mp1 #' + i);
-		files.append("result.txt", formatDate(new Date()) + " MP1 "+ cnt +"\n");
+		files.append("result.txt", formatDate(new Date()) + " MP1 "+ i +" of " + cnt +"\n");
 	}
 }
 
@@ -63,7 +63,7 @@ _rfw.doDowngrade2 = function(cnt) {
 	for(let i = 1; i <= cnt; i++) {
 		Downgrade(2);
 		toastLog('downgrade mp2 #' + i);
-		files.append("result.txt", formatDate(new Date()) + " MP2 "+ cnt +"\n");
+		files.append("result.txt", formatDate(new Date()) + " MP2 "+ i +" of " + cnt +"\n");
 	}
 }
 
@@ -71,14 +71,14 @@ _rfw.doDowngrade3 = function(cnt) {
 	for(let i = 1; i <= cnt; i++) {
 		Downgrade(3);
 		toastLog('downgrade mp3 #' + i);
-		files.append("result.txt", formatDate(new Date()) + " MP3 "+ cnt +"\n");
+		files.append("result.txt", formatDate(new Date()) + " MP3 "+ i +" of " + cnt +"\n");
 	}
 }
 
 _rfw.doDE = function(name, cnt) {
 	for(let i = 1; i <= cnt; i++) {
 		let deRes = DE(name);
-		files.append("result.txt", formatDate(new Date()) + " DE " +name +' '+ cnt +' '+ deRes +"\n");
+		files.append("result.txt", formatDate(new Date()) + " DE " +name +' '+ i +" of " + cnt +' '+ deRes +"\n");
 		if (deRes) {
 			toastLog('done ' + name + ' #' + i);
 		} else {
@@ -111,7 +111,7 @@ _rfw.doSE = function(name, cnt) {
 	let errCnt = 0;
 	for(let i = 1; i <= cnt; i++) {
 		let deRes = SE(name);
-		files.append("result.txt", formatDate(new Date()) + " SE "+name+' '+ cnt +' '+ deRes +"\n");
+		files.append("result.txt", formatDate(new Date()) + " SE "+name+' '+ i +" of " + cnt +' '+ deRes +"\n");
 		if (deRes) {
 			errCnt = 0;
 			toastLog('done ' + name + ' #' + i);
@@ -134,6 +134,10 @@ _rfw.Start = function() {
 
 _rfw.Restart = function() {
 	core.Restart();
+}
+
+_rfw.SwitchAppTo = function(appName) {
+	core.SwitchAppTo(appName);
 }
 
 _rfw.Exit = function() {
