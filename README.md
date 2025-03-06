@@ -1,6 +1,6 @@
 :boom: AutoJs6 +profile 2340x1080
 
-for Auto.js *v6.3.3 <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?id=%e7%bb%bc%e8%bf%b0" target = "_blank">Docs</a> | <a href = "https://drive.google.com/file/d/15Y-p6lKDv5PJU17pd1eV_09ynn05X1B6/view?usp=sharing" target = "_blank">Downloads</a> (install with the internet off)   
+for Auto.js *v6.3.3 [Downloads](https://drive.google.com/file/d/1xS-VaeyOzDAXF32NAkXiTDNLmf3r3BVE/view?usp=sharing)
 
 This project is being tested on the Xiaomi Mi 9T smartphone with a resolution of 2340x1080.  
 
