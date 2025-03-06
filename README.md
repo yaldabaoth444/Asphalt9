@@ -5,19 +5,17 @@ for Auto.js *v6.3.3 <a href = "https://hyb1996.github.io/AutoJs-Docs/#/?id=%e7%b
 This project is being tested on the Xiaomi Mi 9T smartphone with a resolution of 2340x1080.  
 
 Already done: \ō͡≡o˞̶
-- multiplayer MP1 & MP2
-- car hunt (+ in special events)
+- multiplayer MP1-2-3 +downgrade
+- DE
+- SE + showroom
 - options for choosing cars in the garage
-- restart app when stuck
-- route selection (by image recognition)
+- restart app when stuck or after sleep
+- route selection by image recognition or navigation instructions
 
 TODO:  
  ¯\\_(ツ)_/¯  
 
-[example race](https://www.youtube.com/watch?v=yx-xXiE0fXM)
-
-💥hunt navigation
-![image](https://user-images.githubusercontent.com/25618671/152245137-fd79636b-e7fa-4f84-ab56-c99c3053e8ce.png)
+💥navigation
 __actions__:
 - *route* - change the directory with navigation signs  
 - *drift* - pressing the brake with a specified duration  
@@ -25,15 +23,17 @@ __actions__:
 - *360* - double-tap on the brake  
 - *drift-flash* - pressing the brake with a specified duration then double-tap on the gas  
 - *360-flash* - double-tap on the brake then double-tap on the gas  
+- ...
+
+  ![image](https://github.com/user-attachments/assets/591aed82-3d94-4003-a8f7-340f24b42e43)
 
 __format__: {*action*|time|option}  
 - *action*: see actions above
-- time: time of command execution from the start of the race in milliseconds
+- P%D: where P - percent of track, D (optional) - delta in ms
 - option: parameter depends on the command  
 
 <hr>
 
-![image](https://user-images.githubusercontent.com/25618671/152342822-e86691f0-fb55-4318-9b84-de350041a7cb.png)
 ___
 **Donation**  
 If you think my scripts is helpful for you, you can donate me, your donation is the best encouragement to me.  
