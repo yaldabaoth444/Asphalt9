@@ -27,9 +27,9 @@ __actions__:
 
   ![image](https://github.com/user-attachments/assets/591aed82-3d94-4003-a8f7-340f24b42e43)
 
-__format__: {*action*|time|option}  
-- *action*: see actions above
+__format__: {time|*action*|option}  
 - P%D: where P - percent of track, D (optional) - delta in ms
+- *action*: see actions above
 - option: parameter depends on the command  
 
 <hr>
