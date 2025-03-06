@@ -36,6 +36,6 @@ __format__: {time|*action*|option}
 
 ___
 **Donation**  
-If you think my scripts is helpful for you, you can donate me, your donation is the best encouragement to me.  
-###### <a href = "https://payeer.com/" target = "_blank">Payeer account: P1073238462</a>
-<a href = "https://boosty.to/a9bot/single-payment/donation/470318/target?share=target_link" target = "_blank">porting to autojs6</a>
+If you think my bot is helpful for you, you can donate me, your donation is the best encouragement to me.  
+###### <a href = "https://payeer.com/" target = "_blank">Payeer account: P1073238462</a>  
+###### <a href = "http://boosty.to/a9bot/" target = "_blank">Boosty donation page</a>  
