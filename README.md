@@ -1,4 +1,4 @@
-:boom: AutoJs6 +profile 2340x1080
+:boom: ALU Android Bot powered by AutoJs6 +profile 2340x1080
 
 Auto.js v6.3.3 [Downloads](https://drive.google.com/file/d/1xS-VaeyOzDAXF32NAkXiTDNLmf3r3BVE/view?usp=sharing)
 
