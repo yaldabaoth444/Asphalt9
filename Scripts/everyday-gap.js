@@ -6,9 +6,9 @@ device.setBrightness(0);
 for(let i=0; i<3000; i++) {
 	toastLog("for " + (i + 1));
 
-	main.doDE("hunt", 5);
-	main.doSE("ultima", 1);
-	//main.doDE("free", 4);
+	//main.doDE("hunt", 5);
+	//main.doSE("ultima", 8);
+	main.doDE("free", 12);
 	//main.doSE("showroom", 11);
 
 /*
@@ -27,15 +27,15 @@ for(let i=0; i<3000; i++) {
 		main.doMP1(3);
 	}
 */
-	//main.doDowngrade1(5);
-	main.doMP1(3);
+	main.doDowngrade1(8);
+	main.doMP1(12);
 
 	//main.doDowngrade2(3);
-	main.doMP2(7);
+	//main.doMP2(8);
 
-	//main.doMP3(10);
+	//main.doMP3(6);
 
-	Gap('60m');
+	Gap('30m');
 }
 
 toastLog("End");

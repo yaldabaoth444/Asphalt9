@@ -84,6 +84,10 @@ _core.Click = function(point) {
 	clickPixel(point);
 }
 
+_core.Press = function(point, duration) {
+    press(point.x, point.y, duration)
+}
+
 _core.ClickPixelByName = function(pixelName) {
 	clickPixelByName(pixelName);
 }
@@ -364,7 +368,9 @@ _core.Restart = function() {
     KillA9();
     StartA9();
 }
-
+_core.SwitchAppTo = function(appName) {
+    switchAppTo(appName)
+}
 _core.HideStstusBarTrix = function() {
     hideStstusBarTrix();
 }
@@ -825,14 +831,6 @@ function closePopups()
     if (sbRes.result) {
         hideStstusBarTrix();
         sleepX(2500);
-    }
-
-    if (stageSeconds > 30) {
-        let sbRes = core.ImageFinder(img, './Images/Interface/', "status_bar.png", 't10');
-        if (sbRes.result) {
-            hideStstusBarTrix();
-            core.SleepX(2500);
-        }
     }
 
     back();
@@ -1375,6 +1373,21 @@ function disable(fn) {
     var name = parts.pop();
     files.rename(fn, name+"!");
 }
+
+function switchAppTo(appName) {
+    switch(appName.toLowerCase()) {
+        case "google":
+            profile.appId = 'com.gameloft.android.ANMP.GloftA9HM';
+            break;
+        case "samsung":
+            profile.appId = 'com.gameloft.android.SAMS.GloftA9SS';
+            break;
+        case "huawei":
+            profile.appId = 'com.gameloft.android.HUAW.GloftA9HW.HUAWEI';
+            break;
+    }
+}
+
 
 Array.prototype.contains = function(element){
     return this.indexOf(element) > -1;

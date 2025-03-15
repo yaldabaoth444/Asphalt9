@@ -74,9 +74,9 @@ module.exports = {
 		forceMode: true,
     },
     hunt: {
-    	preset: ['C4'],
+    	preset: ['D4'],
 		sign_set: 'ramp, ramp_left, ramp_right',
-		navigation: navs.US_MIDWEST_TIME_TRAVEL,
+		navigation: navs.Tuscany_VERSATILE_TRAIL,
 		sign_set_click_limiter: 1500,
 		auto_nitro: null,
 		auto_drift: null,
@@ -86,11 +86,11 @@ module.exports = {
 		//forceMode: true,
     },
     free: {
-    	preset: ['C5'],
-		sign_set: 'ramp, ramp_left, ramp_right',
-		navigation: navs.THE_CARIBBEAN_ISLET_RACE,
+    	preset: ['B0'],
+		sign_set: '',
+		navigation: null,
 		sign_set_click_limiter: 1500,
-		auto_nitro: null,
+		auto_nitro: presets.PERFECT_NITRO,
 		auto_drift: null,
 		watchAds: true,
     },   
@@ -251,7 +251,8 @@ module.exports = {
 	car_shift_right: { x: 2105, y: 507, color: "#1e1e1e" }, 
 	car_hash_region: [267, 160, 84, 94],
 
-	race_marker: { x: 455, y: 222, color: '#c3fb12', diff: 3 },
+	//race_marker: { x: 455, y: 222, color: '#c3fb12', diff: 3 },
+	race_marker: { x: 431, y: 215, color: '#c3fb12', diff: 3 },
 	//race_route_region: [910, 185, 520, 100],
 	race_route_region: [890, 185, 560, 100],
 
