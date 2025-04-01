@@ -85,7 +85,7 @@ _rfw.doDE = function(name, cnt) {
 			toastLog('bad ' + name + ' #' + i);
 			break;
 		}
-		core.GoHome("home_page");
+		goHome("home_page");
 	}
 }
 
@@ -123,7 +123,7 @@ _rfw.doSE = function(name, cnt) {
 		}
 	}
 }
-
+//images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
 _rfw.Kill = function() {
 	core.Kill();
 }
@@ -159,7 +159,7 @@ _rfw.GainTicket = function()
 		let state = core.A9State(img);
 
 		if (state.CurrentStage != "home_page")
-		    core.GoHome("home_page");
+		    goHome("home_page");
 
 		let done = false;
 		core.StartTimer('ticket');
@@ -240,7 +240,7 @@ _rfw.GainTicket = function()
             	} else if (stageSeconds > 30) {
             		let sbRes = core.ImageFinder(img, './Images/Interface/', "status_bar.png", 't10');
 		        	if (sbRes.result) {
-		        		core.HideStstusBarTrix();
+		        		core.HideStatusBarTrix();
 						core.SleepX(2500);
 		            }
             	}
@@ -266,7 +266,7 @@ _rfw.GainTicket = function()
 			    core.SleepX(1000);
         }
 
-        core.GoHome("home_page");
+        goHome("home_page");
 
 	} finally {
 		if (img != null)
@@ -274,7 +274,72 @@ _rfw.GainTicket = function()
 	}
 }
 
+_rfw.GoHome = function(destination) {
+	goHome(destination);
+}
+
 module.exports = _rfw;
+
+function goHome(destination) {
+	console.log("GoHome");
+	if (!destination)
+		destination = 'home_page';
+	
+    let img = null
+    core.StartTimer('goHome');
+	while(core.ElapsedSeconds('goHome') < 120) {
+		img = captureScreen();
+		let state = core.A9State(img);
+		//toastLog(state.CurrentStage);
+        console.log("#GoHome " + state.CurrentStage + " start:" + core.ElapsedSeconds('goHome'));
+
+		if (state.CurrentStage == destination || state.CurrentStage == 'home_page') {
+            console.log("reach " + destination);
+            return true;
+        }
+
+        if (state.HasBack)
+        {
+            console.log("GoHome2");
+            if (destination == "home_page" && !state.HasSetup && state.HasHeader) 
+                core.ClickPixelByName("setup");
+            else
+                core.ClickPixelByName("back");
+            core.SleepX(500);
+        }
+        else if (state.CurrentStage == "next") {
+            console.log("GoHome3");
+            core.Click(state.NextPos);
+        } else {
+            console.log("GoHome4");
+            core.ClosePopups();
+        }
+
+        //stuck protection
+        if (state.CurrentStage == "unknow") {
+			if (core.ElapsedSeconds('goHome') > 100) {
+				images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+				return false;
+			} else if (core.ElapsedSeconds('goHome') > 60) {
+    			core.ClosePopups();	
+    			sleep(1500); 
+        	} else if (core.ElapsedSeconds('goHome') > 45 && !trixDone) {
+        		core.HideStatusBarTrix();
+				trixDone = true;
+        	} else if (core.ElapsedSeconds('goHome') > 20) {
+        		let sbRes = core.ImageFinder(null, './Images/Interface/', "status_bar.png", 't10');
+	        	if (sbRes.result) {
+	        		core.HideStatusBarTrix();
+					core.SleepX(2500);
+	            }
+        	}
+        }
+
+        core.SleepX(1500);
+	}
+    if (img != null)
+        img.recycle();
+}
 
 function DE(eventName) {
 	let eventProfile = core.profile[eventName];
@@ -293,7 +358,7 @@ function DE(eventName) {
 		let state = core.A9State(img);
 
 		if (state.CurrentStage != "home_page")
-		    core.GoHome("home_page");
+		    goHome("home_page");
 
 		let car_owned_only = getProperty("car_owned_only", eventProfile, core.profile);
 		let car_switch_direction = getProperty("car_switch_direction", eventProfile, core.profile);
@@ -388,7 +453,7 @@ function MP(num) {
 		let state = core.A9State(img);
 
 		if (state.CurrentStage != "home_page")
-		    core.GoHome("home_page");
+		    goHome("home_page");
 
 		//toast("toCarLobby");
 		let league = "unranked";
@@ -542,6 +607,7 @@ function Race(eventName) {
             	}
             	
             	if (stageSeconds > 180) {
+            		images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
             		console.log("stuck protection >180");
             		return false;
             	} 
@@ -552,12 +618,12 @@ function Race(eventName) {
             		sleep(3000); 
 				} else if (stageSeconds > 100 && !trixDone) {
 					console.log("stuck protection >100");
-            		core.HideStstusBarTrix();
+            		core.HideStatusBarTrix();
 					trixDone = true;
             	} else if (stageSeconds > 20) {
             		let sbRes = core.ImageFinder(null, './Images/Interface/', "status_bar.png", 't10');
 		        	if (sbRes.result) {
-		        		core.HideStstusBarTrix();
+		        		core.HideStatusBarTrix();
 						core.SleepX(2500);
 		            }
             	}
@@ -768,17 +834,18 @@ function Race(eventName) {
             //stuck protection
             if (state.CurrentStage == "unknow") {
 				if (stageSeconds > 180) {
+					images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
 					return false;
 				} else if (stageSeconds > 120) {
         			core.ClosePopups();	
         			sleep(1500); 
             	} else if (stageSeconds > 100 && !trixDone) {
-            		core.HideStstusBarTrix();
+            		core.HideStatusBarTrix();
 					trixDone = true;
             	} else if (stageSeconds > 20) {
             		let sbRes = core.ImageFinder(null, './Images/Interface/', "status_bar.png", 't10');
 		        	if (sbRes.result) {
-		        		core.HideStstusBarTrix();
+		        		core.HideStatusBarTrix();
 						core.SleepX(2500);
 		            }
             	}
@@ -808,7 +875,7 @@ function SE(eventName) {
         let state = core.A9State(img);
 
         if (state.CurrentStage != "home_page")
-            core.GoHome("home_page");
+            goHome("home_page");
 
         let done = false;
         let startTime = new Date().getTime();
@@ -928,7 +995,7 @@ function Downgrade(num) {
 		let state = core.A9State(img);
 
 		if (state.CurrentStage != "home_page")
-		    core.GoHome("home_page");
+		    goHome("home_page");
 
 		//toast("toCarLobby");
 		let league = "unranked";
@@ -1034,6 +1101,7 @@ function Downgrade(num) {
             	}
             	
             	if (stageSeconds > 180) {
+            		images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
             		console.log("stuck protection >180");
             		return false;
             	} 
@@ -1131,6 +1199,7 @@ function Downgrade(num) {
             else if (state.CurrentStage == "race") {
             	raced = true;
 
+            	core.SleepX(10000);
             	core.ClickPixelByName("race_pause");
             	core.SleepX(1500);
 
@@ -1173,6 +1242,7 @@ function Downgrade(num) {
             //stuck protection
             if (state.CurrentStage == "unknow") {
 				if (core.ElapsedSeconds('stage') > 180) {
+					images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
 					return false;
 				} else if (core.ElapsedSeconds('stage') > 120) {
         			core.ClosePopups();	
@@ -1273,7 +1343,7 @@ function exit() {
 		let state = core.A9State(img);
 
 		if (state.CurrentStage != "home_page")
-		    core.GoHome("home_page");
+		    goHome("home_page");
 		else {
 			back();
 			core.SleepX(1000);

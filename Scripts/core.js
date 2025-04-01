@@ -26,49 +26,12 @@ _core.profile = this.profile;
 _core.timers = storages.remove('timers');
 _core.timers = storages.create('timers');
 _core.threshold = 0.90;
+_core.fixOrientation = profile.fixOrientation;
 
 _core.A9State = function(img) {
     let res = a9State(img);
     //console.log(res.CurrentStage);
 	return res
-}
-
-_core.GoHome = function(destination) {
-	console.log("GoHome");
-    let img = null
-    startTimer('goHome');
-	while(elapsedSeconds('goHome') < 120) {
-		img = captureScreen();
-		let state = a9State(img);
-		//toastLog(state.CurrentStage);
-        console.log("#GoHome " + state.CurrentStage + " start:" + elapsedSeconds('goHome'));
-
-		if (state.CurrentStage == destination || state.CurrentStage == "home_page") {
-            console.log("GoHome1");
-            return true;
-        }
-
-        if (state.HasBack)
-        {
-            console.log("GoHome2");
-            if (destination == "home_page" && !state.HasSetup && state.HasHeader) 
-                clickPixel(profile.setup);
-            else
-                clickPixel(profile.back);
-            sleepX(500);
-        }
-        else if (state.CurrentStage == "next") {
-            console.log("GoHome3");
-            clickPixel(state.NextPos);
-        } else {
-            console.log("GoHome4");
-            closePopups();
-        }
-
-        sleepX(1500);
-	}
-    if (img != null)
-        img.recycle();
 }
 
 _core.ClosePopups = function() {
@@ -371,8 +334,8 @@ _core.Restart = function() {
 _core.SwitchAppTo = function(appName) {
     switchAppTo(appName)
 }
-_core.HideStstusBarTrix = function() {
-    hideStstusBarTrix();
+_core.HideStatusBarTrix = function() {
+    hideStatusBarTrix();
 }
 _core.Enable = function(fn) {
     enable(fn);
@@ -495,7 +458,7 @@ function imageFinder(img, folder, fileName, region, threshold)
         let pos = null;
         if (_region) {
         	if (typeof _region === 'string') {
-    		  _region = calcRegion(_region)
+    		  _region = calcRegion(imgad, _region)
               //console.log(fileName);
               //console.log({_region});
     		}
@@ -509,6 +472,8 @@ function imageFinder(img, folder, fileName, region, threshold)
         template.recycle();
         
         if(pos){
+            if (_core.fixOrientation && device.width < imgad.width)
+                pos = fixOrientationBug(pos, device.height, device.width);
         	res.result = true;
         	res.position = pos;
             res.position_center = {
@@ -545,7 +510,7 @@ function imageFinderEx(img, template, region)
         let pos = null;
         if (_region) {
             if (typeof _region === 'string') {
-              _region = calcRegion(_region)
+              _region = calcRegion(img, _region)
               //console.log({_region})
             }
             //pos = images.findImage(img, tImg, {threshold: _core.threshold, region: _region});
@@ -561,6 +526,8 @@ function imageFinderEx(img, template, region)
         height = tImg.getHeight();
         
         if(pos){
+            if (_core.fixOrientation && device.width < img.width)
+                pos = fixOrientationBug(pos, device.height, device.width);
             res.result = true;
             res.position = pos;
             res.position_center = {
@@ -670,7 +637,7 @@ function insideRegion(region, pos) {
             return true;
     return false;    
 }
-
+/*
 function calcRegion(location) {
 	let res = { x: 0, y: 0, width: profile.screen_width - 1, height: profile.screen_height - 1 };
 
@@ -697,6 +664,34 @@ function calcRegion(location) {
 	}
 	//console.log(res);
 	return res;
+}*/
+
+function calcRegion(img, location) {
+    let res = { x: 0, y: 0, width: img.width - 1, height: img.height - 1 };
+
+    let locPercent = parseInt(location.match(/\d+/));
+    let xp = img.width * locPercent / 100;
+    let yp = img.height * locPercent / 100;
+
+    if (location.indexOf("t") !== -1) {
+        res.height = yp;
+    }
+
+    if (location.indexOf("b") !== -1) {
+        res.y = img.height - yp;
+        res.height = yp - 1;
+    }
+
+    if (location.indexOf("l") !== -1){
+        res.width = xp;
+    }
+
+    if (location.indexOf("r") !== -1){
+        res.x = img.width - xp;
+        res.width = xp - 1;
+    }
+    //console.log(res);
+    return res;
 }
 
 function pressNitro()
@@ -829,7 +824,7 @@ function closePopups()
 
     let sbRes = imageFinder(null, './Images/Interface/', "status_bar.png", 't10');
     if (sbRes.result) {
-        hideStstusBarTrix();
+        hideStatusBarTrix();
         sleepX(2500);
     }
 
@@ -983,9 +978,9 @@ function signClicker(filter, region)
             if(signRes.result) {
                 console.log(fileName);
                 if (fileName.startsWith("!")) {
-                   AvoidSignClick(signRes.position_center.x);     
-                }
-                clickPixel(signRes.position_center);
+                    AvoidSignClick(signRes.position_center.x);     
+                } else
+                    clickPixel(signRes.position_center);
                 return true;
             }
         }
@@ -1317,7 +1312,7 @@ function StartA9()
     launch(profile.appId);
 }
 //------
-function hideStstusBarTrix() {
+function hideStatusBarTrix() {
     swipe(2330, 900, 1700, 900, 900);
     sleep(300);
     click(2275, 762);
@@ -1388,6 +1383,17 @@ function switchAppTo(appName) {
     }
 }
 
+function fixOrientationBug(pos, width, height) {
+    //console.log('wrong XY: '+ pos.x + ', ' + pos.y);
+    let k = width/height;
+    let newWidth = height/k;
+    let pad = (width-newWidth)/2;
+    let newX = (pos.x-pad)*k;
+    let newY = pos.y*k;
+    let newPos = { x: newX, y: newY };
+    //console.log('right XY: '+ newPos.x + ', ' + newPos.y);
+    return newPos;
+}
 
 Array.prototype.contains = function(element){
     return this.indexOf(element) > -1;

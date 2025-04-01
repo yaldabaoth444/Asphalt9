@@ -75,10 +75,10 @@ module.exports = {
     },
     hunt: {
     	preset: ['D4'],
-		sign_set: 'ramp, ramp_left, ramp_right',
-		navigation: navs.Tuscany_VERSATILE_TRAIL,
+		sign_set: 'ramp_left, ramp_right',
+		navigation: navs.HIMALAYAS_SNOW_VAULT,
 		sign_set_click_limiter: 1500,
-		auto_nitro: null,
+		auto_nitro: presets.SS_NITRO,
 		auto_drift: null,
 		//car_switch_direction: "right",
 		//car_owned_only: true,
@@ -87,9 +87,9 @@ module.exports = {
     },
     free: {
     	preset: ['B0'],
-		sign_set: '',
+		sign_set: 'tunnel, dir_left, ramp_left, ramp_right',
 		navigation: null,
-		sign_set_click_limiter: 1500,
+		sign_set_click_limiter: 1200,
 		auto_nitro: presets.PERFECT_NITRO,
 		auto_drift: null,
 		watchAds: true,
@@ -157,6 +157,7 @@ module.exports = {
     avoid_sign_set: "!barrier, !obstacle",
     sign_set_click_limiter: 2500,
     watchAds: true,
+    fixOrientation: true,
 
     auto_drift_enable_at_sec: 10000,   	//in ms
     auto_drift_disable_after: null,     //in track %
@@ -169,7 +170,7 @@ module.exports = {
     screen_width: 2340,
     screen_height: 1080,
 
-	back: { x: 122, y: 52, color: '#000000' },
+	back: { x: 122, y: 52, color: '#010101', diff: 1 },
 	a_tokens: { x: 1482, y: 51, color: '#0090ff' },
 	c_tokens: { x: 1847, y: 51, color: '#ffc600' },
 	home: { x: 100, y: 50, color: '#c800ff' },
@@ -230,7 +231,7 @@ module.exports = {
 	daily_events_lobby: { x: 20, y: 400, color: '#100926', diff: 3 },
 	car_lobby_marker1: { x: 264, y: 381, color: '#ffffff' },
 	car_lobby_marker2: { x: 282, y: 640, color: '#ffffff' },
-	car_lobby_td_on: { x: 1615, y: 920, color: '#ffffff' },
+	car_lobby_td_on: { x: 1715, y: 910, color: '#ffffff' },
 
     car_star_1: { x: 428, y: 230, color: "#ffef5b", diff: 5 }, 
     car_star_2: { x: 470, y: 230, color: "#ffef59", diff: 5 }, 
@@ -241,11 +242,11 @@ module.exports = {
 
     //Buttons that determine whether the car is available for the race or not 
     //can Play
-    car_can_go: { x: 1742, y: 849, color: "#a56ddf", diff: 5 }, 
+    car_can_go: { x: 1816, y: 867, color: "#b37aef", diff: 5 }, 
     //need star up
-    car_skip: { x: 1813, y: 835, color: "#ffffff" }, 
+    car_skip: { x: 2257, y: 843, color: "#ffffff", diff: 2 }, 
     //need blueprints or key 
-    need_upgrade: { x: 1813, y: 1015, color: "#000921" }, 
+    need_upgrade: { x: 1870, y: 900, color: "#000000" }, 
 
 	car_shift_left: { x: 843, y: 508, color: "#202020", diff: 5 }, 
 	car_shift_right: { x: 2105, y: 507, color: "#1e1e1e" }, 
