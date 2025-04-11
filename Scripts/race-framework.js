@@ -123,7 +123,7 @@ _rfw.doSE = function(name, cnt) {
 		}
 	}
 }
-//images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+
 _rfw.Kill = function() {
 	core.Kill();
 }
@@ -318,7 +318,7 @@ function goHome(destination) {
         //stuck protection
         if (state.CurrentStage == "unknow") {
 			if (core.ElapsedSeconds('goHome') > 100) {
-				images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+				images.save(captureScreen(), "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
 				return false;
 			} else if (core.ElapsedSeconds('goHome') > 60) {
     			core.ClosePopups();	
@@ -607,7 +607,7 @@ function Race(eventName) {
             	}
             	
             	if (stageSeconds > 180) {
-            		images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+            		images.save(captureScreen(), "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
             		console.log("stuck protection >180");
             		return false;
             	} 
@@ -834,7 +834,7 @@ function Race(eventName) {
             //stuck protection
             if (state.CurrentStage == "unknow") {
 				if (stageSeconds > 180) {
-					images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+					images.save(captureScreen(), "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
 					return false;
 				} else if (stageSeconds > 120) {
         			core.ClosePopups();	
@@ -1101,7 +1101,7 @@ function Downgrade(num) {
             	}
             	
             	if (stageSeconds > 180) {
-            		images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+            		images.save(captureScreen(), "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
             		console.log("stuck protection >180");
             		return false;
             	} 
@@ -1242,7 +1242,7 @@ function Downgrade(num) {
             //stuck protection
             if (state.CurrentStage == "unknow") {
 				if (core.ElapsedSeconds('stage') > 180) {
-					images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+					images.save(captureScreen(), "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
 					return false;
 				} else if (core.ElapsedSeconds('stage') > 120) {
         			core.ClosePopups();	

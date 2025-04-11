@@ -75,10 +75,10 @@ module.exports = {
     },
     hunt: {
     	preset: ['D4'],
-		sign_set: 'ramp_left, ramp_right',
-		navigation: navs.HIMALAYAS_SNOW_VAULT,
+		sign_set: 'ramp, ramp_left, ramp_right',
+		navigation: navs.NEVADA_WINDING_ROAD,
 		sign_set_click_limiter: 1500,
-		auto_nitro: presets.SS_NITRO,
+		auto_nitro: null,
 		auto_drift: null,
 		//car_switch_direction: "right",
 		//car_owned_only: true,
