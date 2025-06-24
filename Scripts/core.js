@@ -27,11 +27,20 @@ _core.timers = storages.remove('timers');
 _core.timers = storages.create('timers');
 _core.threshold = 0.90;
 _core.fixOrientation = profile.fixOrientation;
+_core.saveStat = true;
 
 _core.A9State = function(img) {
     let res = a9State(img);
     //console.log(res.CurrentStage);
 	return res
+}
+
+_core.EnableStat = function() {
+    _core.saveStat = true;
+}
+
+_core.DisableStat = function() {
+    _core.saveStat = false;
 }
 
 _core.ClosePopups = function() {
@@ -331,6 +340,18 @@ _core.Restart = function() {
     KillA9();
     StartA9();
 }
+
+_core.RestartWitTimeout = function(duration) {
+    toastLog("Kill");
+    KillA9();
+
+    toastLog("sleep");
+    waitX(duration);
+
+    toastLog("Start");
+    StartA9();
+}
+
 _core.SwitchAppTo = function(appName) {
     switchAppTo(appName)
 }
@@ -381,7 +402,7 @@ function a9State(img) {
                 //return state;
             } 
 
-            if (imageFinder(img, './Images/Interface/', "car_selection.png", "tl40").result) {
+            if (imageFinder(img, './Images/Interface/', "car_selection.png", "tr35").result) {
                 state.CurrentStage = "garage";
                 return state;
             }
@@ -481,6 +502,7 @@ function imageFinder(img, folder, fileName, region, threshold)
                 y: Math.round(pos.y + height/2)
             };
             res.image_name = fileName;
+            imgStat(res);
         } 
         return res;
     }
@@ -535,6 +557,7 @@ function imageFinderEx(img, template, region)
                 y: Math.round(pos.y + height/2)
             };
             res.image_name = template.fileName;
+            imgStat(res);
         } 
         return res;
     // }
@@ -561,6 +584,7 @@ function imagesFinder(img, folder, region, threshold)
             imgad = captureScreen();
 
         try {
+            list.sort();
             for(let i = 0; i < len; i++){
                 let fileName = list[i];
                 //if (fileName.toLowerCase().endsWith(".png") || fileName.toLowerCase().endsWith(".jpg"))
@@ -1287,6 +1311,46 @@ function getCarHash(img) {
     return hash;
 }
 
+const stat = [];
+const skip = [
+"A.png", 
+"B.png", 
+"C.png", 
+"D.png", 
+"S.png", 
+"a_tokens.png", 
+"c_tokens.png", 
+"car_selection.png", 
+"de_enter.png",
+"fuel.png", 
+"get_ready.png", 
+"hunt.png", 
+"miss_out.png",
+"next_yellow.png", 
+"ok_demote.jpg",
+"ok_demoted@b50.png",
+"ramp.png", 
+"ramp_left.png", 
+"ramp_right",
+"rewards.png", 
+]
+function imgStat(pos) {
+    if (!_core.saveStat || pos == null || !pos.result)
+        return;
+
+    if (skip.contains(pos.image_name))
+        return;
+
+    let d = new Date();
+    let msg = Number(d) +"|"+ formatDate(d) +"|"+ pos.image_name +"|"+  pos.position_center.x +","+ pos.position_center.y;
+    if (stat.length < 100) {
+        stat.push(msg)
+    } else {
+        files.append("stat.txt", stat.join("\n")+"\n");
+        stat = [];
+    }
+}
+
 //------
 function KillA9() 
 {
@@ -1393,6 +1457,26 @@ function fixOrientationBug(pos, width, height) {
     let newPos = { x: newX, y: newY };
     //console.log('right XY: '+ newPos.x + ', ' + newPos.y);
     return newPos;
+}
+
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date) {
+  return (
+    [
+      padTo2Digits(date.getMonth() + 1),
+      padTo2Digits(date.getDate()),
+      date.getFullYear(),
+    ].join('.') +
+    ' ' +
+    [
+      padTo2Digits(date.getHours()),
+      padTo2Digits(date.getMinutes()),
+      padTo2Digits(date.getSeconds()),
+    ].join(':')
+  );
 }
 
 Array.prototype.contains = function(element){

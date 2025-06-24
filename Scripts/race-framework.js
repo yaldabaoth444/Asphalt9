@@ -319,6 +319,9 @@ function goHome(destination) {
         if (state.CurrentStage == "unknow") {
 			if (core.ElapsedSeconds('goHome') > 100) {
 				images.save(captureScreen(), "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+				toastLog("Restart");
+				core.RestartWitTimeout('1m');
+				main.WaitX('1m');
 				return false;
 			} else if (core.ElapsedSeconds('goHome') > 60) {
     			core.ClosePopups();	
@@ -362,6 +365,7 @@ function DE(eventName) {
 
 		let car_owned_only = getProperty("car_owned_only", eventProfile, core.profile);
 		let car_switch_direction = getProperty("car_switch_direction", eventProfile, core.profile);
+		let forceMode = eventProfile["forceMode"];
 
 		let done = false;
 		let startTime = new Date().getTime();
@@ -424,7 +428,7 @@ function DE(eventName) {
 		if (!done)
 			return false;
 
-		if (!core.GarageSelectCar(null, eventProfile.preset, car_switch_direction))
+		if (!core.GarageSelectCar(null, eventProfile.preset, car_switch_direction, forceMode))
 		{
 			core.ClickPixelByName("setup");
 			return false;
@@ -582,6 +586,7 @@ function Race(eventName) {
 
 		let watchAds = getProperty("watchAds", eventProfile, core.profile);
 		let forceMode = eventProfile["forceMode"];
+		let tdOff = eventProfile["tdOff"];
 		let watchingAd = false;
 		StageCounter("begin");
 
@@ -653,7 +658,7 @@ function Race(eventName) {
 		    else if (state.CurrentStage == "car_lobby") {
 		    	if (stageSeconds > 1) {
 		    		let tdOn = core.CheckPixel(img, core.profile.car_lobby_td_on);
-		    		if (!tdOn) {
+		    		if ((tdOff == true && tdOn) || (!tdOn && !tdOff)) {
 		    			core.ClickPixelByName("car_lobby_td_on");
 		    			core.SleepX(500);
 		    		} else {
@@ -804,7 +809,7 @@ function Race(eventName) {
             		}
             	} 
             	
-            	if (!clckWatch) {
+            	if (!clckWatch && stageSeconds > 2) {
             		core.Click(state.NextPos);
             		core.SleepX(1500);
 	            }
@@ -912,6 +917,10 @@ function SE(eventName) {
             } else {
                 let imgfRes = core.ImageFinder(img, './Images/SpecialEvents/' + eventName + '/', 'event_lobby.png');
                 if (imgfRes.result) {
+                	core.SleepX(500);
+                	core.Click(imgfRes.position_center);
+                	core.SleepX(1500);
+
                     if (!core.SelectSpecialEvent(eventName, stage)) {
                         core.ClickPixelByName("setup");
                     	core.SleepX(2500);
@@ -1394,6 +1403,12 @@ function doNavComand(route, percent, delta) {
                 console.log(i+": "+item.percent+"%"+item.delta +" "+ item.type);
 
                 switch (item.type) {
+                	case "td-toggle": 
+                		threads.start(function(){
+                			core.ClickPixelByName("race_td_on");
+                		});
+                		break;
+
                 	case "drift": 
                 		threads.start(function(){
                 			core.PressBrake(item.dur);

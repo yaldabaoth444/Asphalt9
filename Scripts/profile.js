@@ -1,21 +1,21 @@
 const presets = require('./presets.js');
 const navs = require('./Navs/navigations.js');
-const showroom_navs = require('./Navs/nav-se-scv12.js');
-const se_navs = require('./Navs/nav-se-ultima.js');
+const showroom_navs = require('./Navs/nav-sr-sr01.js');
+//const se_navs = require('./Navs/nav-se-ultima.js');
 
 module.exports = {
 	//====================U=S=E=R=========================
     mp1: {
      	preset: {
 		     legend:   ['C5', 'B5', 'A5', 'S5'],
-		     platinum: ['C5', 'B4', 'A3', 'S0'],
-		     gold:     ['C4', 'B4', 'A3'],
+		     platinum: ['C5', 'B5', 'A5', 'S5'],
+		     gold:     ['C5', 'B5', 'A4', 'S4'],
 		     silver:   ['C4', 'B4', 'A3'],
 		     bronze:   ['D3', 'C3', 'B3']
 		},
 		//preset: presets.D_CLASS,
-		car_owned_only: true,
-		disable_league_selector: false,
+		car_owned_only: false,
+		disable_league_selector: true,
 		sign_set: 'ramp, ramp_left, ramp_right',
 		auto_nitro: presets.PERFECT_NITRO,
 		auto_drift: presets.MEDIUM_DRIFT,
@@ -25,7 +25,7 @@ module.exports = {
 
 		auto_nitro_enable_at_sec: 2000,    	//in ms
 	    //auto_nitro_disable_after: 90, 	//in track %
-	    //car_switch_direction: "right",
+	    car_switch_direction: "left",
     },
     downgrade1: {
     	preset: presets.D_CLASS,
@@ -36,11 +36,16 @@ module.exports = {
     },
     mp2: {
     	preset: {
-		    legend:   ['B4', 'A4', 'S4'],
-		    platinum: ['B4', 'A4', 'S4'],
-		    gold:     ['B4', 'A4', 'S4'],
-		    silver:   ['B4', 'A4', 'S4'],
-		    bronze:   ['B4', 'A4', 'S4'],
+		    // legend:   ['B4', 'A4', 'S4'],
+		    // platinum: ['B4', 'A4', 'S4'],
+		    // gold:     ['B4', 'A4', 'S4'],
+		    // silver:   ['B4', 'A4', 'S4'],
+		    // bronze:   ['B4', 'A4', 'S4'],
+		    legend:   ['D5', 'C5'],
+		    platinum: ['D5', 'C5'],
+		    gold:     ['D5', 'C5'],
+		    silver:   ['D5', 'C5'],
+		    bronze:   ['D5', 'C5'],
 		},
     	car_owned_only: true,
 
@@ -61,6 +66,7 @@ module.exports = {
 		auto_nitro: presets.SS_NITRO,
 		auto_drift: null,
 		sign_set_click_limiter: 1800,
+		watchAds: true,
 		forceMode: true,
     },
     downgrade3: {
@@ -74,9 +80,9 @@ module.exports = {
 		forceMode: true,
     },
     hunt: {
-    	preset: ['D4'],
+    	preset: ['C5'],
 		sign_set: 'ramp, ramp_left, ramp_right',
-		navigation: navs.NEVADA_WINDING_ROAD,
+		navigation: navs.SAN_FRANCISCO_CITY_DASH,
 		sign_set_click_limiter: 1500,
 		auto_nitro: null,
 		auto_drift: null,
@@ -84,6 +90,16 @@ module.exports = {
 		//car_owned_only: true,
 		watchAds: true,
 		//forceMode: true,
+    },
+    epic: {
+    	preset: ['A0'],
+		sign_set: '',
+		navigation: navs.Tuscany_VERSATILE_TRAIL,
+		sign_set_click_limiter: 1200,
+		auto_nitro: null,
+		auto_drift: null,
+		watchAds: true,
+		forceMode: true,
     },
     free: {
     	preset: ['B0'],
@@ -95,29 +111,53 @@ module.exports = {
 		watchAds: true,
     },   
     race: {
-		sign_set: 'ramp, ramp_left, ramp_right',
+		sign_set: '',
 		sign_set_click_limiter: 1200,
-		navigation: null,
+		navigation: navs.CAIRO_TOWER_FINISH_A,
 		
 		auto_nitro_enable_at_sec: 0,
 		auto_nitro_disable_after: null,
-		auto_nitro: presets.SS_NITRO,
+		auto_nitro: null,
 
 		auto_drift_enable_at_sec: 10000,
 		auto_drift_disable_after: null,
 		auto_drift: null,
+
+		watchAds: true,
+		forceMode: true,
     },  
 	showroom: {
-		preset: ['B1'],
+		preset: ['C1'],
 		sign_set: 'ramp, ramp_left, ramp_right, bottle, bottle2',
 		sign_set_click_limiter: 1200,
-		stage: "stage5",
-		navigation: showroom_navs.SCV12_STAGE_5,
+		stage: "stage10",
+		navigation: showroom_navs.SR01_STAGE_10,
 		auto_nitro: null,
 		auto_drift: null,
 		watchAds: true,
 		forceMode: true,		
 	}, 
+	sonic: {
+     	preset: ['B1'],
+		sign_set: '',
+		sign_set_click_limiter: 1200,
+		navigation: navs.SONIC_STAGE_7,
+		stage: "stage7",
+		auto_nitro: null,
+		auto_drift: null,
+		forceMode: true,
+		watchAds: true,
+		tdOff: true,
+    }, 
+    nevera: {
+     	preset: ['S2'],
+		sign_set: '',
+		sign_set_click_limiter: 1300,
+		navigation: navs.Greenland_ICY_LOOP,
+		stage: "stage2",
+		auto_nitro: null,
+		auto_drift: null,
+    }, 	
 /*	
     srw12: {
      	preset: ['B1'],
@@ -137,7 +177,7 @@ module.exports = {
 		stage: "stage6",
 		auto_nitro: null,
 		auto_drift: null,
-    }, */
+    }, 
    	ultima: {
 		sign_set: 'ramp_left, ramp_right, bottle, bottle2',
 		sign_set_click_limiter: 2200,
@@ -146,7 +186,7 @@ module.exports = {
 		auto_nitro: null,
 		auto_drift: null,
 		forceMode: true,
-    }, 
+    }, */
 
 	//=================D=E=F=A=U=L=T======================
     sleep_extender: 0,
@@ -187,7 +227,7 @@ module.exports = {
 //	rewards: { x: 680, y: 900, color: '#ffffff' },
 //	leaderboard: { x: 190, y: 900, color: '#ffffff' },
 //	milestones: { x: 1170, y: 900, color: '#ffffff' },
-	mp_play: { x: 1850, y: 912, color: '#ffd400' },
+	mp_play: { x: 1900, y: 940, color: '#ffd400' },
 	golden_point: { x: 2080, y: 900, color: '#ffd400', diff: 3 },
 	mpScanLineY: 189,	
 	race_pause: { x: 200, y: 120, color: '#ffffff' },
@@ -230,8 +270,8 @@ module.exports = {
 
 	daily_events_lobby: { x: 20, y: 400, color: '#100926', diff: 3 },
 	car_lobby_marker1: { x: 264, y: 381, color: '#ffffff' },
-	car_lobby_marker2: { x: 282, y: 640, color: '#ffffff' },
-	car_lobby_td_on: { x: 1715, y: 910, color: '#ffffff' },
+	car_lobby_marker2: { x: 281, y: 640, color: '#ffffff' },
+	car_lobby_td_on: { x: 1715, y: 920, color: '#ffffff' },
 
     car_star_1: { x: 428, y: 230, color: "#ffef5b", diff: 5 }, 
     car_star_2: { x: 470, y: 230, color: "#ffef59", diff: 5 }, 
@@ -242,7 +282,7 @@ module.exports = {
 
     //Buttons that determine whether the car is available for the race or not 
     //can Play
-    car_can_go: { x: 1816, y: 867, color: "#b37aef", diff: 5 }, 
+    car_can_go: { x: 1787, y: 870, color: "#b275ee", diff: 5 }, 
     //need star up
     car_skip: { x: 2257, y: 843, color: "#ffffff", diff: 2 }, 
     //need blueprints or key 
@@ -256,6 +296,7 @@ module.exports = {
 	race_marker: { x: 431, y: 215, color: '#c3fb12', diff: 3 },
 	//race_route_region: [910, 185, 520, 100],
 	race_route_region: [890, 185, 560, 100],
+	race_td_on: { x: 425, y: 200, color: "#c3fb12" }, 
 
 	prc_num_1: [
 	 	{ x: 468, y:148, blank: [5, 6], dirty: [ 0, 1, 2, 3, 8, 9] },

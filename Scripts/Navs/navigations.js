@@ -20,6 +20,141 @@
 // THE SOFTWARE.
 
 module.exports = {
+    //Greenland: ICY LOOP
+    Greenland_ICY_LOOP:[
+        "0%|signs|",
+
+        "1%|right|2",
+        "5%|right|2",
+        "7%400|flash|4",
+        "11%|drift|160",
+        
+        "13%|signs|ramp",
+
+        "15%50|360-flash|2",
+        "18%200|drift-perfect-nitro|1000",
+        "25%|drift-flash|2600",
+        "31%|drift-flash|2700",
+        "36%150|drift-flash|2400",
+        
+        "40%400|left|2",
+        "41%400|stop-normal-nitro",
+        "42%400|stop-double-nitro|4",
+        "47%150|stop-nitro",
+        
+        "48%|flash",
+        "50%|stop-nitro",
+        
+        "52%|360-flash|2",
+        "55%|left|2",
+        "55%100|drift-flash|655",
+        "58%300|drift|327",
+        "60%|normal-nitro",
+        "60%200|stop-normal-nitro",
+        "61%200|stop-double-nitro",
+        "63%50|drift-flash|2159",
+        
+        "64%200|choose|12",
+        "69%100|stop-perfect-nitro",
+        "73%|stop-normal-nitro",
+        
+        "73%|choose|13",
+        "74%|perfect-nitro",
+        
+        "77%250|right",
+        "78%|stop-nitro",
+        "80%|flash",
+        "87%350|drift-flash|900",
+        
+        "90%200|drift-flash|3000",
+
+        "95%|choose|12",
+        "97%|flash",
+        "98%|flash",
+        "99%|flash"
+    ],
+    //Chicago: WINDCUT HEIGHTS
+    Chicago_WINDCUT_HEIGHTS: [
+        "0%|signs|",
+
+        "0%1000|flash",
+        "0%1400|stop-nitro",
+        "0%2500|flash",
+        "5%|stop-nitro",
+        "6%100|flash",
+        
+        "7%200|right",
+        "8%|right",
+        "9%|stop-normal-nitro",
+        "12%|stop-nitro",
+        "13%200|normal-nitro",
+        "14%200|stop-normal-nitro",
+        "16%|drift-flash|1700",
+
+        "23%|flash",
+        "24%|stop-nitro",
+        "25%150|360-flash",
+        "28%|drift|819",
+        "28%1000|flash",
+        "28%1700|drift|3250",
+
+        "29%|choose|22",
+        "30%|choose|22",
+        "32%|flash",     
+        "35%100|stop-nitro",
+        "40%50|flash",
+        "42%|drift|2350",
+        "48%|flash",
+        "53%700|drift-flash|3500",
+
+        "61%|choose|13",
+        "62%|choose|13",
+        "70%|perfect-nitro",
+        "72%|right",
+        "73%50|right",
+        "74%|stop-normal-nitro",
+        "77%|drift|2600",
+        "83%|360-flash|6",
+        "88%|stop-nitro",
+        "90%250|drift-flash|2000",
+        "96%|flash",
+        "97%|flash",
+        "98%|flash",
+        "99%|flash",
+    ],
+    //Chicago: SPIREBOUND SURGE
+    Chicago_SPIREBOUND_SURGE: [
+        "0%|signs|",
+
+        "3%|right",
+        "8%|flash|2",
+        "12%|stop-nitro",
+        "15%|drift|800",
+        "20%|flash",
+
+        "21%|right|2",
+        "22%|right",
+        "23%|right",    
+        "25%|stop-normal-nitro",
+        "30%|drift|1937",
+
+        "40%|360-flash|5",
+        "46%|flash",
+        "47%|flash",
+        "52%|drift|2554",
+        "64%|flash",
+        "66%|stop-perfect-nitro",
+        "72%|stop-nitro",
+
+        "73%|choose|33",
+        "75%|flash",
+
+        "76%|choose|33",
+        "77%|stop-nitro",
+        "85%|flash|2",
+        "89%|stop-perfect-nitro",
+        "95%|stop-perfect-nitro",
+    ],
     //Singapore: BEACHSIDE BLITZ
     Singapore_BEACHSIDE_BLITZ:[
         "0%|signs|",    
@@ -844,7 +979,7 @@ module.exports = {
         "51%|choose|22",
         "58%|flash",
         "61%|stop-nitro",
-        "67%|choose|13",
+        "68%|choose|13",
         "72%|flash",
         "75%|choose|12",
         "76%|choose|12",
@@ -1058,5 +1193,10 @@ module.exports = {
         "84%|choose|22",
         "87%|flash",
         "92%|perfect-nitro"
+    ],
+    SONIC_STAGE_7: [
+        "0%|signs|",
+        //"1%|td-toggle",
+        "2%|right|20"
     ]
 }
