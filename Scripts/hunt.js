@@ -29,6 +29,7 @@ for(let i = 0; i < cnt; i++) {
 		main.GainTicket();
 	
 	main.doDE("hunt", 5);
+	//main.doDE("epic", 3);
 }
 
 toastLog("End");

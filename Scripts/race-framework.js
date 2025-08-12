@@ -825,6 +825,10 @@ function Race(eventName) {
             	if (core.ElapsedSeconds('stage') > 2)
 					done = true;
             }
+            else if (state.HasHeader && raced && (["unknow"].contains(state.CurrentStage))) {
+            	if (core.ElapsedSeconds('stage') > 5)
+					done = true;
+            }
             else if (watchAds && watchingAd && state.CurrentStage == "unknow") {
             	imgfRes = core.ImagesFinder(img, './Images/AdAllInOne/');
 				if (imgfRes.result) {

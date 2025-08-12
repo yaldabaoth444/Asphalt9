@@ -20,6 +20,202 @@
 // THE SOFTWARE.
 
 module.exports = {
+    //Singapore: FUNFAIR FRENZY
+    Singapore_FUNFAIR_FRENZY: [
+        "0%|signs|",
+
+        "1%|flash",
+        "2%200|drift|750",
+        
+        "4%200|choose|22",
+        "5%|choose|22",
+        "7%200|flash",
+
+        "8%150|right",
+        "9%|choose|33",
+        "10%|stop-nitro",
+        "13%|flash",
+        "15%|stop-nitro",
+        "16%|flash",
+        "19%|stop-perfect-nitro",
+        "22%|stop-normal-nitro",
+        "23%|stop-normal-nitro",
+        "25%|stop-perfect-nitro",
+        "29%|drift-flash|2200",
+
+        "32%|choose|33",
+        "37%50|stop-normal-nitro",
+        "41%|drift|1400",
+
+        "52%|left",
+        "53%|left|2",
+        "56%|flash",
+        "59%|stop-normal-nitro",
+        "61%00|stop-nitro",
+
+        "63%100|360-flash|1",
+        "70%|drift|700",
+        "73%|flash",
+        "75%|stop-normal-nitro",
+
+        "76%|choose|33",
+        "77%|choose|33",
+        "77%|normal-nitro",
+        "81%|stop-nitro",
+        "83%|flash",
+        "85%|stop-perfect-nitro",
+        "90%|drift-flash|2200",
+        "97%58|normal-nitro|5",
+    ],
+    //Rome: ANCIENT ROME
+    Rome_ANCIENT_ROME: [
+        "0%|signs|",
+
+        "2%|drift-flash|1500",
+        "5%|stop-nitro",
+        "5%500|perfect-nitro",
+        "8%50|stop-nitro",
+
+        "12%|right",
+        "14%|double-nitro",
+        "15%150|drift|750",
+
+        "19%|right",
+        "22%150|perfect-nitro",
+        "26%250|stop-nitro",
+
+        "27%300|drift|5324",
+        "35%50|flash",
+
+        "35%|choose|12",
+        
+        "38%50|choose|22",
+        "39%|choose|22",
+        "39%|stop-nitro",
+        "42%|flash|2",
+        "46%100|drift-flash|1100",
+        "47%700|stop-nitro",
+        "48%300|stop-nitro",
+
+        "49%|choose|12",
+        "50%|normal-nitro",
+        "50%300|stop-nitro",
+        "54%|flash|1",
+        "55%|stop-nitro",
+        "57%|flash",
+        "58%|stop-perfect-nitro",
+        "61%|drift|2800",
+
+        "65%300|choose|12",
+        "68%400|choose|22",
+        "70%|360-flash|1",
+        "72%|drift|175",
+        "77%|perfect-nitro",
+
+        "80%|choose|13",
+        "80%|stop-nitro",
+        "83%350|perfect-nitro",
+        "86%200|stop-nitro",
+
+        "88%|choose|22",
+        "89%250|perfect-nitro",
+        "91%150|stop-nitro",
+        "93%|perfect-nitro",
+        "93%450|stop-nitro",
+        "97%|normal-nitro|5"
+    ],
+    //Paris: SACRED HEART
+    Paris_SACRED_HEART: [
+        "0%|signs|",
+
+        "3%|drift|1500",
+        "5%350|perfect-nitro",
+
+        "8%|left",
+        "9%|left",
+        "12%|normal-nitro",
+        "17%|normal-nitro",
+        "19%|drift-flash|2100",
+        "26%200|stop-perfect-nitro",
+
+        "28%150|right",
+        "29%|right",
+        "30%200|stop-double-nitro|3",
+        "33%200|stop-normal-nitro",
+        "34%150|stop-normal-nitro",
+        "35%|stop-perfect-nitro",
+
+        "38%100|right",
+        "39%|right",
+        "40%200|stop-nitro",
+        "41%|flash|3",
+        "43%250|stop-normal-nitro",
+        "45%|drift|1067",
+        "47%300|perfect-nitro",
+        "50%|stop-perfect-nitro",
+
+        "55%|left",
+        "56%|left",
+        "56%300|left",
+        "57%150|drift-flash|140",
+        "58%|flash",
+        "59%|flash",
+        "60%100|stop-normal-nitro",
+        "62%|stop-perfect-nitro",
+        "69%300|drift|1000",
+        "72%|perfect-nitro",
+        "75%|drift|2933",
+
+        "80%50|left",
+        "80%350|left",
+        "81%150|flash",
+        "88%|stop-normal-nitro",
+        "89%|stop-double-nitro|2",
+        "91%100|stop-normal-nitro",
+        "92%|stop-perfect-nitro"
+    ],
+    //U.S. Midwest: TRANSCONTINENTAL RACE
+    USMidwest_TRANSCONTINENTAL_RACE: [
+        "0%|signs|",
+
+        "2%|choose|22",
+        "3%|perfect-nitro",
+        "8%|stop-normal-nitro",
+        "10%|drift-flash|1200",
+        
+        "13%|choose|33",
+        "18%|drift|500",
+        "19%|perfect-nitro",
+        "24%|stop-nitro",
+        "26%|choose|13",
+        "29%|double-nitro",
+        "32%|drift|500",
+        "33%|perfect-nitro",
+        
+        "36%|choose|12",
+        "45%|drift-flash|3000",
+        "52%|stop-nitro",
+        "53%|perfect-nitro",
+        "57%|drift-flash|2000",
+        
+        "62%|360",
+        "69%|choose|12",
+        "70%|flash",
+        "73%|drift-flash|2000",
+        "77%|stop-nitro",
+        "79%|perfect-nitro",
+        "81%|stop-nitro",
+        
+        "82%|choose|12",
+        "84%|double-nitro",
+        "89%|drift-flash|4500",
+        
+        "94%|choose|12",
+        "96%|double-nitro",
+        "97%|double-nitro",
+        "98%|double-nitro",
+        "99%|double-nitro",
+    ],
     //Greenland: ICY LOOP
     Greenland_ICY_LOOP:[
         "0%|signs|",
@@ -629,6 +825,58 @@ module.exports = {
         "97%|flash",
         "98%|flash",
         "99%|flash"
+    ],
+    NY_THE_CITY_THAT_NEVER_SLEEPS: [
+        "0%|signs|",
+
+        "0%1800|flash",
+        "2%500|right",
+        "3%|right",
+        "5%300|choose|13",
+        "6%50|drift|400",
+        "6%200|choose|13",
+        "8%150|flash",
+        "10%|drift|710",
+        "12%|choose|13",
+
+
+        "16%350|360-flash",
+        "18%50|drift-flash|1712",
+        "22%500|drift|3024",
+        "27%250|flash",
+        "28%500|stop-nitro",
+        "31%50|normal-nitro",
+        
+        "31%|choose|13",
+        "32%400|normal-nitro",
+        "33%140|drift-flash|3364",
+        "39%300|stop-nitro",
+        "41%300|perfect-nitro",
+        
+        "45%|choose|22",
+        "47%50|normal-nitro",
+        "49%100|choose|12",
+        "49%200|drift|2900",
+        "53%550|flash",
+        "55%350|drift-flash|1507",
+        
+        "59%150|360-flash",
+        "61%|drift-flash|3145",
+        
+        "66%|choose|22",
+        "69%600|perfect-nitro",
+        "72%550|stop-nitro",
+        "74%350|drift-flash|4233",
+        "80%|stop-nitro",
+
+        "82%|choose|22",
+        "82%50|drift|1840",
+        "85%500|flash|3",
+        "89%|stop-mormal-nitro",
+        "90%250|drift-flash|2200",
+        "90%|stop-normal-nitro",
+        "95%300|drift-flash|1922",
+        "98%|normal-nitro|5"
     ],
     HIMALAYAS_LANDSLIDE: [
         "0%|signs|ramp_right, ramp, ramp_left",

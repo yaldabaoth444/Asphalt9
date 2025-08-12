@@ -21,9 +21,9 @@ for(let i=0; i<3000; i++) {
 		main.doMP1(5);
 	}
 */	
-	//main.doMP3(3);
-	main.doMP1(10);
-	main.doMP2(10);
+	main.doMP3(3);
+	main.doMP1(15);
+	//main.doMP2(5);
 	//main.doDE("hunt", 2);
 
 }

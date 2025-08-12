@@ -7,8 +7,7 @@ for(let i=0; i<3000; i++) {
 	toastLog("for " + (i + 1));
 
 	//main.doDE("hunt", 5);
-	//main.doSE("sonic", 11);
-	main.doSE("nevera", 12);
+	main.doSE("sc18", 12);
 	//main.doSE("showroom", 11);
 
 /*
@@ -28,14 +27,14 @@ for(let i=0; i<3000; i++) {
 	}
 */
 	//main.doDowngrade1(3);
-	//main.doMP1(15);
+	main.doMP1(15);
 
 	//main.doDowngrade2(3);
 	//main.doMP2(8);
 
-	//main.doMP3(10);
+	//main.doMP3(8);
 
-	Gap('75m');
+	Gap('40m');
 }
 
 toastLog("End");

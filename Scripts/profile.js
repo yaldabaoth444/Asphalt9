@@ -80,10 +80,10 @@ module.exports = {
 		forceMode: true,
     },
     hunt: {
-    	preset: ['C5'],
+    	preset: ['D5'],
 		sign_set: 'ramp, ramp_left, ramp_right',
-		navigation: navs.SAN_FRANCISCO_CITY_DASH,
-		sign_set_click_limiter: 1500,
+		navigation: navs.NORWAY_WINDS_OF_CHANGE,
+		sign_set_click_limiter: 1200,
 		auto_nitro: null,
 		auto_drift: null,
 		//car_switch_direction: "right",
@@ -137,56 +137,18 @@ module.exports = {
 		watchAds: true,
 		forceMode: true,		
 	}, 
-	sonic: {
-     	preset: ['B1'],
+    sc18: {
+     	preset: ['A1'],
 		sign_set: '',
-		sign_set_click_limiter: 1200,
-		navigation: navs.SONIC_STAGE_7,
-		stage: "stage7",
+		sign_set_click_limiter: 1300,
+		navigation: navs.NY_THE_CITY_THAT_NEVER_SLEEPS,
+		stage: "stage1",
 		auto_nitro: null,
 		auto_drift: null,
 		forceMode: true,
 		watchAds: true,
-		tdOff: true,
-    }, 
-    nevera: {
-     	preset: ['S2'],
-		sign_set: '',
-		sign_set_click_limiter: 1300,
-		navigation: navs.Greenland_ICY_LOOP,
-		stage: "stage2",
-		auto_nitro: null,
-		auto_drift: null,
+		//tdOff: true,
     }, 	
-/*	
-    srw12: {
-     	preset: ['B1'],
-		sign_set: '',
-		sign_set_click_limiter: 1200,
-		navigation: showroom_navs.W12_STAGE_4,
-		stage: "stage4",
-		auto_nitro: null,
-		auto_drift: null,
-		forceMode: true,
-    }, 	
-    zonda: {
-     	preset: ['A6'],
-		sign_set: '',
-		sign_set_click_limiter: 800,
-		navigation: navs.ROME_TIBER_CROSS,
-		stage: "stage6",
-		auto_nitro: null,
-		auto_drift: null,
-    }, 
-   	ultima: {
-		sign_set: 'ramp_left, ramp_right, bottle, bottle2',
-		sign_set_click_limiter: 2200,
-		navigation: se_navs.ULTIMA_STAGE_6,
-		stage: "stage6",
-		auto_nitro: null,
-		auto_drift: null,
-		forceMode: true,
-    }, */
 
 	//=================D=E=F=A=U=L=T======================
     sleep_extender: 0,
@@ -210,7 +172,7 @@ module.exports = {
     screen_width: 2340,
     screen_height: 1080,
 
-	back: { x: 122, y: 52, color: '#010101', diff: 1 },
+	back: { x: 120, y: 56, color: '#7e7e80', diff: 1 },
 	a_tokens: { x: 1482, y: 51, color: '#0090ff' },
 	c_tokens: { x: 1847, y: 51, color: '#ffc600' },
 	home: { x: 100, y: 50, color: '#c800ff' },
@@ -268,7 +230,7 @@ module.exports = {
 	garage_filter_by_owned: { x: 696, y: 387, color: '#000000' },
 	garage_filter_done: { x: 524, y: 901, color: '#000000' },
 
-	daily_events_lobby: { x: 20, y: 400, color: '#100926', diff: 3 },
+	daily_events_lobby: { x: 2172, y: 292, color: '#1c0b34', diff: 3 },
 	car_lobby_marker1: { x: 264, y: 381, color: '#ffffff' },
 	car_lobby_marker2: { x: 281, y: 640, color: '#ffffff' },
 	car_lobby_td_on: { x: 1715, y: 920, color: '#ffffff' },
@@ -284,7 +246,7 @@ module.exports = {
     //can Play
     car_can_go: { x: 1787, y: 870, color: "#b275ee", diff: 5 }, 
     //need star up
-    car_skip: { x: 2257, y: 843, color: "#ffffff", diff: 2 }, 
+    car_skip: { x: 2257, y: 860, color: "#fcfcfc", diff: 3 }, 
     //need blueprints or key 
     need_upgrade: { x: 1870, y: 900, color: "#000000" }, 
 
@@ -299,15 +261,14 @@ module.exports = {
 	race_td_on: { x: 425, y: 200, color: "#c3fb12" }, 
 
 	prc_num_1: [
-	 	{ x: 468, y:148, blank: [5, 6], dirty: [ 0, 1, 2, 3, 8, 9] },
-	 	{ x: 462, y:154, blank: [0], dirty: [ 3, 7, 8, 9] },
-	 	{ x: 457, y:160, blank: [0, 1, 3, 5, 6, 8, 9 ], dirty: [ 4, 7] },
-	 	{ x: 455, y:166, blank: [1, 4], dirty: [ 0, 2, 3, 5, 6, 8, 9] },
-	 	{ x: 464, y:160, blank: [2, 7], dirty: [ 0, 1, 3, 4, 5, 6, 8, 9] },
-	 	{ x: 461, y:166, blank: [7], dirty: [ 1, 2, 4] }, 
-	 	{ x: 451, y:153, blank: [3], dirty: [ 9] }, 
-	 	{ x: 446, y:161, blank: [3], dirty: [ 8] },
-	 	{ x: 447, y:159, blank: [5, 9], dirty: [ 6, 8] },
+	 	{ x: 470, y:143, blank: [4, 5, 6], dirty: [ 0, 1, 2, 3, 7, 8, 9] },
+	 	{ x: 465, y:159, blank: [2, 7], dirty: [ 0, 1, 3, 4, 5, 6, 8, 9] },
+	 	{ x: 461, y:152, blank: [0, 1, 4, 7 ], dirty: [ 2, 3, 5, 6, 8] },
+	 	{ x: 461, y:146, blank: [0, 1, 2, 3, 5, 6, 7, 8, 9], dirty: [ 4] },
+	 	{ x: 459, y:154, blank: [0, 1, 4, 7], dirty: [ 2, 9] },
+	 	{ x: 454, y:166, blank: [1, 4], dirty: [ 0, 2, 3, 5, 6, 7, 8, 9] }, 
+	 	{ x: 451, y:161, blank: [3, 5, 7, 9], dirty: [ 0, 6, 8] }, 
+	 	{ x: 455, y:147, blank: [2, 3, 7], dirty: [ 0, 6, 8, 9] }, 
 	],
 
 	prcLightColor: '#bbbbbb',

@@ -1118,22 +1118,20 @@ function getTrackPercentMatrix(img) {
     var n1 = ScanNumber(img, profile.prc_num_1, profile.prcDarkColor, profile.prcDarkThreshold, profile.prcLightColor, profile.prcLightThreshold, 0);
     var shift = -10;
     switch(n1) {
-        case "0": shift = -29; break;
+        case "0": shift = -23; break;
 
         case "1": shift = -14; break;
 
-        case "3":
-        case "5": shift = -23; break;
-        
+        case "7":
+        case "2":
+        case "3": shift = -21; break;
+
+        case "9":
+        case "8":
+        case "6":        
         case "4": shift = -24; break;
         
-        case "6":
-        case "8": shift = -26; break;
-
-        case "9": shift = -25; break;
-
-        case "2":
-        case "7": shift = -23; break;
+        case "5": shift = -22; break;
 
         default: break;
     }

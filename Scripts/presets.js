@@ -96,7 +96,7 @@ module.exports = {
     },
 
     HIDE_CARS: [
-        '8fcf08e5ee50636ad848a1fb091cff43', //tartarus
-        '41d34bce5ebfa65bde61cff79325341e'  //cc850
+        '8fcf08e5ee50636ad848a1fb091cff43' //tartarus
+        //'41d34bce5ebfa65bde61cff79325341e'  //cc850
     ]
 }
