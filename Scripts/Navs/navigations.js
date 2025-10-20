@@ -20,6 +20,195 @@
 // THE SOFTWARE.
 
 module.exports = {
+    //Auckland: OUT OF BOUNDS
+    Auckland_OUT_OF_BOUNDS:[
+        "0%|signs|",
+
+        "0%1600|drift|4000",
+
+        "5%150|choose|13",
+        "6%|flash|3",
+        "10%200|stop-normal-nitro",
+        "11%300|drift|1000",
+        
+        "14%350|choose|22",
+        "15%200|flash",
+        "20%|stop-nitro",
+        "21%|drift-flash|1600",
+        
+        //"22%150|choose|12",
+        //"25%|stop-perfect-nitro",
+        "27%200|drift-flash|2900",
+        "33%400|choose|13",
+        "33%600|stop-nitro",
+        "34%|perfect-nitro",
+        "36%|drift|3000",
+
+        "40%200|choose|33",
+        "42%|flash|3",
+        "46%150|stop-perfect-nitro",
+        "50%|stop-normal-nitro",
+        "52%|drift-flash|2800",
+        
+        "54%350|choose|13",
+        "58%70|stop-perfect-nitro",
+        
+        "62%100|right|5",
+        "64%|stop-nitro",
+        "64%500|flash|5",
+        "68%200|choose|12",
+        "69%|drift-flash|2000",
+        
+        "74%|choose|13",
+        "76%|stop-normal-nitro",
+        "78%|drift|3000",
+        "84%|flash",
+        "86%|stop-normal-nitro",
+        //"91%|td-toggle",
+        //"92%|td-toggle",
+        "90%150|stop-nitro",
+        "92%271|normal-nitro",
+        "94%|stop-perfect-nitro",
+        //"93%|td-toggle",
+        //"94%|td-toggle",
+        "97%|normal-nitro|5",
+    ],
+    //Nevada: LONG RUN [A]
+    Nevada_LONG_RUN_A: [
+        "0%|signs|",
+
+        "0%1900|double-nitro",
+
+        "1%250|drift-flash|3672",
+        "6%|stop-normal-nitro",
+        "6%650|stop-normal-nitro",
+        "7%375|stop-normal-nitro",
+        
+        "10%186|choose|33",
+        "11%378|stop-double-nitro|3",
+        "14%|stop-perfect-nitro",
+        "16%211|stop-perfect-nitro",
+        "18%|drift-flash|1200",
+        "23%|stop-nitro",
+        
+        "24%550|360-flash|4",
+        "27%|stop-nitro",
+
+        "29%159|drift-flash|500",
+        "32%|stop-normal-nitro",
+        "33%|stop-normal-nitro",
+        "34%|stop-normal-nitro",
+        "35%|stop-normal-nitro",
+        "35%400|stop-normal-nitro",
+        "36%200|stop-perfect-nitro",
+        
+        "37%400|choose|12",
+        "38%|choose|12",
+        "38%282|stop-perfect-nitro",
+        "41%|stop-perfect-nitro",
+        "44%|stop-normal-nitro",
+        "46%400|drift-flash|1200",
+        "50%|drift-flash|1800",
+        
+        "53%|right",
+        "55%|stop-normal-nitro",
+        "56%180|stop-normal-nitro",
+        "57%|stop-normal-nitro",
+        "57%431|stop-nitro",
+        
+        "59%88|choose|13",
+        "59%224|normal-nitro",
+        "60%312|stop-nitro",
+        "62%499|flash",
+        "63%414|stop-normal-nitro",
+        "64%287|drift-flash|1144",
+        "67%|drift-flash|2096",
+        "70%548|drift-flash|2688",
+        "75%|drift-flash|1384|2",
+
+        "76%614|choose|33",
+        "79%|choose|22",
+        "79%239|stop-nitro",
+        "81%139|flash",
+        "81%467|right",
+        "82%255|stop-normal-nitro",
+        "84%|stop-double-nitro|2",
+        
+        "86%|choose|22",
+        "87%|choose|22",
+        "89%|flash|3",
+        
+        "90%|right",
+        "91%|stop-normal-nitro",
+        "94%|stop-nitro",
+        "94%300|360-flash|2",
+        "96%|flash",
+        "97%|flash",
+        "98%|flash",
+        "99%|flash"
+    ],
+    //Tuscany: OVER THE HILLS [A]
+    Tuscany_OVER_THE_HILLS_A:[
+        "0%|signs|",
+
+        "1%700|double-nitro",
+        "2%300|drift-flash|1800",
+        "6%400|drift-flash|4400",
+        "14%300|choose|33",
+        "12%600|drift|1734",
+        "15%|flash",
+        "16%|flash",
+        "17%350|drift-flash|2600",
+        
+        "22%|choose|13",
+        "23%|drift-flash|2800",
+        "28%400|stop-perfect-nitro",
+
+        "29%|choose|33",
+        "32%|stop-perfect-nitro",
+        "34%|stop-perfect-nitro",
+        
+        "37%|choose|12",
+        "38%|choose|12",
+        "40%350|flash",
+        "43%|stop-normal-nitro",
+        "44%250|stop-normal-nitro",
+        
+        "45%|choose|13",
+        "46%|stop-normal-nitro",
+        "47%|stop-normal-nitro",
+        "48%|stop-nitro",
+        
+        "48%450|360-flash|2",
+        "50%|drift-flash|2300",
+        
+        "53%|choose|12",
+        "54%250|drift-flash|1500",
+        "57%|drift-flash|1600",
+        
+        "59%450|choose|13",
+        "60%|choose|13",
+        "61%250|double-nitro",
+        "62%250|drift-flash|1600",
+        "67%150|drift-flash|1500",
+        "72%|drift-normal-nitro|2200",
+        "76%|drift-flash|1500",
+        
+        "80%350|choose|22",
+        "81%|drift-flash|2300",
+
+        "83%600|choose|13",
+        "84%|choose|13",
+        "86%|flash|3",
+        "88%350|stop-perfect-nitro",
+
+        "89%|choose|13",
+        "90%|choose|13",
+        "92%100|flash|2",
+        "94%|stop-nitro",
+        "95%100|perfect-nitro",
+        "98%|normal-nitro|4",
+    ],
     //Singapore: FUNFAIR FRENZY
     Singapore_FUNFAIR_FRENZY: [
         "0%|signs|",
@@ -866,17 +1055,15 @@ module.exports = {
         "66%|choose|22",
         "69%600|perfect-nitro",
         "72%550|stop-nitro",
-        "74%350|drift-flash|4233",
-        "80%|stop-nitro",
+        "74%350|drift-flash|4000",
+        "81%|stop-nitro",
 
         "82%|choose|22",
-        "82%50|drift|1840",
-        "85%500|flash|3",
-        "89%|stop-mormal-nitro",
-        "90%250|drift-flash|2200",
-        "90%|stop-normal-nitro",
-        "95%300|drift-flash|1922",
-        "98%|normal-nitro|5"
+        "82%|drift-flash|1840",
+        "86%|flash|3",
+        "89%|stop-normal-nitro",
+        "90%250|drift-flash|2000",
+        "94%|drift-flash|2000"
     ],
     HIMALAYAS_LANDSLIDE: [
         "0%|signs|ramp_right, ramp, ramp_left",
@@ -1004,6 +1191,46 @@ module.exports = {
         "83%|flash",
         "84%|flash",
         "96%|flash",
+    ], 
+    CAIRO_SUBTERRANEAN_DASH_B: [
+        "6%|choose|22",
+        "7%|choose|22",
+        "10%|flash",
+
+        "15%|choose|12",
+        "16%|choose|12",
+        "17%|drift-flash|2800",
+        "28%|stop-nitro",
+
+        "29%|drift|700",
+        "32%|choose|22",
+        "33%|choose|22",
+        "33%200|drift|2000",
+
+        "40%200|flash",
+        "44%|stop-nitro",
+
+        "45%|flash",
+        "48%|drift|2000",
+        "56%|choose|22",
+        "57%|choose|22",
+
+        "57%300|flash",
+        "59%|stop-nitro",
+
+        "67%|choose|22",
+        "68%|choose|22",
+        "71%|perfect-nitro",
+        "77%|stop-nitro",
+
+        "80%|choose|13",
+        "81%|left",
+
+        "84%|flash",
+        "85%|flash",
+        "86%|flash",
+        "88%|stop-nitro",
+        "93%|flash",
     ], 
     US_MIDWEST_TIME_TRAVEL: [
         "0%|signs|ramp_right, ramp_left",
@@ -1431,11 +1658,12 @@ module.exports = {
         "30%|drift-flash|2500", 
         "37%|stop-nitro",
         "39%|perfect-nitro",
-        "43%|360-flash",
+        //"43%|360-flash",
         "49%|drift|500",
         "53%|drift-flash|4000", 
         "65%|stop-nitro",
         "66%|choose|12",
+        "68%|choose|12",
         "68%|drift-perfect-nitro|1800",
         "81%|drift|1000",
         "84%|choose|22",
@@ -1446,5 +1674,143 @@ module.exports = {
         "0%|signs|",
         //"1%|td-toggle",
         "2%|right|20"
-    ]
+    ],
+    Osaka_INDUSTRIAL_REVOLUTION: [
+        "0%|signs|",
+        "0%2000|flash",
+
+        "2%|choose|22",
+        "2%250|drift|500",
+        "3%400|flash",
+        "4%200|flash",
+        "5%|double-nitro",
+        "6%140|stop-normal-nitro",
+        "7%|stop-normal-nitro",
+        "8%|stop-normal-nitro",          
+        "8%150|stop-normal-nitro",
+        "9%|stop-perfect-nitro",
+        
+        "12%|choose|13", 
+        "13%|drift-flash|814",
+        
+        "13%280|choose|23",
+        "15%|stop-normal-nitro",
+        "20%|stop-perfect-nitro",
+        "25%217|stop-normal-nitro",
+        "26%300|drift-flash|4150",
+        
+        "31%|choose|12",
+        "31%|choose|12",
+        "31%|choose|12",
+        "37%|stop-normal-nitro",
+        "39%|stop-normal-nitro",
+        "43%|stop-normal-nitro",
+        "46%|stop-perfect-nitro",
+        "49%|drift-flash|2500",
+        "56%234|stop-normal-nitro",
+        "58%282|drift-flash|3945",
+        
+        "68%|choose|23",
+        "69%|flash",
+        "70%|flash",
+        "71%|stop-nitro",
+        "72%|normal-nitro",
+        "73%|stop-normal-nitro",
+        "74%|stop-normal-nitro",
+        "75%|stop-normal-nitro",
+        "76%|stop-perfect-nitro",
+        
+        "78%|choose|22",
+        "81%|stop-normal-nitro",
+        "82%|stop-normal-nitro",
+        "84%|stop-normal-nitro",
+        "86%|stop-normal-nitro",
+        "90%|stop-perfect-nitro",
+        "90%400|stop-perfect-nitro",
+        
+        "92%|choose|22",
+        "94%|stop-nitro",
+        "95%|flash|5",
+        "97%|flash",
+        "98%|stop-normal-nitro",
+        "98%|stop-normal-nitro",
+        "99%|stop-normal-nitro",   
+    ],
+    //Nevada: DESERT LIFE
+    Nevada_DESERT_LIFE: [
+        "0%|signs|",
+        "0%1800|flash",
+        "0%2300|stop-nitro",
+        "3%116|perfect-nitro",
+        "6%|stop-nitro",
+        "8%|perfect-nitro",
+        "10%|drift|2130",
+        "3%116|perfect-nitro",
+        "14%|drift-flash|2763",
+        "18%|stop-perfect-nitro",
+
+        "20%249|choose|33",
+        "22%|choose|22",
+        "23%|drift-flash|1000",
+        
+        "25%|choose|22",
+        "25%66|stop-perfect-nitro",
+        "28%115|stop-double-nitro",
+
+        "29%381|choose|13",
+        "30%|stop-perfect-nitro",
+        "33%|stop-double-nitro",
+        "35%|stop-perfect-nitro",
+        
+        "35%100|choose|23",
+        "38%83|360-flash",
+        "39%|flash|2",
+        "41%83|stop-nitro",
+        "42%|drift|1364",
+
+        "43%|choose|22",
+        "45%|drift|2379",
+        "48%|perfect-nitro",
+        "50%|stop-normal-nitro",
+        "55%|stop-nitro",
+
+        "58%|choose|33",
+        "60%|flash",
+        "61%|flash",
+        "62%|flash",
+
+        "63%266|choose|33",
+        "63%333|drift-flash|366",
+        "64%|flash",
+        "65%|flash",
+        "66%|flash",
+        "67%33|drift|432",
+        "68%|flash",
+
+        "68%316|choose|33",
+        "70%|flash",
+        "71%|flash",
+
+        "72%|choose|33",
+        "73%|stop-nitro",
+        "74%|flash",
+
+        "76%|choose|22",
+        "77%200|stop-perfect-nitro",
+
+        "81%|choose|12",
+        "83%|stop-perfect-nitro",
+
+        "85%|choose|22",
+        "85%|stop-perfect-nitro",
+
+        "87%|choose|22",
+        "87%|stop-perfect-nitro",
+        "89%|drift|1000",
+        "93%|flash",
+        "96%|flash",
+        "97%|flash",
+        "98%|flash",
+        "99%|flash",    
+    ],
 }

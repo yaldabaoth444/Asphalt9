@@ -60,7 +60,7 @@ function AdInfinte4()
 			} else if (core.ElapsedSeconds('stage') > 20) {
         		let sbRes = core.ImageFinder(null, './Images/Interface/', "status_bar.png", 't10');
 	        	if (sbRes.result) {
-	        		core.HideStstusBarTrix();
+	        		core.HideStatusBarTrix();
 					core.SleepX(2500);
 	            }
         	}

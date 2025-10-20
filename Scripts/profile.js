@@ -1,17 +1,17 @@
 const presets = require('./presets.js');
 const navs = require('./Navs/navigations.js');
-const showroom_navs = require('./Navs/nav-sr-sr01.js');
-//const se_navs = require('./Navs/nav-se-ultima.js');
+const showroom_navs = require('./Navs/nav-sr-bmwi8.js');
+const se_navs = require('./Navs/nav-se-porsche935.js');
 
 module.exports = {
 	//====================U=S=E=R=========================
     mp1: {
      	preset: {
-		     legend:   ['C5', 'B5', 'A5', 'S5'],
-		     platinum: ['C5', 'B5', 'A5', 'S5'],
-		     gold:     ['C5', 'B5', 'A4', 'S4'],
-		     silver:   ['C4', 'B4', 'A3'],
-		     bronze:   ['D3', 'C3', 'B3']
+		     legend:   ['C2', 'B1', 'A1', 'S1'],
+		     platinum: ['C2', 'B1', 'A1', 'S1'],
+		     gold:     ['C2', 'B1', 'A1', 'S1'],
+		     silver:   ['C2', 'B1', 'A1'],
+		     bronze:   ['D3', 'C2', 'B1']
 		},
 		//preset: presets.D_CLASS,
 		car_owned_only: false,
@@ -20,10 +20,10 @@ module.exports = {
 		auto_nitro: presets.PERFECT_NITRO,
 		auto_drift: presets.MEDIUM_DRIFT,
 
-		auto_drift_enable_at_sec: 15000,   	//in ms
+		auto_drift_enable_at_msec: 15000,   	//in ms
 	    //auto_drift_disable_after: 93,  		//in track %
 
-		auto_nitro_enable_at_sec: 2000,    	//in ms
+		auto_nitro_enable_at_msec: 2000,    	//in ms
 	    //auto_nitro_disable_after: 90, 	//in track %
 	    car_switch_direction: "left",
     },
@@ -41,23 +41,24 @@ module.exports = {
 		    // gold:     ['B4', 'A4', 'S4'],
 		    // silver:   ['B4', 'A4', 'S4'],
 		    // bronze:   ['B4', 'A4', 'S4'],
-		    legend:   ['D5', 'C5'],
-		    platinum: ['D5', 'C5'],
-		    gold:     ['D5', 'C5'],
-		    silver:   ['D5', 'C5'],
-		    bronze:   ['D5', 'C5'],
+		    legend:   ['D2', 'C2', 'B1', 'A1', 'S1'],
+		    platinum: ['D2', 'C2', 'B1', 'A1', 'S1'],
+		    gold:     ['D2', 'C2', 'B1', 'A1', 'S1'],
+		    silver:   ['D2', 'C2', 'B1', 'A1', 'S1'],
+		    bronze:   ['D2', 'C2', 'B1', 'A1', 'S1'],
 		},
     	car_owned_only: true,
-
+		car_switch_direction: "right",
+		
 		sign_set: 'ramp, ramp_left, ramp_right',
 		auto_nitro: presets.SS_NITRO,
 		auto_drift: presets.SHORT_DRIFT,
 		sign_set_click_limiter: 1800,
 
-		auto_drift_enable_at_sec: 20000,   	//in ms
+		auto_drift_enable_at_msec: 20000,   	//in ms
 	    auto_drift_disable_after: 90,  		//in track %
 
-		auto_nitro_enable_at_sec: 4000,    	//in ms
+		auto_nitro_enable_at_msec: 4000,    	//in ms
     },
     mp3: {
     	preset: presets.ANY,
@@ -80,13 +81,13 @@ module.exports = {
 		forceMode: true,
     },
     hunt: {
-    	preset: ['D5'],
-		sign_set: 'ramp, ramp_left, ramp_right',
-		navigation: navs.NORWAY_WINDS_OF_CHANGE,
+    	preset: ['D3'],
+		sign_set: '',
+		navigation: navs.CAIRO_SUBTERRANEAN_DASH_B,
 		sign_set_click_limiter: 1200,
 		auto_nitro: null,
 		auto_drift: null,
-		//car_switch_direction: "right",
+		car_switch_direction: "right",
 		//car_owned_only: true,
 		watchAds: true,
 		//forceMode: true,
@@ -101,6 +102,18 @@ module.exports = {
 		watchAds: true,
 		forceMode: true,
     },
+    star: {
+    	preset: ['S0'],
+		sign_set: 'ramp, ramp_left, ramp_right',
+		navigation: navs.GREENLAND_JOURNEY_TO_THE_CENTER,
+		sign_set_click_limiter: 1200,
+		auto_nitro: null,
+		auto_drift: null,
+		//car_switch_direction: "right",
+		//car_owned_only: true,
+		watchAds: true,
+		forceMode: true,
+    },
     free: {
     	preset: ['B0'],
 		sign_set: 'tunnel, dir_left, ramp_left, ramp_right',
@@ -111,38 +124,44 @@ module.exports = {
 		watchAds: true,
     },   
     race: {
-		sign_set: '',
+		sign_set: 'ramp, ramp_left, ramp_right',
 		sign_set_click_limiter: 1200,
-		navigation: navs.CAIRO_TOWER_FINISH_A,
+		navigation: null,
 		
-		auto_nitro_enable_at_sec: 0,
+		auto_nitro_enable_at_msec: 0,
 		auto_nitro_disable_after: null,
 		auto_nitro: null,
 
-		auto_drift_enable_at_sec: 10000,
+		auto_drift_enable_at_msec: 0,
 		auto_drift_disable_after: null,
-		auto_drift: null,
+		auto_drift: {
+	        drift_min: 2500,
+	        drift_max: 4000,
+	        rand_min: 6000,
+	        rand_max: 8000,
+	        type: ["drift-flash", "360"]
+	    },
 
-		watchAds: true,
+		//watchAds: true,
 		forceMode: true,
     },  
 	showroom: {
-		preset: ['C1'],
-		sign_set: 'ramp, ramp_left, ramp_right, bottle, bottle2',
-		sign_set_click_limiter: 1200,
-		stage: "stage10",
-		navigation: showroom_navs.SR01_STAGE_10,
+		preset: ['D1', 'C1'],
+		sign_set: '',
+		sign_set_click_limiter: 1300,
+		stage: "stage13",
+		navigation: showroom_navs.BMWI8_STAGE_13,
 		auto_nitro: null,
 		auto_drift: null,
 		watchAds: true,
 		forceMode: true,		
 	}, 
-    sc18: {
-     	preset: ['A1'],
+    porsche935: {
+     	preset: ['A6'],
 		sign_set: '',
 		sign_set_click_limiter: 1300,
-		navigation: navs.NY_THE_CITY_THAT_NEVER_SLEEPS,
-		stage: "stage1",
+		navigation: navs.Shanghai_REACH_FOR_THE_SKY,
+		stage: "stage6",
 		auto_nitro: null,
 		auto_drift: null,
 		forceMode: true,
@@ -161,14 +180,15 @@ module.exports = {
     watchAds: true,
     fixOrientation: true,
 
-    auto_drift_enable_at_sec: 10000,   	//in ms
+    auto_drift_enable_at_msec: 10000,   	//in ms
     auto_drift_disable_after: null,     //in track %
 
-	auto_nitro_enable_at_sec: 0,    	//in ms
+	auto_nitro_enable_at_msec: 0,    	//in ms
     auto_nitro_disable_after: null, 	//in track %
 
     //==================S=Y=S=T=E=M=======================
-    appId: 'com.gameloft.android.HUAW.GloftA9HW.HUAWEI',
+    appId: 'com.gameloft.android.ANMP.GloftA9HM',
+    //appId: 'com.gameloft.android.HUAW.GloftA9HW.HUAWEI',
     screen_width: 2340,
     screen_height: 1080,
 
@@ -233,7 +253,7 @@ module.exports = {
 	daily_events_lobby: { x: 2172, y: 292, color: '#1c0b34', diff: 3 },
 	car_lobby_marker1: { x: 264, y: 381, color: '#ffffff' },
 	car_lobby_marker2: { x: 281, y: 640, color: '#ffffff' },
-	car_lobby_td_on: { x: 1715, y: 920, color: '#ffffff' },
+	car_lobby_td_on: { x: 1606, y: 935, color: '#ffffff' },
 
     car_star_1: { x: 428, y: 230, color: "#ffef5b", diff: 5 }, 
     car_star_2: { x: 470, y: 230, color: "#ffef59", diff: 5 }, 
@@ -243,8 +263,6 @@ module.exports = {
     car_star_6: { x: 640, y: 230, color: "#fff05e", diff: 5 }, 
 
     //Buttons that determine whether the car is available for the race or not 
-    //can Play
-    car_can_go: { x: 1787, y: 870, color: "#b275ee", diff: 5 }, 
     //need star up
     car_skip: { x: 2257, y: 860, color: "#fcfcfc", diff: 3 }, 
     //need blueprints or key 
@@ -254,8 +272,10 @@ module.exports = {
 	car_shift_right: { x: 2105, y: 507, color: "#1e1e1e" }, 
 	car_hash_region: [267, 160, 84, 94],
 
-	//race_marker: { x: 455, y: 222, color: '#c3fb12', diff: 3 },
-	race_marker: { x: 431, y: 215, color: '#c3fb12', diff: 3 },
+	race_marker1: { x: 170, y: 100, color: '#ffffff' },
+	race_marker2: { x: 453, y: 218, color: '#c3fb12', diff: 3 },
+	//race_marker2: { x: 452, y: 187, color: '#c3fb12' }, //for DS
+
 	//race_route_region: [910, 185, 520, 100],
 	race_route_region: [890, 185, 560, 100],
 	race_td_on: { x: 425, y: 200, color: "#c3fb12" }, 

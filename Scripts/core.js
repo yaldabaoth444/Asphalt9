@@ -142,7 +142,7 @@ _core.SelectSpecialEvent = function(eventName, stage) {
     startTimer(eventName);    
     while(elapsedSeconds(eventName) < 45) {
 
-        let imgfRes = imageFinder(null, './Images/SpecialEvents/'+eventName+'/', stage + ".png", 't60', 0.95);
+        let imgfRes = imageFinder(null, './Images/SpecialEvents/'+eventName+'/', stage + ".png", 't60', 0.90);
         if (imgfRes.result) {
             //console.log({imgfRes});
             clickPixel(imgfRes.position_center);
@@ -160,7 +160,7 @@ _core.SelectSpecialEvent = function(eventName, stage) {
         } else {    
             //console.log('shift');
             swipe(1400, 900, 1000, 900, 500);
-            sleepX(800);
+            sleepX(400);
         } 
     }
     return false;
@@ -332,24 +332,23 @@ _core.Kill = function() {
     return KillA9();
 }
 
+_core.Quit = function() {
+    return QuitA9();
+}
 _core.Start = function() {
     return StartA9();
 }
 
 _core.Restart = function() {
-    KillA9();
+    if (!QuitA9())
+      KillA9();
+    else
+      sleepX(1000*60);
     StartA9();
 }
 
-_core.RestartWitTimeout = function(duration) {
-    toastLog("Kill");
-    KillA9();
-
-    toastLog("sleep");
-    waitX(duration);
-
-    toastLog("Start");
-    StartA9();
+_core.RestartWithTimeout = function(duration) {
+    RestartWithTimeout(duration);
 }
 
 _core.SwitchAppTo = function(appName) {
@@ -374,7 +373,7 @@ function a9State(img) {
     state.CurrentStage = "unknow";    
     state.TabSelected = 0;
 
-	if (checkPixel(img, profile.race_marker)) {
+	if (checkPixel(img, profile.race_marker1) && checkPixel(img, profile.race_marker2)) {
 		state.CurrentStage = "race";
         return state;
 		//state.HasTouchdriveOn = checkPixel(img, profile.race_td_on);
@@ -440,7 +439,7 @@ function a9State(img) {
             state.CurrentStage = "next";
             state.NextPos = nextRes.position_center;
             state.ImageName = nextRes.image_name;
-            //return state;
+            return state;
         }
 
         //popups detect
@@ -452,6 +451,71 @@ function a9State(img) {
         }
 	}
 	return state;	
+};
+
+function goHome(destination) {
+    console.log("GoHome");
+    if (!destination)
+        destination = 'home_page';
+    
+    trixDone = false
+    let img = null
+    startTimer('goHome');
+    while(elapsedSeconds('goHome') < 120) {
+        img = captureScreen();
+        let state = a9State(img);
+        //toastLog(state.CurrentStage);
+        console.log("#GoHome " + state.CurrentStage + " start:" + elapsedSeconds('goHome'));
+
+        if (state.CurrentStage == destination || state.CurrentStage == 'home_page') {
+            console.log("reach " + destination);
+            return true;
+        }
+
+        if (state.HasBack)
+        {
+            console.log("GoHome2");
+            if (destination == "home_page" && !state.HasSetup && state.HasHeader) 
+                clickPixelByName("setup");
+            else
+                clickPixelByName("back");
+            sleepX(500);
+        }
+        else if (state.CurrentStage == "next") {
+            console.log("GoHome3");
+            click(state.NextPos);
+        } else {
+            console.log("GoHome4");
+            closePopups();
+        }
+
+        //stuck protection
+        if (state.CurrentStage == "unknow") {
+            if (elapsedSeconds('goHome') > 100) {
+                images.save(captureScreen(), "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+                toastLog("Restart");
+                RestartWithTimeout('1m');
+                main.WaitX('1m');
+                return false;
+            } else if (elapsedSeconds('goHome') > 60) {
+                closePopups(); 
+                sleep(1500); 
+            } else if (elapsedSeconds('goHome') > 45 && !trixDone) {
+                hideStatusBarTrix();
+                trixDone = true;
+            } else if (elapsedSeconds('goHome') > 20) {
+                let sbRes = imageFinder(null, './Images/Interface/', "status_bar.png", 't10');
+                if (sbRes.result) {
+                    hideStatusBarTrix();
+                    sleepX(2500);
+                }
+            }
+        }
+
+        sleepX(1500);
+    }
+    if (img != null)
+        img.recycle();
 };
 
 function imageFinder(img, folder, fileName, region, threshold)
@@ -864,7 +928,8 @@ function selectTab(num) {
 }
 
 function carCanGo(img) {
-    if (checkPixel(img, profile.car_can_go) && !(checkPixel(img, profile.car_skip) || checkPixel(img, profile.need_upgrade)))     {
+    let carCanGo = imageFinder(img, './Images/Interface/', "drive.png", 'br40');
+    if (carCanGo.result && !(checkPixel(img, profile.car_skip) || checkPixel(img, profile.need_upgrade)))     {
         //console.log("carCanGo yes");
         return true;
     } else {
@@ -1348,6 +1413,17 @@ function imgStat(pos) {
         stat = [];
     }
 }
+//------
+function RestartWithTimeout(duration) {
+    toastLog("Quit");
+    KillA9();
+
+    toastLog("sleep");
+    waitX(duration);
+
+    toastLog("Start");
+    StartA9();
+}
 
 //------
 function KillA9() 
@@ -1357,15 +1433,33 @@ function KillA9()
     openAppSetting(profile.appId);
     sleep(3500);
 
-    //close
-    //click(340, 2080);
-    click(180, 2144);
+    // force stop
+    click(1700, 700);
     sleep(1500);
 
     // ok
-    click(739, 2030);
+    click(1460, 712);
+    sleep(2000);
+
+    // home
+    click(2270, 546);
     sleep(2000);
 }
+//------
+function QuitA9() 
+{
+    if (goHome()) {
+        //call exit game dialog
+        back();
+        sleep(1500);
+        // yes
+        click(1500, 800);
+        sleep(5000);
+        return true;
+    } 
+    return false;
+}
+
 //------
 function StartA9() 
 {

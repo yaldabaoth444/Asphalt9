@@ -7,8 +7,8 @@ for(let i=0; i<3000; i++) {
 	toastLog("for " + (i + 1));
 
 	//main.doDE("hunt", 5);
-	main.doSE("sc18", 12);
-	//main.doSE("showroom", 11);
+	//main.doSE("sc18", 12);
+	//main.doSE("showroom", 6);
 
 /*
 	for(let i = 1; i <= 8; i++) {
@@ -20,20 +20,23 @@ for(let i=0; i<3000; i++) {
 		main.doMP2(2);
 		main.doDowngrade2(1);
 	}
-	
-	for(let i = 1; i <= 10; i++) {
-		main.doDowngrade1(1);
+*/	
+	for(let i = 1; i <= 5; i++) {
+		main.doSE("porsche935", 3);
+		main.doMP3(2);
+		main.doMP2(2);
 		main.doMP1(2);
 	}
-*/
+
 	//main.doDowngrade1(3);
-	main.doMP1(15);
+	//main.doMP1(25);
 
 	//main.doDowngrade2(3);
-	//main.doMP2(8);
+	//main.doMP2(10);
 
-	//main.doMP3(8);
+	//main.doMP3(10);
 
+	//main.doDE("star", 1);
 	Gap('40m');
 }
 
@@ -41,8 +44,8 @@ toastLog("End");
 exit();
 
 function Gap(duration) {
-	toastLog("Kill");
-	main.Kill();
+	toastLog("Quit");
+	main.Quit();
 
 	toastLog("sleep");
 	main.WaitX(duration);

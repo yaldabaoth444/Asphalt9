@@ -128,6 +128,10 @@ _rfw.Kill = function() {
 	core.Kill();
 }
 
+_rfw.Quit = function() {
+	core.Quit();
+}
+
 _rfw.Start = function() {
 	core.Start();
 }
@@ -234,7 +238,7 @@ _rfw.GainTicket = function()
 		    	if (stageSeconds > 120) {
             		console.log("stuck protection >120");
             		toastLog("Restart");
-					core.Restart();
+					core.RestartWithTimeout('1m');
 					main.WaitX('1m');
             		return false;
             	} else if (stageSeconds > 30) {
@@ -320,7 +324,7 @@ function goHome(destination) {
 			if (core.ElapsedSeconds('goHome') > 100) {
 				images.save(captureScreen(), "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
 				toastLog("Restart");
-				core.RestartWitTimeout('1m');
+				core.RestartWithTimeout('1m');
 				main.WaitX('1m');
 				return false;
 			} else if (core.ElapsedSeconds('goHome') > 60) {
@@ -342,6 +346,8 @@ function goHome(destination) {
 	}
     if (img != null)
         img.recycle();
+
+    return false;
 }
 
 function DE(eventName) {
@@ -574,12 +580,12 @@ function Race(eventName) {
 
 		let auto_nitro_set = eventProfile["auto_nitro"];
 		let has_auto_nitro = auto_nitro_set != null;
-		let next_auto_nitro = getProperty("auto_nitro_enable_at_sec", eventProfile, core.profile);
+		let next_auto_nitro = getProperty("auto_nitro_enable_at_msec", eventProfile, core.profile);
 		let stop_auto_nitro = getProperty("auto_nitro_disable_after", eventProfile, core.profile);
 
 		let auto_drift_set = eventProfile["auto_drift"];
 		let has_auto_drift = auto_drift_set != null;
-		let next_auto_drift = getProperty("auto_drift_enable_at_sec", eventProfile, core.profile);
+		let next_auto_drift = getProperty("auto_drift_enable_at_msec", eventProfile, core.profile);
 		let stop_auto_drift = getProperty("auto_drift_disable_after", eventProfile, core.profile);
 
 		let sign_set_click_limiter = getProperty("sign_set_click_limiter", eventProfile, core.profile);
@@ -606,7 +612,7 @@ function Race(eventName) {
             	if (stageSeconds > 300) {
             		console.log("stuck protection >300");
             		toastLog("Restart");
-					core.Restart();
+					core.RestartWithTimeout('1m');
 					main.WaitX('1m');
             		return false;
             	}
@@ -671,6 +677,11 @@ function Race(eventName) {
             else if (state.CurrentStage == "next") {
           		core.Click(state.NextPos);
            		core.SleepX(1500);
+            }
+            //smth went wrong  
+          	else if (state.CurrentStage == "home_page") {
+            	if (core.ElapsedSeconds('stage') > 2)
+					return false;
             }     
             //race started
             else if (state.CurrentStage == "race") {
@@ -678,7 +689,7 @@ function Race(eventName) {
             	break;
             }
             else if ((watchAds || forceMode) && watchingAd && state.CurrentStage == "unknow") {
-            	imgfRes = core.ImagesFinder(null, './Images/AdAllInOne/');
+            	imgfRes = core.ImagesFinder(null, './Images/AdClosers/');
 				if (imgfRes.result) {
 					core.Click(imgfRes.position_center);
 					sleep(50); 
@@ -789,7 +800,7 @@ function Race(eventName) {
 			state = core.A9State(img);
 			StageCounter(state.CurrentStage);
 			let stageSeconds = StageSeconds();
-			console.log(state.CurrentStage + " " + core.ElapsedSeconds('stage'));
+			console.log(state.CurrentStage + " " + core.ElapsedSeconds('stage') + "s");
             // end race
             if (state.CurrentStage == "next") {
             	//if (core.ElapsedSeconds('stage') > 1) {
@@ -830,7 +841,7 @@ function Race(eventName) {
 					done = true;
             }
             else if (watchAds && watchingAd && state.CurrentStage == "unknow") {
-            	imgfRes = core.ImagesFinder(img, './Images/AdAllInOne/');
+            	imgfRes = core.ImagesFinder(img, './Images/AdClosers/');
 				if (imgfRes.result) {
 					core.Click(imgfRes.position_center);
 					sleep(50); 
@@ -842,21 +853,20 @@ function Race(eventName) {
 
             //stuck protection
             if (state.CurrentStage == "unknow") {
-				if (stageSeconds > 180) {
-					images.save(captureScreen(), "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+				if (stageSeconds > 120) {
+					images.save(img, "./Images/Test/Out/stuck_"+Date.now()+'.png', "png", 100);
+					core.Restart();
 					return false;
-				} else if (stageSeconds > 120) {
+				} else if (stageSeconds > 90) {
         			core.ClosePopups();	
         			sleep(1500); 
-            	} else if (stageSeconds > 100 && !trixDone) {
-            		core.HideStatusBarTrix();
-					trixDone = true;
-            	} else if (stageSeconds > 20) {
-            		let sbRes = core.ImageFinder(null, './Images/Interface/', "status_bar.png", 't10');
+            	} else if (stageSeconds > 20 && !trixDone) {
+            		let sbRes = core.ImageFinder(img, './Images/Interface/', "status_bar.png", 't10');
 		        	if (sbRes.result) {
-		        		core.HideStatusBarTrix();
+            			core.HideStatusBarTrix();
+						trixDone = true;
 						core.SleepX(2500);
-		            }
+					}
             	}
             }
 		}
@@ -938,14 +948,14 @@ function SE(eventName) {
             core.SleepX(1500);
             nowTime = new Date().getTime();
         }
-
+		console.log("se1");
         if (!done)
             return false;
 
         done = false;
 		startTime = new Date().getTime();
 		nowTime = new Date().getTime();
-
+		console.log("se2");
 		while(!done && (nowTime - startTime) < 60*1000) {
 
 			img = captureScreen();
@@ -977,7 +987,7 @@ function SE(eventName) {
 
 		if (!done)
 			return false;
-
+		console.log("se3");
 		// if preset defined
 		if (eventProfile.preset) {
 			let car_switch_direction = getProperty("car_switch_direction", eventProfile, core.profile);
@@ -987,6 +997,7 @@ function SE(eventName) {
 				return false;
 			}
 		}
+		console.log("se4");
 		//*==Race==*/ 
         return Race(eventName);
     } finally {
@@ -1108,7 +1119,7 @@ function Downgrade(num) {
             	if (stageSeconds > 300) {
             		console.log("stuck protection >300");
             		toastLog("Restart");
-					core.Restart();
+					core.RestartWithTimeout('1m');
 					main.WaitX('1m');
             		return false;
             	}
@@ -1170,7 +1181,7 @@ function Downgrade(num) {
             	break;
             }
             else if (forceMode && watchingAd && state.CurrentStage == "unknow") {
-            	imgfRes = core.ImagesFinder(null, './Images/AdAllInOne/');
+            	imgfRes = core.ImagesFinder(null, './Images/AdClosers/');
 				if (imgfRes.result) {
 					core.Click(imgfRes.position_center);
 					sleep(50); 
@@ -1296,9 +1307,8 @@ function DirectRace(eventName) {
 			state = core.A9State(img);
 
 			//close popups
-		    if (state.CurrentStage == "dialog") {
-		    	if (core.ElapsedSeconds('stage') > 2)
-					core.ClosePopups();
+		    if (state.CurrentStage == "dialog" && core.ElapsedSeconds('stage') > 2) {
+				core.ClosePopups();
 		    } 
 		    else if (state.CurrentStage == "next") {
 		        core.Click(state.NextPos);
@@ -1645,6 +1655,21 @@ function doDriftAction(actType, duration) {
 	        sleep(750);
 	        core.PressNitro();
 			break;	
+		case "360":
+			core.PressBrake();
+	        sleep(50);
+	        core.PressBrake();
+			break;
+		case "360-flash":
+            core.PressBrake();
+            sleep(50);
+            core.PressBrake();
+            sleep(100);
+            core.PressNitro();
+            sleep(50);
+            core.PressNitro();
+			break;
+
 	}
 }
 

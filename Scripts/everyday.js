@@ -6,7 +6,8 @@ device.setBrightness(0);
 for(let i=0; i<3000; i++) {
 	toastLog("for " + (i + 1));
 
-	main.doDE("hunt", 5);
+	//main.doDE("hunt", 3);
+	main.doSE("nevera", 11);
 	//main.doSE("showroom", 6);
 	
 	//main.doDE("hunt2", 1);
@@ -21,11 +22,10 @@ for(let i=0; i<3000; i++) {
 		main.doMP1(5);
 	}
 */	
-	main.doMP3(3);
-	main.doMP1(15);
-	//main.doMP2(5);
+	main.doMP3(12);
+	main.doMP1(5);
+	main.doMP2(8);
 	//main.doDE("hunt", 2);
-
 }
 
 toastLog("End");
